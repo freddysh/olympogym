@@ -68,20 +68,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    {{--<div class="col-lg-2">--}}
-                        {{--<div class="form-group">--}}
-                            {{--<label>Numero de cuotas</label>--}}
-                            {{--<select class="form-control" name="cuotas" id="cuotas" required>--}}
-                                {{--<option value="0" disabled>Escoja </option>--}}
-                                {{--<option value="1" >1 Cuota</option>--}}
-                                {{--<option value="2" >2 Cuotas</option>--}}
-                                {{--<option value="3" >3 Cuotas</option>--}}
-                                {{--<option value="4" >4 Cuotas</option>--}}
-                                {{--<option value="5" >5 Cuotas</option>--}}
-                                {{--<option value="6" >6 Cuotas</option>--}}
-                            {{--</select>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
+
                     <div class="col-lg-12">
                         <h3>Cuotas</h3>
                         <a type="button" class="btn btn-primary " onclick="agregar_cuota()"><i class="glyphicon glyphicon-plus"></i> Cuotas</a>

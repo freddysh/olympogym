@@ -74,11 +74,11 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="row">
 
                     <div class="col-lg-12">
-                        <a type="button" class="btn btn-primary " onclick="Generar_cuota()">Generar cuotas</a>
+                        <h3>Cuotas</h3>
+                        <a type="button" class="btn btn-primary " onclick="agregar_cuota()"><i class="glyphicon glyphicon-plus"></i> Cuotas</a>
                     </div>
                 </div>
                 <div class="row">
