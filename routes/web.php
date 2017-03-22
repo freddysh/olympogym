@@ -129,7 +129,7 @@ Route::group(['middleware'=>'admin'],function(){
         'uses' => 'MembresiaController@editarmembresia',
         'as' => 'editar_membresia_get_path',
     ]);
-    Route::post('editar-membresia', [
+    Route::post('/editar_membresia', [
         'uses' => 'MembresiaController@editar_membresia',
         'as' => 'editar_membresia_path',
     ]);

@@ -338,7 +338,7 @@
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="{{route('nuevo_usuario_path')}}"><i class="fa fa-user-plus"></i> Nuevo</a></li>
-                        <li><a href="{{route('lista_usuario_path')}}"><i class="fa fa-users"></i> Lista de usuraios</a></li>
+                        <li><a href="{{route('lista_usuario_path')}}"><i class="fa fa-users"></i> Lista de usuarios</a></li>
                     </ul>
                 </li>
                 <li class="treeview">

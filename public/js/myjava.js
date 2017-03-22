@@ -203,4 +203,67 @@ function Envia_membresia(){
         });
 
 }
+var nrocuotas=1;
+function agregar_cuota() {
+    nrocuotas=parseInt($('#cuotas').val());
+    nrocuotas++;
+    $('#cuotas').val(nrocuotas);
+    $('#lista_cuotas').append('' +
+        '<tr id="elemento_'+nrocuotas+'">'+
+            '<td><input type="hidden" name="estado" id="estado_'+nrocuotas+'" value="0"><input type="date" name="cuota_fecha" id="cuota_fecha_'+nrocuotas+'" value="'+Date("Y-m-d")+'" required></td>'+
+            '<td><input type="number" name="cuota_precio" id="cuota_precio_'+nrocuotas+'"  required></td>'+
+            '<td><a id="pagar_'+nrocuotas+'" type="button" class="btn btn-primary" onclick="pagar_cuota('+nrocuotas+')">Pagar ahora</a></td>'+
+            '<td><a href="#!" onclick="borrar_cuota('+nrocuotas+')"><i class="text-red glyphicon glyphicon-trash fa-2x"></i></a></td>'+
+        '</tr>');
+}
+
+function borrar_cuota(pos) {
+    $('#elemento_'+pos).remove();
+}
+function editar_membresia(id){
+    var estado= '';
+    jQuery("input[name='estado']").each(function(){
+        estado+= $(this).val() + '[]';
+    });
+    estado=estado.substring(0, estado.length-2);
+    var cuota_fecha= '';
+    jQuery("input[name='cuota_fecha']").each(function(){
+        cuota_fecha+= $(this).val() + '[]';
+    });
+    cuota_fecha=cuota_fecha.substring(0, cuota_fecha.length-2);
+    var cuota_precio= '';
+    jQuery("input[name='cuota_precio']").each(function(){
+        cuota_precio+= $(this).val() + '[]';
+    });
+    cuota_precio=cuota_precio.substring(0, cuota_precio.length-2);
+
+    console.log('estado:'+estado);
+    console.log('cuota_fecha:'+cuota_fecha);
+    console.log('cuota_precio:'+cuota_precio);
+    $.ajax({
+        type: 'POST',
+        url: '/editar_membresia',
+        // data: $('#form_plan').serializeArray(),
+        data: $('#Membresia').serialize()+'&&estado='+estado+'&&cuota_fecha='+cuota_fecha+'&&cuota_precio='+cuota_precio+'&&id='+id,
+        // data:valor,
+        // Mostramos un mensaje con la respuesta de PHP
+        success: function(data){
+            data=data.split('_');
+            // $('#lista_cuotas').html(data);
+            if(data[0]=='-1')
+                $('#mensaje').html('<div class="alert alert-danger" role="alert"> <strong>Error!</strong> '+data[1]+'</div>');
+            else if(data[0]=='0')
+                $('#mensaje').html('<div class="alert alert-warning" role="alert"> <strong>Advertencia!</strong> '+data[1]+'</div>');
+            else if(data[0]=='1')
+                $('#mensaje').html('<div class="alert alert-success" role="alert"> <strong>Bien hecho!</strong> '+data[1]+'</div>');
+            // $('#term').val();
+            // $('#fechaInicio').val();
+            // $('#fechafin').val();
+            // $('#total').val();
+            // $("#promocion option[value="+ 0 +"]").attr("selected",true);
+            // $('#lista_cuotas').html('');
+        }
+    });
+
+}
 //# sourceMappingURL=myjava.js.map
