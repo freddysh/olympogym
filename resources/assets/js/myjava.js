@@ -322,3 +322,32 @@ function pagar_cuota_ahora(id) {
         }
     });
 }
+
+function mostrar_asistencia(){
+    var dni=$("#term").val();
+    console.log('dni:'+dni);
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('[name="_token"]').val()
+        }
+    });
+    $.post('/asistencia_clientes', {dni: dni}, function(markup) {
+        $('#respusta').html(markup);
+        // var rpt=markup.split('_');
+        // if(rpt[0]==1){
+        //     var rpt1=markup.split('/');
+        //     var cuotas=rpt1[1];
+        //     var rpt1=rpt1[2].split('_');
+        //     var membresia='<p>el cliente esta asociado mediante la promocion '+rpt1[0]+' por un monto de '+rpt1[1]+' por '+rpt1[3]+' '+rpt1[1]+'</p>';
+        //     $('#respusta').html('' +
+        //         '<div class="alert alert-success" role="alert"> <strong>Bien hecho!</strong> Se registro la asistencia del cliente con dni nro: '+dni+' <p>Cliente: '+rpt[1]+' '+rpt[2]+'</p><p>Fecha: '+rpt[3]+' '+rpt[4]+'</p></div>' +
+        //         membresia+
+        //         cuotas);
+        // }
+        // else if(rpt[0]==0){
+        //     $('#respusta').html('<div class="alert alert-success" role="alert"> <strong>Bien hecho!</strong> No existe el cliente con dni nro: '+dni+'</div>');
+        // }
+    }).fail(function (markup) {
+        $('#respusta').html(markup);
+    });
+}

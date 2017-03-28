@@ -31,4 +31,8 @@ class Membresia extends Model
     {
         return $this->hasMany(Cuota::class, 'membresia_id');
     }
+    public function asistemacias()
+    {
+        return $this->hasMany(Asistencia::class, 'membresia_id');
+    }
 }

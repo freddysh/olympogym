@@ -165,6 +165,27 @@ Route::group(['middleware'=>'admin'],function(){
         'uses' => 'CuotaController@pagar_cuota_ahora',
         'as' => 'pagar_cuota_ahora_path',
     ]);
+    Route::get('reporte-clientes', [
+        'uses' => 'ClienteController@reporte_cliente',
+        'as' => 'reporte_clientes_path',
+    ]);
+    Route::get('rpt-clientes', [
+        'uses' => 'ClienteController@rpt_cliente',
+        'as' => 'rpt_cliente_path',
+    ]);
+
+    Route::get('asistencia-clientes', [
+        'uses' => 'AsistenciaController@reporte_asistencia',
+        'as' => 'reporte_asistencia_path',
+    ]);
+    Route::get('/asistencia_clientes', [
+        'uses' => 'AsistenciaController@mostrar_asistencia',
+        'as' => 'reporte_asistencia_path',
+    ]);
+    Route::get('/rpt_clientes', [
+        'uses' => 'ClienteController@rpt_cliente',
+        'as' => 'rpt_cliente_path',
+    ]);
 
 });
 /*-- Fin Metodos para logeo de usuarios del sistema*/

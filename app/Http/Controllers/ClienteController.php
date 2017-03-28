@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Cliente;
 use App\Membresia;
 
+use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
 
 class ClienteController extends Controller
@@ -153,5 +154,18 @@ class ClienteController extends Controller
             }
             return response()->json($results);
         }
+    }
+    public function reporte_cliente(){
+        $clientes=Cliente::get();
+        $cliente1=Cliente::get();
+        $miembros1=count($cliente1);
+        $membresias1=Membresia::get();
+        $membresias1=count($membresias1);
+        return view('reporte.clientes',['clientes'=>$clientes,'miembros'=>$miembros1,'membresias'=>$membresias1]);
+    }
+    public function rpt_cliente(){
+        $clientes=Cliente::get();
+        $pdf =\PDF::loadView('reporte-pdf.clientes',['clientes'=>$clientes]);
+        return $pdf->download('rpt_cliente'.date("d_m_Y").'.pdf');
     }
 }

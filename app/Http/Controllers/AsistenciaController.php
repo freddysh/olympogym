@@ -41,6 +41,7 @@ class AsistenciaController extends Controller
                         $asistencia->fecha = $fecha;
                         $asistencia->hora = $hora;
                         $asistencia->estado = 1;
+                        $asistencia->membresia_id = $membresi->id;
                         $asistencia->save();
                         $tipomensaje = '1';
                         $mensaje = '';
@@ -59,4 +60,26 @@ class AsistenciaController extends Controller
             return view('mensaje.rpt-asistencia', ['membresias' => $membresia, 'fecha' => $fecha, 'hora' => $hora,'tipomensaje'=>$tipomensaje,'mensaje'=>$mensaje]);
         }
     }
+    public function reporte_asistencia()
+    {
+        $cliente=Cliente::get();
+        $miembros=count($cliente);
+        $membresias=Membresia::get();
+        $membresias=count($membresias);
+        return view('asistencia',['miembros'=>$miembros,'membresias'=>$membresias]);
+    }
+    public function mostrar_asistencia(Request $request)
+    {
+        $dni =explode(' ',$request->input('dni'));
+        $cliente=Cliente::get();
+        $miembros=count($cliente);
+        $membresias=Membresia::get();
+        $membresias=count($membresias);
+
+        $cli=Cliente::FindOrFail($dni[0]);
+        $membresia=Membresia::where('cliente_id',$cli->id)->get();
+
+        return view('asistencia',['miembros'=>$miembros,'membresias'=>$membresias,'membresia'=>$membresia]);
+    }
+
 }

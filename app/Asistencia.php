@@ -9,7 +9,7 @@ class Asistencia extends Model
     //
     protected $table = "asistencia";
     protected $fillable = [
-        'id','cliente_id','fecha','hora','estado',
+        'id','cliente_id','fecha','hora','estado','membresia_id',
     ];
 
     protected $hidden = [
@@ -19,5 +19,9 @@ class Asistencia extends Model
     public function cliente()
     {
         return $this->belongsTo(Cliente::class, 'cliente_id');
+    }
+    public function membresia()
+    {
+        return $this->belongsTo(Membresia::class, 'membresia_id');
     }
 }
