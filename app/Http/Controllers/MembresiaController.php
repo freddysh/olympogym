@@ -217,5 +217,24 @@ class MembresiaController extends Controller
         $membresias1=count($membresias1);
         return view('reporte.ingresos-membresia',['miembros'=>$miembros1,'membresias'=>$membresias1]);
     }
+    public function rpt_contratos(){
+        $cliente1=Cliente::get();
+        $miembros1=count($cliente1);
+        $membresias1=Membresia::get();
+        $membresias1=count($membresias1);
+        $membresias=Membresia::with('cliente','promocion','asistemacias')->get();
+
+        return view('reporte.membresias',['miembros'=>$miembros1,'membresias'=>$membresias1,'membresiass'=>$membresias]);
+    }
+    public function rpt_membresia($id){
+        $membresia=Membresia::with('cliente','promocion','cuotas')->where('id',$id)->get();
+        $pdf =\PDF::loadView('reporte-pdf.membresia',['membresia'=>$membresia]);
+        return $pdf->download('rpt_membresia'.'_'.$id.'_'.date("d_m_Y").'.pdf');
+    }
+    public function rpt_asistencia($id){
+        $membresia=Membresia::with('cliente','promocion','asistemacias')->where('id',$id)->get();
+        $pdf =\PDF::loadView('reporte-pdf.asistencia',['membresia'=>$membresia]);
+        return $pdf->download('rpt_asistencia'.'_'.$id.'_'.date("d_m_Y").'.pdf');
+    }
 
 }

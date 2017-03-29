@@ -414,7 +414,7 @@
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="{{route('reporte_clientes_path')}}"><i class="fa fa-circle-o"></i> Clientes</a></li>
-                        <li><a href="{{route('reporte_clientes_path')}}"><i class="fa fa-circle-o"></i> Contratos</a></li>
+                        <li><a href="{{route('rpt_contratos_path')}}"><i class="fa fa-circle-o"></i> Membresias</a></li>
                         <li><a href="{{route('reporte_clientes_path')}}"><i class="fa fa-circle-o"></i> Pagos por cliente</a></li>
                         <li><a href="{{route('reporte_asistencia_path')}}"><i class="fa fa-circle-o"></i> Asistencia</a></li>
                         <li><a href="{{route('reporte_clientes_path')}}"><i class="fa fa-circle-o"></i> Ingresos</a></li>
