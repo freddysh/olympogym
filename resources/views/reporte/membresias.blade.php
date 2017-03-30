@@ -8,17 +8,10 @@
 @section('contenido')
     <div class="box box-warning">
         <div class="box-header with-border">
-            <h3 class="box-title">Reporte de cliente</h3>
+            <h3 class="box-title">Reporte de membresias</h3>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-            <div class="row">
-                <div class="col s12">
-                    <a href="{{route('rpt_cliente_path')}}" class="btn btn-app bg-blue">
-                        <i class="glyphicon glyphicon-print"></i> Edit
-                    </a>
-                </div>
-            </div>
             <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
