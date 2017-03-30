@@ -198,6 +198,19 @@ Route::group(['middleware'=>'admin'],function(){
         'uses' => 'MembresiaController@rpt_asistencia',
         'as' => 'rpt_asistencia_path',
     ]);
+    Route::get('rpt-ingresos', [
+        'uses' => 'MembresiaController@ingresos',
+        'as' => 'reporte_ingresos_path',
+    ]);
+    Route::post('rpt-ingresos', [
+        'uses' => 'MembresiaController@lista_ingresos',
+        'as' => 'listar_ingresos_path',
+    ]);
+    Route::post('ingresos-rpt', [
+        'uses' => 'MembresiaController@lista_ingresos_rpt',
+        'as' => 'lista_ingresos_rpt_path',
+    ]);
+
 });
 /*-- Fin Metodos para logeo de usuarios del sistema*/
 

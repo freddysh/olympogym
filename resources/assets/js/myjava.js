@@ -351,3 +351,26 @@ function mostrar_asistencia(){
         $('#respusta').html(markup);
     });
 }
+
+$(document).ready(function(){
+//cuando hagamos submit al formulario con id id_del_formulario
+//se procesara este script javascript
+    $("#frmbuscar").submit(function(e){
+        e.preventDefault();
+        $('#desde1').val($('#desde').val());
+        $('#hasta1').val($('#hasta').val());
+
+        $.ajax({
+            url: $(this).attr("action"),//action del formulario, ej:
+            //http://localhost/mi_proyecto/mi_controlador/mi_funcion
+            type: $(this).attr("method"),//el método post o get del formulario
+            data: $(this).serialize(),//obtenemos todos los datos del formulario
+            error: function(){
+                //si hay un error mostramos un mensaje
+            },
+            success:function(data){
+                $('#lista_memnbresias').html(data);
+            }
+        });
+    });
+});

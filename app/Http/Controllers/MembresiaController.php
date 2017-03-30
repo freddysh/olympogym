@@ -236,5 +236,22 @@ class MembresiaController extends Controller
         $pdf =\PDF::loadView('reporte-pdf.asistencia',['membresia'=>$membresia]);
         return $pdf->download('rpt_asistencia'.'_'.$id.'_'.date("d_m_Y").'.pdf');
     }
+    public function lista_ingresos(Request $request){
 
+        $desde=$request->input('desde');
+        $hasta=$request->input('hasta');
+        $ingresos=Membresia::with(['cliente','promocion','cuotas'=>function($query) use ($desde,$hasta) { $query->whereBetween('fechaQCancelo',array($desde,$hasta));}])->get();
+        return view('reporte-pdf.ingresos',['ingresos'=>$ingresos]);
+    }
+    public function lista_ingresos_rpt(Request $request){
+
+        $desde=$request->input('desde');
+        $hasta=$request->input('hasta');
+        $dated = new \DateTime($request->input('desde'));
+        $dateh = new \DateTime($request->input('hasta'));
+        $ingresos=Membresia::with(['cliente','promocion','cuotas'=>function($query) use ($desde,$hasta) { $query->whereBetween('fechaQCancelo',array($desde,$hasta));}])->get();
+        $pdf =\PDF::loadView('reporte-pdf.rpt-ingresos',['ingresos'=>$ingresos,'desde'=>$dated->format('d-m-Y'),'hasta'=>$dateh->format('d-m-Y')]);
+        return $pdf->download('rpt_ingresos'.'_'.date("d_m_Y").'.pdf');
+
+    }
 }
