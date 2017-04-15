@@ -96,7 +96,7 @@
                             @foreach($membresi->cuotas as $cuotas)
                                 <?php $pos++;?>
                                 <tr id="elemento_{{$pos}}">
-                                    <td><input type="hidden" name="estado" id="estado_{{$pos}}" value="{{$cuotas->estado}}"><input type="date" name="cuota_fecha" id="cuota_fecha_{{$pos}}" value="{{$cuotas->fechaCancelacion}}" required></td>
+                                    <td><input type="hidden" id="id_{{$pos}}" value="{{$cuotas->id}}"><input type="hidden" name="estado" id="estado_{{$pos}}" value="{{$cuotas->estado}}"><input type="date" name="cuota_fecha" id="cuota_fecha_{{$pos}}" value="{{$cuotas->fechaCancelacion}}" required></td>
                                     <td><input type="number" name="cuota_precio" id="cuota_precio_{{$pos}}" value="{{$cuotas->monto}}" required></td>
                                     <td><a id="pagar_{{$pos}}" type="button" class="btn btn-primary" onclick="pagar_cuota({{$pos}})">Pagar ahora</a></td>
                                     <td><a href="#!" onclick="borrar_cuota({{$pos}})"><i class="text-red glyphicon glyphicon-trash fa-2x"></i></a></td>

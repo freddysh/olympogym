@@ -33,6 +33,8 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <link href="{{elixir('css/stilos.css')}}" type="text/css" rel="stylesheet" media="screen,projection"/>
+
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -747,6 +749,8 @@
 {{--<script src="js/plugins/chartjs/Chart.min.js"></script>--}}
 <script src="{{asset('js/plugins/chartjs/Chart.min.js')}}"></script>
 {{--<script src="js/myjava.js"></script>--}}
+
+<script src="{{asset('js/funciones.js')}}"></script>
 <script src="{{asset('js/myjava.js')}}"></script>
 <script>
     $(function () {

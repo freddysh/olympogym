@@ -98,7 +98,7 @@
                 <div class="box-footer">
                     <input type="hidden" name="cuotas" id="cuotas" value="1">
                     <button type="button" class="btn btn-primary btn-lg" onclick="Envia_membresia()">Guardar membresia</button>
-                    <button type="button" class="btn btn-success btn-lg" onclick="imprimir_membresia()">Impimir</button>
+
                 </div>
             </form>
         </div>

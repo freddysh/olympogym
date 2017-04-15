@@ -14,7 +14,15 @@ require('laravel-elixir-vue-2');
  */
 
 elixir((mix) => {
-    mix.sass('app.scss')
+    mix.copy('node_modules/sweetalert2/dist/sweetalert.css','resources/assets/css/vendors');
+    mix.copy('node_modules/sweetalert2/dist/sweetalert2.js','resources/assets/js/vendors');
+mix.styles([
+    'vendors/sweetalert2.css',
+], 'public/css/stilos.css');
+mix.scripts([
+    'vendors/sweetalert2.js',
+], 'public/js/funciones.js');
+mix.sass('app.scss')
         // .sass('plugins/jvectormap/jquery-jvectormap-1.2.2.css')
         // .sass('dist/css/AdminLTE.min.css')
     .webpack('app.js'),

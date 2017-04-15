@@ -210,7 +210,10 @@ Route::group(['middleware'=>'admin'],function(){
         'uses' => 'MembresiaController@lista_ingresos_rpt',
         'as' => 'lista_ingresos_rpt_path',
     ]);
-
+    Route::post('editar_membresia_borrar_cuota', [
+        'uses' => 'MembresiaController@borra_cuota',
+        'as' => 'editar_membresia_borrar_cuota_path',
+    ]);
 });
 /*-- Fin Metodos para logeo de usuarios del sistema*/
 

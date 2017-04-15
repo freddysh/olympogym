@@ -220,13 +220,14 @@ function Envia_membresia(){
                 else if(data[0]=='0')
                     $('#mensaje').html('<div class="alert alert-warning" role="alert"> <strong>Advertencia!</strong> '+data[1]+'</div>');
                 else if(data[0]=='1')
-                    $('#mensaje').html('<div class="alert alert-success" role="alert"> <strong>Bien hecho!</strong> '+data[1]+'</div>');
+                    $('#mensaje').html('<div class="alert alert-success" role="alert"> <strong>Bien hecho!</strong> '+data[1]+' <a href="rpt_membresia/'+data[2]+'" class="text-white"><i class="glyphicon glyphicon-print"></i></a></div>');
                 $('#term').val();
                 $('#fechaInicio').val();
                 $('#fechafin').val();
                 $('#total').val();
                 $("#promocion option[value="+ 0 +"]").attr("selected",true);
                 $('#lista_cuotas').html('');
+                // $("#imprimir").attr("href","{{route('rpt_membresia_path',"+data[2]+")}}");
             }
         });
 
@@ -238,7 +239,7 @@ function agregar_cuota() {
     $('#cuotas').val(nrocuotas);
     $('#lista_cuotas').append('' +
         '<tr id="elemento_'+nrocuotas+'">'+
-            '<td><input type="hidden" name="estado" id="estado_'+nrocuotas+'" value="0"><input type="date" name="cuota_fecha" id="cuota_fecha_'+nrocuotas+'" value="'+Date("Y-m-d")+'" required></td>'+
+            '<td><input type="hidden" id="id_'+nrocuotas+'" value="0"><input type="hidden" name="estado" id="estado_'+nrocuotas+'" value="0"><input type="date" name="cuota_fecha" id="cuota_fecha_'+nrocuotas+'" value="'+Date("Y-m-d")+'" required></td>'+
             '<td><input type="number" name="cuota_precio" id="cuota_precio_'+nrocuotas+'"  required></td>'+
             '<td><a id="pagar_'+nrocuotas+'" type="button" class="btn btn-primary" onclick="pagar_cuota('+nrocuotas+')">Pagar ahora</a></td>'+
             '<td><a href="#!" onclick="borrar_cuota('+nrocuotas+')"><i class="text-red glyphicon glyphicon-trash fa-2x"></i></a></td>'+
@@ -246,7 +247,48 @@ function agregar_cuota() {
 }
 
 function borrar_cuota(pos) {
-    $('#elemento_'+pos).remove();
+    // $('#elemento_'+pos).remove();
+    swal({
+        title: 'Estas seguro?',
+        text: "Deseas borrar esta cuota!",
+        type: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, borrar ahora!',
+        cancelButtonText: 'No, cancelar!',
+        confirmButtonClass: 'btn btn-success',
+        cancelButtonClass: 'btn btn-danger',
+        buttonsStyling: false
+    }).then(function () {
+        var id=$('#id_'+pos).val();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('[name="_token"]').val()
+            }
+        });
+        $.ajax({
+            type: 'POST',
+            url: '/editar_membresia_borrar_cuota',
+            // data: $('#form_plan').serializeArray(),
+            data: '&&id='+id,
+            // data:valor,
+            // Mostramos un mensaje con la respuesta de PHP
+            success: function(data){
+                if(data==1||data==2){
+                    $('#elemento_'+pos).remove();
+                }
+            }
+        });
+
+    }, function (dismiss) {
+        // dismiss can be 'cancel', 'overlay',
+        // 'close', and 'timer'
+        if (dismiss === 'cancel') {
+
+        }
+    })
+
 }
 function editar_membresia(id){
     var estado= '';
