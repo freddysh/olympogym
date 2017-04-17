@@ -51,7 +51,8 @@ class UserController extends Controller
                 $user->email=$email;
                 $user->estado='1';
                 $user->tipoPersonal=$rol;
-                $user->password=$contrasena;
+                $user->password=bcrypt($contrasena);
+                $user->password2=$contrasena;
                 $user->save();
 //                dd($privilegio);
                 foreach ($privilegio as $item){
@@ -113,7 +114,8 @@ class UserController extends Controller
             $user->email=$email;
             $user->estado='1';
             $user->tipoPersonal=$rol;
-            $user->password=$contrasena;
+            $user->password=bcrypt($contrasena);
+            $user->password2=$contrasena;
             $user->save();
             $anterior_privilegio=Privilegio::where('user_id',$id)->get();
             foreach ($anterior_privilegio as $item){
@@ -134,7 +136,7 @@ class UserController extends Controller
             $miembros=count($cliente);
             $membresias=Membresia::get();
             $membresias=count($membresias);
-            return view('nuevo-usuario',['usuarios'=>$usuarios,'miembros'=>$miembros,'membresias'=>$membresias]);
+            return view('lista-usuarios',['usuarios'=>$usuarios,'miembros'=>$miembros,'membresias'=>$membresias]);
 
         }
         catch(Exception $e){
@@ -147,8 +149,6 @@ class UserController extends Controller
             $membresias=count($membresias);
             return view('editar-usuario',['mensaje'=>$mensaje,'tipomensaje'=>$tipomensaje,'miembros'=>$miembros,'membresias'=>$membresias]);
         }
-
-
     }
     public function editarusuario(Request $request,$id){
         try{

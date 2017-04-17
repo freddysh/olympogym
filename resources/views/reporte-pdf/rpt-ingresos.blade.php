@@ -14,6 +14,13 @@
             color: #222d32;
             font-family: Tahoma, Helvetica, Arial;
         }
+        .subtitulo1{
+            font-size: 13px;
+            padding-top: 10px;
+            padding-bottom: 5px;
+            color: #222d32;
+            font-family: Tahoma, Helvetica, Arial;
+        }
         .titulo{
             padding: 10px;
             color: #f7f7f7;
@@ -39,15 +46,15 @@
 <div class="row">
     <div class="col-lg-12">
         <h2 class="titulo">Sistema de administracion de OlympoGym</h2>
-        <p class="subtitulo">Reportes de ingresos <?php echo date("d-m-Y")?></p>
-        <p class="subtitulo">Rango {{$desde}} - {{$hasta}}</p>
+        <p class="subtitulo">Reportes de ingresos <span class="subtitulo1"><?php echo date("d-m-Y")?></span> </p>
+        <p class="subtitulo">Fechas: {{$desde}} hasta {{$hasta}}</p>
         <table id="example1" class="table table-bordered table-striped">
             <thead>
             <tr>
                 <th>#</th>
-                <th width="570px">Membresia</th>
-                <th>Cuotas</th>
-                <th>fecha</th>
+                <th width="520px">Membresia</th>
+                <th width="70px">Cuotas</th>
+                <th width="90px">fecha</th>
             </tr>
             </thead>
             <tbody>
@@ -57,7 +64,7 @@
                 <?php $i++?>
                 <tr>
                     <td>{{$i}}</td>
-                    <td width="570px">
+                    <td>
                         <p class="text-blue">{{$ingreso->promocion->titulo}} x {{$ingreso->promocion->duracion}} {{$ingreso->promocion->tipoDuracion}}</p>
                         <p>Cliente: {{$ingreso->cliente->dni}} {{$ingreso->cliente->nombres}} {{$ingreso->cliente->apellidos}}</p>
                     </td>

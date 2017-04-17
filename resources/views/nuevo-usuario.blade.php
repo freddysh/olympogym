@@ -70,7 +70,7 @@
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label>Contraseña</label>
-                            <input type="text" name="contrasena" id="contrasena" class="form-control validation" placeholder="*********">
+                            <input type="password" name="contrasena" id="contrasena" class="form-control validation" placeholder="*********">
                         </div>
                     </div>
                 </div>

@@ -337,32 +337,50 @@ function editar_membresia(id){
 
 }
 function pagar_cuota_ahora(id) {
-    var estado=$("#estado_"+id).val();
-
-    $.ajax({
-        type: 'POST',
-        url: '/pagar_cuota_ahora',
-        // data: $('#form_plan').serializeArray(),
-        data: 'id='+id,
-        // data:valor,
-        // Mostramos un mensaje con la respuesta de PHP
-        success: function(data){
-            // $("#estado_"+cuota).val(0);
-
-            if(data==1){
-                $("#estado_"+id).val(1);
-                $("#pagar_"+id).removeClass('btn-primary');
-                $("#pagar_"+id).addClass('btn-success');
-                $("#pagar_"+id).html('Pagado');
-            }
-            else{
+    swal({
+        title: 'Estas seguro?',
+        text: "Deseas pagar la cuota!",
+        type: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, pagar ahora!',
+        cancelButtonText: 'No, cancelar!',
+        confirmButtonClass: 'btn btn-success',
+        cancelButtonClass: 'btn btn-danger',
+        buttonsStyling: false
+    }).then(function () {
+        var estado=$("#estado_"+id).val();
+        $.ajax({
+            type: 'POST',
+            url: '/pagar_cuota_ahora',
+            // data: $('#form_plan').serializeArray(),
+            data: 'id='+id,
+            // data:valor,
+            // Mostramos un mensaje con la respuesta de PHP
+            success: function(data){
                 // $("#estado_"+cuota).val(0);
-                // $("#pagar_"+id).removeClass('btn-success');
-                // $("#pagar_"+id).addClass('btn-primary');
-                // $("#pagar_"+id).html('Pagar ahora');
+                if(data==1){
+                    $("#estado_"+id).val(1);
+                    $("#pagar_"+id).removeClass('btn-primary');
+                    $("#pagar_"+id).addClass('btn-success');
+                    $("#pagar_"+id).html('Pagado');
+                }
+                else{
+                    // $("#estado_"+cuota).val(0);
+                    // $("#pagar_"+id).removeClass('btn-success');
+                    // $("#pagar_"+id).addClass('btn-primary');
+                    // $("#pagar_"+id).html('Pagar ahora');
+                }
             }
+        });
+    }, function (dismiss) {
+        // dismiss can be 'cancel', 'overlay',
+        // 'close', and 'timer'
+        if (dismiss === 'cancel') {
+
         }
-    });
+    })
 }
 
 function mostrar_asistencia(){

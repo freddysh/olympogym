@@ -23,7 +23,7 @@
                         <input type="text" name="term" id="term" class="form-control validation" placeholder="44942054">
                     </div>
                     <div class="box-footer">
-                        <button type="button" onclick="buscar_membresia()" class="btn btn-primary btn-lg">Guardar Asistencia</button>
+                        <button type="button" onclick="buscar_membresia()" class="btn btn-primary btn-lg">Buscar cliente</button>
                     </div>
                 </div>
                 <div class="col-lg-8" id="respusta">

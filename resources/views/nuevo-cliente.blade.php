@@ -63,7 +63,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row hide">
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label>Contraseña</label>

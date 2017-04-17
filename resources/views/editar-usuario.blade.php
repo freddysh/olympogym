@@ -20,7 +20,6 @@
                 @elseif($tipomensaje=='1')
                     <div class="alert alert-success" role="alert"> <strong>Bien hecho!</strong> {{$mensaje}} </div>
                 @endif
-
             <!-- text input -->
                 {{csrf_field()}}
                 {{--@foreach($users as $user)--}}
@@ -72,7 +71,7 @@
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label>Contraseña</label>
-                            <input type="text" name="contrasena" id="contrasena" class="form-control validation" placeholder="*********" value="{{$user->password}}">
+                            <input type="password" name="contrasena" id="contrasena" class="form-control validation" placeholder="*********" value="{{$user->password2}}">
                         </div>
                     </div>
                 </div>

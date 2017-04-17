@@ -15,7 +15,7 @@
             <div class="row">
                 <div class="col s12">
                     <a href="{{route('rpt_cliente_path')}}" class="btn btn-app bg-blue">
-                        <i class="glyphicon glyphicon-print"></i> Edit
+                        <i class="glyphicon glyphicon-print"></i> Imprimir
                     </a>
                 </div>
             </div>
