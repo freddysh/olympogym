@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Privilegio;
 use App\Promocion;
 use App\Cliente;
 use App\Membresia;
@@ -18,7 +19,8 @@ class PromocionController extends Controller
         $miembros1=count($cliente1);
         $membresias1=Membresia::get();
         $membresias1=count($membresias1);
-        return view('nueva-promocion',['mensaje'=>$mensaje,'tipomensaje'=>$tipomensaje,'miembros'=>$miembros1,'membresias'=>$membresias1]);
+        $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
+        return view('nueva-promocion',['mensaje'=>$mensaje,'tipomensaje'=>$tipomensaje,'miembros'=>$miembros1,'membresias'=>$membresias1,'privilegios'=>$privilegio]);
     }
     public function agregar_promocionnueva(Request $request){
         try{
@@ -43,7 +45,8 @@ class PromocionController extends Controller
                 $miembros1=count($cliente1);
                 $membresias1=Membresia::get();
                 $membresias1=count($membresias1);
-                return view('nueva-promocion',['mensaje'=>$mensaje,'tipomensaje'=>$tipomensaje,'miembros'=>$miembros1,'membresias'=>$membresias1]);
+                $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
+                return view('nueva-promocion',['mensaje'=>$mensaje,'tipomensaje'=>$tipomensaje,'miembros'=>$miembros1,'membresias'=>$membresias1,'privilegios'=>$privilegio]);
             }
             else{
                 $tipomensaje='0';
@@ -52,7 +55,8 @@ class PromocionController extends Controller
                 $miembros1=count($cliente1);
                 $membresias1=Membresia::get();
                 $membresias1=count($membresias1);
-                return view('nueva-promocion',['mensaje'=>$mensaje,'tipomensaje'=>$tipomensaje,'miembros'=>$miembros1,'membresias'=>$membresias1]);
+                $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
+                return view('nueva-promocion',['mensaje'=>$mensaje,'tipomensaje'=>$tipomensaje,'miembros'=>$miembros1,'membresias'=>$membresias1,'privilegios'=>$privilegio]);
             }
         }
         catch(Exception $e){
@@ -63,7 +67,8 @@ class PromocionController extends Controller
             $miembros1=count($cliente1);
             $membresias1=Membresia::get();
             $membresias1=count($membresias1);
-            return view('nueva-promocion',['mensaje'=>$mensaje,'tipomensaje'=>$tipomensaje,'miembros'=>$miembros1,'membresias'=>$membresias1]);
+            $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
+            return view('nueva-promocion',['mensaje'=>$mensaje,'tipomensaje'=>$tipomensaje,'miembros'=>$miembros1,'membresias'=>$membresias1,'privilegios'=>$privilegio]);
         }
     }
     public function editar_promocion(Request $request){
@@ -90,7 +95,8 @@ class PromocionController extends Controller
             $miembros1=count($cliente1);
             $membresias1=Membresia::get();
             $membresias1=count($membresias1);
-            return view('nueva-promociones',['promociones'=>$promociones,'miembros'=>$miembros1,'membresias'=>$membresias1]);
+            $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
+            return view('nueva-promociones',['promociones'=>$promociones,'miembros'=>$miembros1,'membresias'=>$membresias1,'privilegios'=>$privilegio]);
 
 
         }
@@ -102,7 +108,8 @@ class PromocionController extends Controller
             $miembros1=count($cliente1);
             $membresias1=Membresia::get();
             $membresias1=count($membresias1);
-            return view('nueva-promocion',['mensaje'=>$mensaje,'tipomensaje'=>$tipomensaje,'miembros'=>$miembros1,'membresias'=>$membresias1]);
+            $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
+            return view('nueva-promocion',['mensaje'=>$mensaje,'tipomensaje'=>$tipomensaje,'miembros'=>$miembros1,'membresias'=>$membresias1,'privilegios'=>$privilegio]);
 
         }
 
@@ -115,7 +122,8 @@ class PromocionController extends Controller
             $miembros1=count($cliente1);
             $membresias1=Membresia::get();
             $membresias1=count($membresias1);
-            return view('nueva-promocion',['promocion'=>$promocion,'tipomensaje'=>'2','miembros'=>$miembros1,'membresias'=>$membresias1]);
+            $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
+            return view('nueva-promocion',['promocion'=>$promocion,'tipomensaje'=>'2','miembros'=>$miembros1,'membresias'=>$membresias1,'privilegios'=>$privilegio]);
         }
         catch(Exception $e){
             return $e;
@@ -130,7 +138,8 @@ class PromocionController extends Controller
         $miembros1=count($cliente1);
         $membresias1=Membresia::get();
         $membresias1=count($membresias1);
-        return view('lista-promociones',['promociones'=>$promociones,'tipomensaje'=>'2','miembros'=>$miembros1,'membresias'=>$membresias1]);
+        $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
+        return view('lista-promociones',['promociones'=>$promociones,'tipomensaje'=>'2','miembros'=>$miembros1,'membresias'=>$membresias1,'privilegios'=>$privilegio]);
 
     }
     public function cambiar_estado_promocion(Request $request){

@@ -19,7 +19,10 @@ class UserController extends Controller
         $miembros=count($cliente);
         $membresias=Membresia::get();
         $membresias=count($membresias);
-        return view('asistencia',['miembros'=>$miembros,'membresias'=>$membresias]);
+
+        $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
+//        dd($privilegio);
+        return view('asistencia',['miembros'=>$miembros,'membresias'=>$membresias,'privilegios'=>$privilegio]);
     }
     public function nuevousuario( ){
         $tipomensaje='2';
@@ -28,7 +31,8 @@ class UserController extends Controller
         $miembros=count($cliente);
         $membresias=Membresia::get();
         $membresias=count($membresias);
-        return view('nuevo-usuario',['mensaje'=>$mensaje,'tipomensaje'=>$tipomensaje,'miembros'=>$miembros,'membresias'=>$membresias]);
+        $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
+        return view('nuevo-usuario',['mensaje'=>$mensaje,'tipomensaje'=>$tipomensaje,'miembros'=>$miembros,'membresias'=>$membresias,'privilegios'=>$privilegio]);
     }
     public function agregar_nuevousuario(Request $request){
         try{
@@ -68,7 +72,8 @@ class UserController extends Controller
                 $miembros=count($cliente);
                 $membresias=Membresia::get();
                 $membresias=count($membresias);
-                return view('nuevo-usuario',['mensaje'=>$mensaje,'tipomensaje'=>$tipomensaje,'miembros'=>$miembros,'membresias'=>$membresias]);
+                $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
+                return view('nuevo-usuario',['mensaje'=>$mensaje,'tipomensaje'=>$tipomensaje,'miembros'=>$miembros,'membresias'=>$membresias,'privilegios'=>$privilegio]);
 
             }
             else{
@@ -78,7 +83,8 @@ class UserController extends Controller
                 $miembros=count($cliente);
                 $membresias=Membresia::get();
                 $membresias=count($membresias);
-                return view('nuevo-usuario',['mensaje'=>$mensaje,'tipomensaje'=>$tipomensaje,'miembros'=>$miembros,'membresias'=>$membresias]);
+                $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
+                return view('nuevo-usuario',['mensaje'=>$mensaje,'tipomensaje'=>$tipomensaje,'miembros'=>$miembros,'membresias'=>$membresias,'privilegios'=>$privilegio]);
 
             }
         }
@@ -90,7 +96,8 @@ class UserController extends Controller
             $miembros=count($cliente);
             $membresias=Membresia::get();
             $membresias=count($membresias);
-            return view('nuevo-usuario',['mensaje'=>$mensaje,'tipomensaje'=>$tipomensaje,'miembros'=>$miembros,'membresias'=>$membresias]);
+            $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
+            return view('nuevo-usuario',['mensaje'=>$mensaje,'tipomensaje'=>$tipomensaje,'miembros'=>$miembros,'membresias'=>$membresias,'privilegios'=>$privilegio]);
 
         }
     }
@@ -136,7 +143,8 @@ class UserController extends Controller
             $miembros=count($cliente);
             $membresias=Membresia::get();
             $membresias=count($membresias);
-            return view('lista-usuarios',['usuarios'=>$usuarios,'miembros'=>$miembros,'membresias'=>$membresias]);
+            $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
+            return view('lista-usuarios',['usuarios'=>$usuarios,'miembros'=>$miembros,'membresias'=>$membresias,'privilegios'=>$privilegio]);
 
         }
         catch(Exception $e){
@@ -147,7 +155,8 @@ class UserController extends Controller
             $miembros=count($cliente);
             $membresias=Membresia::get();
             $membresias=count($membresias);
-            return view('editar-usuario',['mensaje'=>$mensaje,'tipomensaje'=>$tipomensaje,'miembros'=>$miembros,'membresias'=>$membresias]);
+            $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
+            return view('editar-usuario',['mensaje'=>$mensaje,'tipomensaje'=>$tipomensaje,'miembros'=>$miembros,'membresias'=>$membresias,'privilegios'=>$privilegio]);
         }
     }
     public function editarusuario(Request $request,$id){
@@ -160,7 +169,8 @@ class UserController extends Controller
             $miembros=count($cliente);
             $membresias=Membresia::get();
             $membresias=count($membresias);
-            return view('editar-usuario',['user'=>$user,'privilegios'=>$privilegio,'tipomensaje'=>'2','miembros'=>$miembros,'membresias'=>$membresias]);
+            $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
+            return view('editar-usuario',['user'=>$user,'privilegios'=>$privilegio,'tipomensaje'=>'2','miembros'=>$miembros,'membresias'=>$membresias,'privilegios'=>$privilegio]);
         }
         catch(Exception $e){
            return $e;
@@ -175,7 +185,8 @@ class UserController extends Controller
         $miembros=count($cliente);
         $membresias=Membresia::get();
         $membresias=count($membresias);
-        return view('lista-usuarios',['usuarios'=>$usuarios,'miembros'=>$miembros,'membresias'=>$membresias]);
+        $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
+        return view('lista-usuarios',['usuarios'=>$usuarios,'miembros'=>$miembros,'membresias'=>$membresias,'privilegios'=>$privilegio]);
     }
     public function cambiar_estado_usuario(Request $request){
         $id=$request->input('id');

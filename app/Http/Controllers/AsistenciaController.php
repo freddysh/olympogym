@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Congelado;
+use App\Privilegio;
 use Illuminate\Http\Request;
 use App\Asistencia;
 use App\Cliente;
@@ -17,7 +18,8 @@ class AsistenciaController extends Controller
         $miembros=count($cliente);
         $membresias=Membresia::get();
         $membresias=count($membresias);
-        return view('asistencia',['miembros'=>$miembros,'membresias'=>$membresias]);
+        $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
+        return view('asistencia',['miembros'=>$miembros,'membresias'=>$membresias,'privilegios'=>$privilegio]);
     }
     function guardar(Request $request){
         try {
@@ -58,6 +60,7 @@ class AsistenciaController extends Controller
                             $promocion = Promocion::where('id', $membresi->promocion_id)->get();
                             $tipomensaje = '2';
                             $mensaje = 'El cliente con dni: '+$dni+' tiene su membresia congelada';
+
                             return view('mensaje.rpt-asistencia-congelado', ['congelado'=>$congelado,'membresias' => $membresia, 'promociones' => $promocion, 'fecha' => $fecha, 'hora' => $hora, 'tipomensaje' => $tipomensaje, 'mensaje' => $mensaje]);
                         }
                     }
@@ -80,7 +83,8 @@ class AsistenciaController extends Controller
         $miembros=count($cliente);
         $membresias=Membresia::get();
         $membresias=count($membresias);
-        return view('asistencia',['miembros'=>$miembros,'membresias'=>$membresias]);
+        $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
+        return view('asistencia',['miembros'=>$miembros,'membresias'=>$membresias,'privilegios'=>$privilegio]);
     }
     public function mostrar_asistencia(Request $request)
     {
@@ -92,8 +96,8 @@ class AsistenciaController extends Controller
 
         $cli=Cliente::FindOrFail($dni[0]);
         $membresia=Membresia::where('cliente_id',$cli->id)->get();
-
-        return view('asistencia',['miembros'=>$miembros,'membresias'=>$membresias,'membresia'=>$membresia]);
+        $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
+        return view('asistencia',['miembros'=>$miembros,'membresias'=>$membresias,'membresia'=>$membresia,'privilegios'=>$privilegio]);
     }
 
 }

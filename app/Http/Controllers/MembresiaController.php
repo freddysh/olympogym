@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Membresia;
 use App\Cliente;
 use App\Cuota;
+use App\Privilegio;
 use App\Promocion;
 
 use Illuminate\Http\Request;
@@ -21,7 +22,8 @@ class MembresiaController extends Controller
         $miembros = count($cliente);
         $membresias = Membresia::get();
         $membresias = count($membresias);
-        return view('nueva-membresia', ['mensaje' => $mensaje, 'promociones' => $promociones, 'tipomensaje' => $tipomensaje, 'miembros' => $miembros, 'membresias' => $membresias]);
+        $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
+        return view('nueva-membresia', ['mensaje' => $mensaje, 'promociones' => $promociones, 'tipomensaje' => $tipomensaje, 'miembros' => $miembros, 'membresias' => $membresias,'privilegios'=>$privilegio]);
     }
 
     public function editarmembresia(Request $request, $id)
@@ -35,7 +37,8 @@ class MembresiaController extends Controller
         $membresias = count($membresias);
         $membresia = Membresia::with('cliente', 'cuotas', 'promocion')->where('id', $id)->get();
 //        dd($membresia);
-        return view('editar-membresia', ['membresia' => $membresia, 'promociones' => $promociones, 'mensaje' => $mensaje, 'tipomensaje' => $tipomensaje, 'miembros' => $miembros, 'membresias' => $membresias]);
+        $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
+        return view('editar-membresia', ['membresia' => $membresia, 'promociones' => $promociones, 'mensaje' => $mensaje, 'tipomensaje' => $tipomensaje, 'miembros' => $miembros, 'membresias' => $membresias,'privilegios'=>$privilegio]);
 
     }
 
@@ -190,7 +193,8 @@ class MembresiaController extends Controller
             $miembros1 = count($cliente1);
             $membresias1 = Membresia::get();
             $membresias1 = count($membresias1);
-            return view('editar-cliente', ['cliente' => $cliente, 'tipomensaje' => '2', 'miembros' => $miembros1, 'membresias' => $membresias1]);
+            $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
+            return view('editar-cliente', ['cliente' => $cliente, 'tipomensaje' => '2', 'miembros' => $miembros1, 'membresias' => $membresias1,'privilegios'=>$privilegio]);
         } catch (Exception $e) {
             return $e;
         }
@@ -205,7 +209,8 @@ class MembresiaController extends Controller
         $miembros1 = count($cliente1);
         $membresias1 = Membresia::get();
         $membresias1 = count($membresias1);
-        return view('lista-membresias', ['membresias2' => $membresias, 'miembros' => $miembros1, 'membresias' => $membresias1]);
+        $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
+        return view('lista-membresias', ['membresias2' => $membresias, 'miembros' => $miembros1, 'membresias' => $membresias1,'privilegios'=>$privilegio]);
     }
 
     public function cambiar_estado_cliente(Request $request)
@@ -224,7 +229,8 @@ class MembresiaController extends Controller
         $miembros1 = count($cliente1);
         $membresias1 = Membresia::get();
         $membresias1 = count($membresias1);
-        return view('reporte.ingresos-membresia', ['miembros' => $miembros1, 'membresias' => $membresias1]);
+        $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
+        return view('reporte.ingresos-membresia', ['miembros' => $miembros1, 'membresias' => $membresias1,'privilegios'=>$privilegio]);
     }
 
     public function rpt_contratos()
@@ -234,8 +240,8 @@ class MembresiaController extends Controller
         $membresias1 = Membresia::get();
         $membresias1 = count($membresias1);
         $membresias = Membresia::with('cliente', 'promocion', 'asistemacias')->get();
-
-        return view('reporte.membresias', ['miembros' => $miembros1, 'membresias' => $membresias1, 'membresiass' => $membresias]);
+        $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
+        return view('reporte.membresias', ['miembros' => $miembros1, 'membresias' => $membresias1, 'membresiass' => $membresias,'privilegios'=>$privilegio]);
     }
 
     public function rpt_membresia($id)

@@ -6,6 +6,7 @@ use App\Asistencia;
 use App\Cliente;
 use App\Cuota;
 use App\Membresia;
+use App\Privilegio;
 use App\Promocion;
 use Illuminate\Http\Request;
 
@@ -40,7 +41,8 @@ class CuotaController extends Controller
         $miembros=count($cliente);
         $membresias=Membresia::get();
         $membresias=count($membresias);
-        return view('cuota',['miembros'=>$miembros,'membresias'=>$membresias]);
+        $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
+        return view('cuota',['miembros'=>$miembros,'membresias'=>$membresias,'privilegios'=>$privilegio]);
     }
     function guardar(Request $request){
         try {

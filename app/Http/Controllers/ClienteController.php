@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Cliente;
 use App\Membresia;
 
+use App\Privilegio;
 use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
 
@@ -18,7 +19,8 @@ class ClienteController extends Controller
         $membresias=count($membresias);
         $tipomensaje='2';
         $mensaje='';
-        return view('nuevo-cliente',['mensaje'=>$mensaje,'tipomensaje'=>$tipomensaje,'miembros'=>$miembros,'membresias'=>$membresias]);
+        $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
+        return view('nuevo-cliente',['mensaje'=>$mensaje,'tipomensaje'=>$tipomensaje,'miembros'=>$miembros,'membresias'=>$membresias,'privilegios'=>$privilegio]);
     }
     public function agregar_clientenuevo(Request $request){
         try{
@@ -50,19 +52,22 @@ class ClienteController extends Controller
 //
                 $tipomensaje='1';
                 $mensaje='Se guardaron los datos del cliente.';
-                return view('nuevo-cliente',['mensaje'=>$mensaje,'tipomensaje'=>$tipomensaje,'miembros'=>$miembros,'membresias'=>$membresias]);
+                $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
+                return view('nuevo-cliente',['mensaje'=>$mensaje,'tipomensaje'=>$tipomensaje,'miembros'=>$miembros,'membresias'=>$membresias,'privilegios'=>$privilegio]);
             }
             else{
                 $tipomensaje='0';
                 $mensaje='El cliente ya existe.';
-                return view('nuevo-cliente',['mensaje'=>$mensaje,'tipomensaje'=>$tipomensaje,'miembros'=>$miembros,'membresias'=>$membresias]);
+                $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
+                return view('nuevo-cliente',['mensaje'=>$mensaje,'tipomensaje'=>$tipomensaje,'miembros'=>$miembros,'membresias'=>$membresias,'privilegios'=>$privilegio]);
             }
         }
         catch(Exception $e){
 //            return $e;
             $tipomensaje='-1';
             $mensaje=$e;
-            return view('nuevo-cliente',['mensaje'=>$mensaje,'tipomensaje'=>$tipomensaje,'miembros'=>$miembros,'membresias'=>$membresias]);
+            $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
+            return view('nuevo-cliente',['mensaje'=>$mensaje,'tipomensaje'=>$tipomensaje,'miembros'=>$miembros,'membresias'=>$membresias,'privilegios'=>$privilegio]);
         }
     }
     public function editar_cliente(Request $request){
@@ -92,14 +97,16 @@ class ClienteController extends Controller
             $miembros=count($cliente);
             $membresias=Membresia::get();
             $membresias=count($membresias);
-            return view('lista-clientes',['clientes'=>$clientes,'miembros'=>$miembros,'membresias'=>$membresias]);
+            $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
+            return view('lista-clientes',['clientes'=>$clientes,'miembros'=>$miembros,'membresias'=>$membresias,'privilegios'=>$privilegio]);
 
         }
         catch(Exception $e){
 //            return $e;
             $tipomensaje='-1';
             $mensaje=$e;
-            return view('editar-cliente',['mensaje'=>$mensaje,'tipomensaje'=>$tipomensaje,'miembros'=>$miembros,'membresias'=>$membresias]);
+            $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
+            return view('editar-cliente',['mensaje'=>$mensaje,'tipomensaje'=>$tipomensaje,'miembros'=>$miembros,'membresias'=>$membresias,'privilegios'=>$privilegio]);
         }
 
 
@@ -112,7 +119,8 @@ class ClienteController extends Controller
             $membresias=count($membresias);
 //            $id=$request->input('id');
             $cliente=Cliente::FindOrFail($id);
-            return view('editar-cliente',['cliente'=>$cliente,'tipomensaje'=>'2','miembros'=>$miembros,'membresias'=>$membresias]);
+            $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
+            return view('editar-cliente',['cliente'=>$cliente,'tipomensaje'=>'2','miembros'=>$miembros,'membresias'=>$membresias,'privilegios'=>$privilegio]);
         }
         catch(Exception $e){
             return $e;
@@ -127,7 +135,8 @@ class ClienteController extends Controller
         $miembros=count($cliente1);
         $membresias=Membresia::get();
         $membresias=count($membresias);
-        return view('lista-clientes',['clientes'=>$clientes,'miembros'=>$miembros,'membresias'=>$membresias]);
+        $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
+        return view('lista-clientes',['clientes'=>$clientes,'miembros'=>$miembros,'membresias'=>$membresias,'privilegios'=>$privilegio,'privilegios'=>$privilegio]);
     }
     public function cambiar_estado_cliente(Request $request){
         $id=$request->input('id');
@@ -161,7 +170,8 @@ class ClienteController extends Controller
         $miembros1=count($cliente1);
         $membresias1=Membresia::get();
         $membresias1=count($membresias1);
-        return view('reporte.clientes',['clientes'=>$clientes,'miembros'=>$miembros1,'membresias'=>$membresias1]);
+        $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
+        return view('reporte.clientes',['clientes'=>$clientes,'miembros'=>$miembros1,'membresias'=>$membresias1,'privilegios'=>$privilegio]);
     }
     public function rpt_cliente(){
         $clientes=Cliente::get();
