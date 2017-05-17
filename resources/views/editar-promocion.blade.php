@@ -232,7 +232,7 @@
                     </div>
                     <div class="col-lg-2">
                         <div class="form-group">
-                            <label>Rol</label>
+                            <label>Periodo</label>
                             <select class="form-control" name="periodo" id="periodo">
                                 <option value="Dias" @if($promocion->tipoDuracion=='Dias') <?php echo 'selected';?> @endif>Dias</option>
                                 <option value="Meses" @if($promocion->tipoDuracion=='Meses') <?php echo 'selected';?> @endif>Meses</option>

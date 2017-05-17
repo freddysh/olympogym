@@ -231,7 +231,7 @@
                     </div>
                     <div class="col-lg-2">
                         <div class="form-group">
-                            <label>Rol</label>
+                            <label>Periodo</label>
                             <select class="form-control" name="periodo" id="periodo">
                                 <option value="Dias">Dias</option>
                                 <option value="Meses">Meses</option>

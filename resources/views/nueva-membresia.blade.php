@@ -228,7 +228,7 @@
                     <div class="col-lg-3">
                         <div class="form-group">
                             <label>Fecha que inicia</label>
-                            <input type="date" name="fechaInicio" id="fechaInicio" class="form-control validation" required>
+                            <input type="date" name="fechaInicio" id="fechaInicio" class="form-control validation" required onchange="calcular_fecha_venc()">
                         </div>
                     </div>
                     <div class="col-lg-3">

@@ -37,8 +37,8 @@ class UserController extends Controller
     public function agregar_nuevousuario(Request $request){
         try{
             $dni=$request->input('dni');
-            $nombres=$request->input('nombres');
-            $apellidos=$request->input('apellidos');
+            $nombres=strtoupper($request->input('nombres'));
+            $apellidos=strtoupper($request->input('apellidos'));
             $telefono=$request->input('telefono');
             $email=$request->input('email');
             $contrasena=$request->input('contrasena');
@@ -105,8 +105,8 @@ class UserController extends Controller
         try{
             $id=$request->input('id');
             $dni=$request->input('dni');
-            $nombres=$request->input('nombres');
-            $apellidos=$request->input('apellidos');
+            $nombres=strtoupper($request->input('nombres'));
+            $apellidos=strtoupper($request->input('apellidos'));
             $telefono=$request->input('telefono');
             $email=$request->input('email');
             $contrasena=$request->input('contrasena');

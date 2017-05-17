@@ -24,7 +24,7 @@ class PromocionController extends Controller
     }
     public function agregar_promocionnueva(Request $request){
         try{
-            $titulo=$request->input('titulo');
+            $titulo=strtoupper($request->input('titulo'));
             $detalle=$request->input('detalle');
             $precio=$request->input('precio');
             $duracion=$request->input('duracion');
@@ -74,7 +74,7 @@ class PromocionController extends Controller
     public function editar_promocion(Request $request){
         try{
             $id=$request->input('id');
-            $titulo=$request->input('titulo');
+            $titulo=strtoupper($request->input('titulo'));
             $detalle=$request->input('detalle');
             $precio=$request->input('precio');
             $duracion=$request->input('duracion');

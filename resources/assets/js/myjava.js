@@ -434,3 +434,12 @@ $(document).ready(function(){
         });
     });
 });
+
+function calcular_fecha_venc(){
+    var promo=$('#promocion').val();
+    promo=promo.split('_');
+    var duracion=promo[2];
+    var periodo=promo[3];
+    var fecha_inicio=$('#fechaInicio').val();
+    
+}

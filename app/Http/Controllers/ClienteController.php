@@ -30,8 +30,8 @@ class ClienteController extends Controller
             $membresias=count($membresias);
 
             $dni=$request->input('dni');
-            $nombres=$request->input('nombres');
-            $apellidos=$request->input('apellidos');
+            $nombres=strtoupper($request->input('nombres'));
+            $apellidos=strtoupper($request->input('apellidos'));
             $direccion=$request->input('direccion');
             $telefono=$request->input('telefono');
             $email=$request->input('email');
@@ -74,8 +74,8 @@ class ClienteController extends Controller
         try{
             $id=$request->input('id');
             $dni=$request->input('dni');
-            $nombres=$request->input('nombres');
-            $apellidos=$request->input('apellidos');
+            $nombres=strtoupper($request->input('nombres'));
+            $apellidos=strtoupper($request->input('apellidos'));
             $direccion=$request->input('direccion');
             $telefono=$request->input('telefono');
             $email=$request->input('email');
