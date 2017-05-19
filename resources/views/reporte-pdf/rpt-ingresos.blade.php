@@ -61,7 +61,13 @@
             <?php $i=0;?>
             <?php $st=0;?>
             @foreach($ingresos as $ingreso)
-                <?php $i++?>
+                <?php $contador=0;?>
+                @foreach($ingreso->cuotas as $cuota)
+                    @if($cuota->estado=='1')
+                        <?php $contador=1;?>
+                    @endif
+                @endforeach
+                <?php if($contador==1){ $i++?>
                 <tr>
                     <td>{{$i}}</td>
                     <td>
@@ -70,19 +76,24 @@
                     </td>
                     <td>
                         @foreach($ingreso->cuotas as $cuota)
-                            <?php $st+=$cuota->monto;?>
-                            <p>{{$cuota->monto}}</p>
+                            @if($cuota->estado=='1')
+                                <?php $st+=$cuota->monto;?>
+                                <p>{{$cuota->monto}}</p>
+                            @endif
                         @endforeach
                     </td>
                     <td>
                         @foreach($ingreso->cuotas as $cuota)
-                            <?php
-                            $dated = new \DateTime($cuota->fechaQCancelo);
-                            ?>
-                            <p><?php echo $dated->format('d-m-Y');?></p>
+                            @if($cuota->estado=='1')
+                                <?php
+                                $dated = new \DateTime($cuota->fechaQCancelo);
+                                ?>
+                                <p><?php echo $dated->format('d-m-Y');?></p>
+                            @endif
                         @endforeach
                     </td>
                 </tr>
+                <?php }?>
             @endforeach
             <td></td>
             <td><b>Total</b></td>

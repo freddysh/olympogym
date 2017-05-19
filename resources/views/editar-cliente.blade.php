@@ -185,7 +185,7 @@
 @section('contenido')
     <div class="box box-warning">
         <div class="box-header with-border">
-            <h3 class="box-title">Nuevo usuario</h3>
+            <h3 class="box-title">Editar cliente</h3>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
@@ -210,7 +210,7 @@
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label>Nombres</label>
-                            <input type="text" name="nombres" id="nombres" class="form-control validation" placeholder="Juan Carlos" value="{{$cliente->nombre}}">
+                            <input type="text" name="nombres" id="nombres" class="form-control validation" placeholder="Juan Carlos" value="{{$cliente->nombres}}">
                         </div>
                     </div>
                     <div class="col-lg-4">

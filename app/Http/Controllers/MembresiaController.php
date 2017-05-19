@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Asistencia;
 use App\Membresia;
 use App\Cliente;
 use App\Cuota;
@@ -291,6 +292,22 @@ class MembresiaController extends Controller
         }
         else{
             return 2;
+        }
+    }
+    public function borar_membresia(Request $request)
+    {
+        $existe_asistencia=Asistencia::where('membresia_id',$request->input('id'))->get();
+        if(count($existe_asistencia)>0){
+            return 2;
+        }
+        else{
+            $cuota=Membresia::where('id',$request->input('id'))->delete();
+            if($cuota){
+                return 1;
+            }
+            else{
+                return 0;
+            }
         }
     }
 }

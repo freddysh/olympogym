@@ -96,20 +96,45 @@ class PromocionController extends Controller
             $membresias1=Membresia::get();
             $membresias1=count($membresias1);
             $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
-            return view('nueva-promociones',['promociones'=>$promociones,'miembros'=>$miembros1,'membresias'=>$membresias1,'privilegios'=>$privilegio]);
+            return view('lista-promociones',['promociones'=>$promociones,'tipomensaje'=>'2','miembros'=>$miembros1,'membresias'=>$membresias1,'privilegios'=>$privilegio]);
 
+//            $promocion=Promocion::FindOrFail($id);
+//            $cliente1=Cliente::get();
+//            $miembros1=count($cliente1);
+//            $membresias1=Membresia::get();
+//            $membresias1=count($membresias1);
+//            $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
+//            return view('editar-promocion',['promocion'=>$promocion,'tipomensaje'=>'2','miembros'=>$miembros1,'membresias'=>$membresias1,'privilegios'=>$privilegio]);
+
+//            $tipomensaje='1';
+//            $mensaje='Se guardaron los datos de la promocion.';
+//            $promocion=Promocion::get();
+//            $cliente1=Cliente::get();
+//            $miembros1=count($cliente1);
+//            $membresias1=Membresia::get();
+//            $membresias1=count($membresias1);
+//            $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
+////            return view('editar-promocion',['promociones'=>$promociones,'miembros'=>$miembros1,'membresias'=>$membresias1,'privilegios'=>$privilegio]);
+//            return view('editar-promocion',['mensaje'=>$mensaje,'promocion'=>$promocion,'tipomensaje'=>'1','miembros'=>$miembros1,'membresias'=>$membresias1,'privilegios'=>$privilegio]);
 
         }
         catch(Exception $e){
 //            return $e;
-            $tipomensaje='-1';
-            $mensaje=$e;
+//            $tipomensaje='-1';
+//            $mensaje=$e;
+//            $cliente1=Cliente::get();
+//            $miembros1=count($cliente1);
+//            $membresias1=Membresia::get();
+//            $membresias1=count($membresias1);
+//            $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
+//            return view('editar-promocion',['mensaje'=>$mensaje,'tipomensaje'=>$tipomensaje,'miembros'=>$miembros1,'membresias'=>$membresias1,'privilegios'=>$privilegio]);
+            $promociones=Promocion::get();
             $cliente1=Cliente::get();
             $miembros1=count($cliente1);
             $membresias1=Membresia::get();
             $membresias1=count($membresias1);
             $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
-            return view('nueva-promocion',['mensaje'=>$mensaje,'tipomensaje'=>$tipomensaje,'miembros'=>$miembros1,'membresias'=>$membresias1,'privilegios'=>$privilegio]);
+            return view('lista-promociones',['promociones'=>$promociones,'tipomensaje'=>'2','miembros'=>$miembros1,'membresias'=>$membresias1,'privilegios'=>$privilegio]);
 
         }
 
@@ -123,7 +148,7 @@ class PromocionController extends Controller
             $membresias1=Membresia::get();
             $membresias1=count($membresias1);
             $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
-            return view('nueva-promocion',['promocion'=>$promocion,'tipomensaje'=>'2','miembros'=>$miembros1,'membresias'=>$membresias1,'privilegios'=>$privilegio]);
+            return view('editar-promocion',['promocion'=>$promocion,'tipomensaje'=>'2','miembros'=>$miembros1,'membresias'=>$membresias1,'privilegios'=>$privilegio]);
         }
         catch(Exception $e){
             return $e;
@@ -149,5 +174,22 @@ class PromocionController extends Controller
         $promocion->estado=$estado;
         $promocion->save();
         return 1;
+    }
+    public function borar_promocion(Request $request)
+    {
+        $existe_membresia=Membresia::where('promocion_id',$request->input('id'))->get();
+        if(count($existe_membresia)>0){
+            return 2;
+
+        }
+        else{
+            $cuota=Promocion::where('id',$request->input('id'))->delete();
+            if($cuota){
+                return 1;
+            }
+            else{
+                return 0;
+            }
+        }
     }
 }

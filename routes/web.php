@@ -214,6 +214,14 @@ Route::group(['middleware'=>'admin'],function(){
         'uses' => 'MembresiaController@borra_cuota',
         'as' => 'editar_membresia_borrar_cuota_path',
     ]);
+    Route::post('/borar_promocion', [
+        'uses' => 'PromocionController@borar_promocion',
+        'as' => 'borar_promocion_path',
+    ]);
+    Route::post('/borar_membresia', [
+        'uses' => 'MembresiaController@borar_membresia',
+        'as' => 'borar_membresia_path',
+    ]);
 });
 /*-- Fin Metodos para logeo de usuarios del sistema*/
 

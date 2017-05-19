@@ -434,4 +434,138 @@ $(document).ready(function(){
         });
     });
 });
+
+function calcular_fecha_venc(){
+    var promo=$('#promocion').val();
+    promo=promo.split('_');
+    var duracion=promo[2];
+    var periodo=promo[3];
+
+    var fecha_inicio=$('#fechaInicio').val();
+    var dato=fecha_inicio.split('-');
+    console.log('ini:'+fecha_inicio);
+    // var fecha2 = Date.parse(dato[2],dato[1]-1,dato[0]);
+    var fecha = new Date(dato[0],dato[1],dato[2]);
+
+    // var fecha = new Date(CDate);
+    var fecha0=fecha.getFullYear()+'-'+fecha.getMonth()+'-'+fecha.getDate();
+    console.log(fecha0);
+    if(periodo=='Dias') {
+        fecha.setDate(fecha.getDate()+parseInt(duracion));
+        console.log('sumar '+duracion+' dias');
+    }
+    if(periodo=='Meses') {
+        fecha.setMonth(fecha.getMonth()+parseInt(duracion));
+        console.log('sumar '+duracion+' meses');
+    }
+    if(periodo=='Anios') {
+        fecha.setFullYear(fecha.getFullYear()+parseInt(duracion));
+        console.log('sumar '+duracion+' años');
+    }
+    var mes=fecha.getMonth();
+    var dia=fecha.getDate();
+    mes = (mes < 10) ? ("0" + mes) : mes;
+    dia = (dia < 10) ? ("0" + dia) : dia;
+    var fecha1=fecha.getFullYear()+'-'+mes+'-'+dia;
+    $('#fechafin').val(fecha1);
+    console.log(fecha1);
+}
+function eliminar_promocion(id) {
+    swal({
+        title: 'Estas seguro?',
+        text: "Deseas borrar la promocion!",
+        type: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, borra ahora!',
+        cancelButtonText: 'No, cancelar!',
+        confirmButtonClass: 'btn btn-success',
+        cancelButtonClass: 'btn btn-danger',
+        buttonsStyling: false
+    }).then(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('[name="_token"]').val()
+            }
+        });
+        $.ajax({
+            type: 'POST',
+            url: '/borar_promocion',
+            // data: $('#form_plan').serializeArray(),
+            data: 'id='+id,
+            // data:valor,
+            // Mostramos un mensaje con la respuesta de PHP
+            success: function(data){
+                // $("#estado_"+cuota).val(0);
+                if(data==1){
+                    $("#promo_"+id).fadeOut();
+                }
+                else if(data==2){
+                    swal(
+                        'Advertencia!',
+                        'Existen clientes asociados a la promocion, por favor solo cambie el "estado" a rojo.',
+                        'warning'
+                    )
+                }
+            }
+        });
+    }, function (dismiss) {
+        // dismiss can be 'cancel', 'overlay',
+        // 'close', and 'timer'
+        if (dismiss === 'cancel') {
+
+        }
+    })
+}
+function eliminar_membresia(id) {
+    swal({
+        title: 'Estas seguro?',
+        text: "Deseas borrar la membresia!",
+        type: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, borra ahora!',
+        cancelButtonText: 'No, cancelar!',
+        confirmButtonClass: 'btn btn-success',
+        cancelButtonClass: 'btn btn-danger',
+        buttonsStyling: false
+    }).then(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('[name="_token"]').val()
+            }
+        });
+        $.ajax({
+            type: 'POST',
+            url: '/borar_membresia',
+            // data: $('#form_plan').serializeArray(),
+            data: 'id='+id,
+            // data:valor,
+            // Mostramos un mensaje con la respuesta de PHP
+            success: function(data){
+                // $("#estado_"+cuota).val(0);
+                if(data==1){
+                    $("#membre_"+id).fadeOut();
+                }
+                else if(data==2){
+                    swal(
+                        'Advertencia!',
+                        'el cliente tiene asistencias, por favor solo cambie el "estado" a rojo.',
+                        'warning'
+                    )
+                }
+            }
+        });
+    }, function (dismiss) {
+        // dismiss can be 'cancel', 'overlay',
+        // 'close', and 'timer'
+        if (dismiss === 'cancel') {
+
+        }
+    })
+}
+
+
 //# sourceMappingURL=myjava.js.map

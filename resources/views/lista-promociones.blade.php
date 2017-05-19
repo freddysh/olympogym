@@ -205,7 +205,7 @@
                 <tbody>
 
                 @foreach($promociones as $promocion)
-                    <tr>
+                    <tr id="promo_{{$promocion->id}}">
                         <td>{{$promocion->titulo}}</td>
                         <td>{{$promocion->detalle}}</td>
                         <td>{{$promocion->precio}}</td>
@@ -218,7 +218,11 @@
                                 <a href="#!" onclick="cambiar_estado_pro({{$promocion->id}},1)"><i class="fa fa-fw fa-power-off text-red"></i></a>
                             @endif
                         </td>
-                        <td><a href="{{route('editar_promocion_get_path',$promocion->id)}}"><i class="fa fa-edit"></i></a></td>
+                        <td>
+                            <a href="{{route('editar_promocion_get_path',$promocion->id)}}"><i class="text-yellow fa fa-edit fa-2x"></i></a>
+                            <a onclick="eliminar_promocion({{$promocion->id}})"><i class="text-red glyphicon glyphicon-trash fa-2x"></i></a>
+
+                        </td>
                     </tr>
                 @endforeach
                 </tbody>

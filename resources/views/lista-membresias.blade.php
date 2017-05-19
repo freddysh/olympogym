@@ -206,7 +206,7 @@
                 <tbody>
 
                 @foreach($membresias2 as $membresia)
-                    <tr>
+                    <tr id="membre_{{$membresia->id}}">
                         <td>{{$membresia->cliente->dni}} {{$membresia->cliente->nombres}} {{$membresia->cliente->apellidos}}</td>
                         <td>{{$membresia->user->name}} {{$membresia->user->apellidos}}</td>
                         <td>{{$membresia->promocion->titulo}}</td>
@@ -220,8 +220,12 @@
                                 <a href="#!" ><i class="fa fa-fw fa-power-off text-red"> Vencido</i></a>
                             @endif
                         </td>
-                        <td><a href="{{route('editar_membresia_get_path',$membresia->id)}}"><i class="text-yellow fa fa-edit fa-2x"></i></a>
-                            <a href="#!"><i class="text-red glyphicon glyphicon-trash fa-2x"></i></a></td>
+                        <td>
+                            <a href="{{route('editar_membresia_get_path',$membresia->id)}}"><i class="text-yellow fa fa-edit fa-2x"></i></a>
+                            <a href="#!"><i class="text-red glyphicon glyphicon-trash fa-2x"></i></a>
+                            <a onclick="eliminar_membresia({{$membresia->id}})"><i class="text-red glyphicon glyphicon-trash fa-2x"></i></a>
+
+                        </td>
                     </tr>
                 @endforeach
                 </tbody>
