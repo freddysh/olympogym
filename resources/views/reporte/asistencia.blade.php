@@ -14,6 +14,9 @@
     $p11='';
     $p12='';
     $p13='';
+    $p14='';
+    $p15='';
+
     ?>
     @foreach($privilegios as $privilegio)
         @if($privilegio->nombre=='nuevo-usuario')
@@ -54,6 +57,12 @@
         @endif
         @if($privilegio->nombre=='r-ingresos')
             <?php $p13='1'?>
+        @endif
+        @if($privilegio->nombre=='congelar')
+            <?php $p14='1'?>
+        @endif
+        @if($privilegio->nombre=='ampliaciones')
+            <?php $p15='1'?>
         @endif
     @endforeach
     <ul class="sidebar-menu">
@@ -171,6 +180,23 @@
                 @endif
                 @if($p13=='1')
                     <li><a href="{{route('reporte_ingresos_path')}}"><i class="fa fa-circle-o"></i> Ingresos</a></li>
+                @endif
+            </ul>
+        </li>
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-pie-chart"></i>
+                <span>Herramientas</span>
+                <span class="pull-right-container">
+                          <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+            </a>
+            <ul class="treeview-menu">
+                @if($p14=='1')
+                    <li><a href="{{route('congelar_path')}}"><i class="fa fa-circle-o"></i> Congelar</a></li>
+                @endif
+                @if($p15=='1')
+                    <li><a href="{{route('ampliar_path')}}"><i class="fa fa-circle-o"></i> Ampliar</a></li>
                 @endif
             </ul>
         </li>

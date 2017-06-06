@@ -126,7 +126,47 @@ class CuotaController extends Controller
             return view('mensaje.rpt-cuotas', ['membresias' => $membresia, 'fecha' => $fecha, 'hora' => $hora,'tipomensaje'=>$tipomensaje,'mensaje'=>$mensaje]);
         }
     }
+    function buscar_cuotas_congelar(Request $request){
+        try {
+            $dni =explode(' ',$request->input('dni'));
+            $cliente=Cliente::where('dni', $dni[0])->get();
+            $fecha = date('Y-m-d');
+            $hora = date('H:m:s');
+            if(count($dni)>0) {
+                $membresia = Membresia::with(['cuotas', 'cliente'])
+                    ->where('estado', '1')
+                    ->where('cliente_id',$cliente[0]->id)
+                    ->get()
+                    ->sortByDesc('id');
 
+//                    ->sortByDesc('id');
+
+                if (count($membresia) > 0) {
+                    foreach ($membresia->take(1) as $membresi) {
+                        $promocion = Promocion::where('id', $membresi->promocion_id)->get();
+//                        $asistencia = new Asistencia();
+//                        $asistencia->cliente_id = $membresi->cliente_id;
+//                        $asistencia->fecha = $fecha;
+//                        $asistencia->hora = $hora;
+//                        $asistencia->estado = 1;
+//                        $asistencia->save();
+                        $tipomensaje = '1';
+                        $mensaje = '';
+                        return view('mensaje.rpt-cuotas-congelar', ['membresias' => $membresia, 'promociones' => $promocion, 'fecha' => $fecha, 'hora' => $hora, 'tipomensaje' => $tipomensaje, 'mensaje' => $mensaje]);
+                    }
+                } else{
+                    $tipomensaje='0';
+                    $mensaje='Error al registrar la asistencia';
+                    return view('mensaje.rpt-cuotas-congelar', ['membresias' => $membresia,'promocion'=>'', 'fecha' => $fecha, 'hora' => $hora,'tipomensaje'=>$tipomensaje,'mensaje'=>$mensaje]);
+                }
+                return '0';
+            }
+        }catch(Exception $e){
+            $tipomensaje='-1';
+            $mensaje=$e;
+            return view('mensaje.rpt-cuotas-congelar', ['membresias' => $membresia, 'fecha' => $fecha, 'hora' => $hora,'tipomensaje'=>$tipomensaje,'mensaje'=>$mensaje]);
+        }
+    }
     public function pagar_cuota_ahora(Request $request){
         $id =$request->input('id');
         $cuota=Cuota::FindOrFail($id);

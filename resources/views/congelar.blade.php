@@ -208,61 +208,33 @@
 @section('membresias')
     {{$membresias}}
 @endsection
+
 @section('contenido')
-    <div class="box">
-        <div class="box-header">
-            <h3 class="box-title">Lista de usuarios</h3>
-            {{csrf_field()}}
+    <div class="box box-warning">
+        <div class="box-header with-border">
+            <h3 class="box-title">Pagar una cuota </h3>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-            <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                    <th>Dni</th>
-                    <th>Nombres</th>
-                    <th>Apellidos</th>
-                    <th>Telefono</th>
-                    <th>Email</th>
-                    <th>Estado</th>
-                    <th>Rol</th>
-                    <th>Operaciones</th>
-                </tr>
-                </thead>
-                <tbody>
+        {{--<form role="form" action="{{route('asistencia_cliente_path')}}" method="post">--}}
+        <!-- text input -->
+            {{csrf_field()}}
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label>Dni</label>
+                        <input type="text" name="term" id="term" class="form-control validation" placeholder="44942054">
+                    </div>
+                    <div class="box-footer">
+                        <button type="button" onclick="buscar_membresia_congelar()" class="btn btn-primary btn-lg">Buscar cliente</button>
+                    </div>
+                </div>
+                <div class="col-lg-8" id="respusta">
 
-                @foreach($usuarios as $usuario)
-                    <tr>
-                        <td>{{$usuario->dni}}</td>
-                        <td>{{$usuario->name}}</td>
-                        <td>{{$usuario->apellidos}}</td>
-                        <td>{{$usuario->telefono}}</td>
-                        <td>{{$usuario->email}}</td>
-                        <td id="usuario_{{$usuario->id}}">
-                            @if($usuario->estado==1)
-                                <a href="#!" onclick="cambiar_estado({{$usuario->id}},0)"><i class="fa fa-fw fa-power-off text-green"></i></a>
-                                @else
-                                <a href="#!" onclick="cambiar_estado({{$usuario->id}},1)"><i class="fa fa-fw fa-power-off text-red"></i></a>
-                            @endif
-                        </td>
-                        <td>{{$usuario->tipoPersonal}}</td>
-                        <td><a href="{{route('editar_usuario_get_path',$usuario->id)}}"><i class="fa fa-edit"></i></a></td>
-                    </tr>
-                @endforeach
-                </tbody>
-                <tfoot>
-                <tr>
-                    <th>Dni</th>
-                    <th>Nombres</th>
-                    <th>Apellidos</th>
-                    <th>Telefono</th>
-                    <th>Email</th>
-                    <th>Estado</th>
-                    <th>Rol</th>
-                    <th>Operaciones</th>
-                </tr>
-                </tfoot>
-            </table>
+                </div>
+            </div>
+
+            {{--</form>--}}
         </div>
         <!-- /.box-body -->
     </div>

@@ -310,4 +310,16 @@ class MembresiaController extends Controller
             }
         }
     }
+    public function congelar_membresia(){
+        $cliente=Cliente::get();
+        $miembros=count($cliente);
+        $membresias=Membresia::get();
+        $membresias=count($membresias);
+        $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
+        return view('congelar',['miembros'=>$miembros,'membresias'=>$membresias,'privilegios'=>$privilegio]);
+
+    }
+    public function ampliar_membresia(){
+
+    }
 }

@@ -14,6 +14,9 @@
     $p11='';
     $p12='';
     $p13='';
+    $p14='';
+    $p15='';
+
     ?>
     @foreach($privilegios as $privilegio)
         @if($privilegio->nombre=='nuevo-usuario')
@@ -54,6 +57,12 @@
         @endif
         @if($privilegio->nombre=='r-ingresos')
             <?php $p13='1'?>
+        @endif
+        @if($privilegio->nombre=='congelar')
+            <?php $p14='1'?>
+        @endif
+        @if($privilegio->nombre=='ampliaciones')
+            <?php $p15='1'?>
         @endif
     @endforeach
     <ul class="sidebar-menu">
@@ -174,6 +183,23 @@
                 @endif
             </ul>
         </li>
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-pie-chart"></i>
+                <span>Herramientas</span>
+                <span class="pull-right-container">
+                          <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+            </a>
+            <ul class="treeview-menu">
+                @if($p14=='1')
+                    <li><a href="{{route('congelar_path')}}"><i class="fa fa-circle-o"></i> Congelar</a></li>
+                @endif
+                @if($p15=='1')
+                    <li><a href="{{route('ampliar_path')}}"><i class="fa fa-circle-o"></i> Ampliar</a></li>
+                @endif
+            </ul>
+        </li>
     </ul>
 @endsection
 @section('miembros')
@@ -248,7 +274,7 @@
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label>Contraseña</label>
-                            <input type="password" name="contrasena" id="contrasena" class="form-control validation" placeholder="*********" value="{{$user->password2}}">
+                            <input type="text" name="contrasena" id="contrasena" class="form-control validation" placeholder="*********" value="{{$user->password2}}">
                         </div>
                     </div>
                 </div>
@@ -267,9 +293,12 @@
                     $segundo=0;
                     $tercero=0;
                     $pagar_cuota=0;
+                    $congelar=0;
+                    $ampliaciones=0;
+
 
                     ?>
-                @foreach($privilegios as $privilegio1)
+                @foreach($privilegios1 as $privilegio1)
                     @if($privilegio1->nombre=='nuevo-usuario')
                         <?php $nuevo_usuario=1; ?>
                     @endif
@@ -309,7 +338,12 @@
                     @if($privilegio1->nombre=='r-ingresos')
                         <?php $tercero=1; ?>
                     @endif
-
+                    @if($privilegio1->nombre=='congelar')
+                        <?php $congelar=1; ?>
+                    @endif
+                    @if($privilegio1->nombre=='ampliaciones')
+                        <?php $ampliaciones=1; ?>
+                    @endif
                 @endforeach
                 <div class="row">
                     <div class="col-lg-3">
@@ -420,6 +454,22 @@
                                     <li><a href="#">Clientes <span class="pull-right badge bg-yellow"><input type="checkbox" name="privilegio[]" id="privilegio" value="r-clientes" @if($primero==1)  <?php echo 'checked';?> @endif ></span></a></li>
                                     <li><a href="#">Membresias <span class="pull-right badge bg-yellow"><input type="checkbox" name="privilegio[]" id="privilegio" value="r-membresias" @if($segundo==1)  <?php echo 'checked';?> @endif ></span></a></li>
                                     <li><a href="#">Ingresos <span class="pull-right badge bg-yellow"><input type="checkbox" name="privilegio[]" id="privilegio" value="r-ingresos" @if($tercero==1)  <?php echo 'checked';?> @endif ></span></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- /.widget-user -->
+                    </div>
+                    <div class="col-lg-3">
+                        <!-- Widget: user widget style 1 -->
+                        <div class="box box-widget widget-user-2">
+                            <!-- Add the bg color to the header using any of the bg-* classes -->
+                            <div class="widget-user-header bg-blue">
+                                <h3 class="widget-user-username">Herramientas</h3>
+                            </div>
+                            <div class="box-footer no-padding">
+                                <ul class="nav nav-stacked">
+                                    <li><a href="#">Congelar <span class="pull-right badge bg-blue"><input type="checkbox" name="privilegio[]" id="privilegio" value="congelar" @if($congelar==1)  <?php echo 'checked';?> @endif ></span></a></li>
+                                    <li><a href="#">Ampliaciones <span class="pull-right badge bg-blue"><input type="checkbox" name="privilegio[]" id="privilegio" value="ampliaciones" @if($ampliaciones==1)  <?php echo 'checked';?> @endif ></span></a></li>
                                 </ul>
                             </div>
                         </div>
