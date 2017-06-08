@@ -29,7 +29,7 @@
                         <th style="width: 10px">#</th>
                         <th>Fecha de pago</th>
                         <th>Monto</th>
-                        <th>Operacion</th>
+                        <th>Observacion</th>
                     </tr>
                     <?php $i=1;?>
                     @foreach($membresia->cuotas as $cuota)
@@ -53,6 +53,30 @@
             </div>
         </div>
     @endforeach
+    <form method="post" action="{{route('congelar_add_path')}}">
+        <div class="row">
+            <hr>
+            <h3 class="text-green">Congelar</h3>
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label>Desde</label>
+                    <input type="date" name="desde" id="desde" class="form-control" autocomplete="off">
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label>Hasta</label>
+                    <input type="date" name="hasta" id="hasta" class="form-control" autocomplete="off">
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="form-group">
+                    {{csrf_field()}}
+                    <button type="submit" class="btn btn-primary">Buscar cliente</button>
+                </div>
+            </div>
+        </div>
+    </form>
 @elseif($tipomensaje=='0')
     <div class="row">
         <div class="col-lg-6">
