@@ -595,4 +595,61 @@ function eliminar_membresia(id) {
         }
     })
 }
+function congelar_membresia() {
+    swal({
+        title: 'Estas seguro?',
+        text: "Deseas congelar la membresia!",
+        type: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, congelar ahora!',
+        cancelButtonText: 'No, cancelar!',
+        confirmButtonClass: 'btn btn-success',
+        cancelButtonClass: 'btn btn-danger',
+        buttonsStyling: false
+    }).then(function () {
 
+        var id=$('#id').val();
+        var desde=$('#desde').val();
+        var hasta=$('#hasta').val();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('[name="_token"]').val()
+            }
+        });
+        $.ajax({
+            type: 'POST',
+            url: '/congelar_add',
+            // data: $('#form_plan').serializeArray(),
+            data: 'id='+id+'&&desde='+desde+'&&hasta='+hasta,
+            // data:valor,
+            // Mostramos un mensaje con la respuesta de PHP
+            success: function(data){
+                // $("#estado_"+cuota).val(0);
+                if(data==1){
+                    swal(
+                        'Excente!',
+                        'La membresia fue congelada corectamente.',
+                        'success'
+                    )
+                    // $("#rpt_membresia").html('<div class="alert alert-success" role="success"> <strong>Bien!</strong>La membresia fue congelada corectamente</div>');
+                }
+                else if(data==0){
+                    swal(
+                        'Advertencia!',
+                        'No se pudo congelar esta membresia.',
+                        'warning'
+                    )
+                }
+            }
+        });
+    }, function (dismiss) {
+        // dismiss can be 'cancel', 'overlay',
+        // 'close', and 'timer'
+        if (dismiss === 'cancel') {
+
+        }
+    })
+}

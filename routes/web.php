@@ -235,7 +235,7 @@ Route::group(['middleware'=>'admin'],function(){
         'uses' => 'MembresiaController@ampliar_membresia',
         'as' => 'ampliar_path',
     ]);
-    Route::get('/congelar_add', [
+    Route::post('/congelar_add', [
         'uses' => 'MembresiaController@congelar_membresia_add',
         'as' => 'congelar_add_path',
     ]);

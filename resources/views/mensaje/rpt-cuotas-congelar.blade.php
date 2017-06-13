@@ -52,8 +52,8 @@
                 </table>
             </div>
         </div>
-    @endforeach
-    <form method="post" action="{{route('congelar_add_path')}}">
+
+    {{--<form method="post" action="{{route('congelar_add_path')}}">--}}
         <div class="row">
             <hr>
             <h3 class="text-green">Congelar</h3>
@@ -71,12 +71,19 @@
             </div>
             <div class="col-lg-4">
                 <div class="form-group">
-                    {{csrf_field()}}
-                    <button type="submit" class="btn btn-primary">Buscar cliente</button>
+                    <input type="hidden" name="id" id="id" value="{{$membresia->id}}">
+                    {{csrf_field()}}<br>
+                    <button type="submit" class="btn btn-primary" onclick="congelar_membresia()">Congelar Mebresia</button>
                 </div>
             </div>
         </div>
-    </form>
+        <div class="row">
+            <div class="col-lg-12">
+                <div id="rpt_membresia"></div>
+            </div>
+        </div>
+    {{--</form>--}}
+    @endforeach
 @elseif($tipomensaje=='0')
     <div class="row">
         <div class="col-lg-6">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Asistencia;
+use App\Congelado;
 use App\Membresia;
 use App\Cliente;
 use App\Cuota;
@@ -317,6 +318,21 @@ class MembresiaController extends Controller
         $membresias=count($membresias);
         $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
         return view('congelar',['miembros'=>$miembros,'membresias'=>$membresias,'privilegios'=>$privilegio]);
+
+    }
+
+    public function congelar_membresia_add(Request $request){
+        $id=$request->input('id');
+        $desde=$request->input('desde');
+        $hasta=$request->input('hasta');
+        $congelado=new Congelado();
+        $congelado->desde=$desde;
+        $congelado->hasta=$hasta;
+        $congelado->membresia_id=$id;
+        if($congelado->save()>0)
+            return 1;
+        else
+            return 0;
 
     }
     public function ampliar_membresia(){
