@@ -231,13 +231,25 @@ Route::group(['middleware'=>'admin'],function(){
         'uses' => 'CuotaController@buscar_cuotas_congelar',
         'as' => 'buscar_cuotas_congelar_path',
     ]);
+    Route::post('/congelar_add', [
+        'uses' => 'MembresiaController@congelar_membresia_add',
+        'as' => 'congelar_add_path',
+    ]);
+    Route::post('/congelar_delete', [
+        'uses' => 'MembresiaController@congelar_membresia_delete',
+        'as' => 'descongelar_add_path',
+    ]);
     Route::get('/ampliar_membresia', [
         'uses' => 'MembresiaController@ampliar_membresia',
         'as' => 'ampliar_path',
     ]);
-    Route::post('/congelar_add', [
-        'uses' => 'MembresiaController@congelar_membresia_add',
-        'as' => 'congelar_add_path',
+    Route::post('/buscar_cuotas_ampliar', [
+        'uses' => 'CuotaController@buscar_cuotas_ampliar',
+        'as' => 'buscar_cuotas_congelar_path',
+    ]);
+    Route::post('/ampliar_add', [
+        'uses' => 'MembresiaController@ampliar_membresia_add',
+        'as' => 'ampliar_add_path',
     ]);
 });
 /*-- Fin Metodos para logeo de usuarios del sistema*/

@@ -653,5 +653,147 @@ function congelar_membresia() {
         }
     })
 }
+function descongelar(id) {
+    swal({
+        title: 'Estas seguro?',
+        text: "Deseas descongelar la membresia!",
+        type: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, congelar ahora!',
+        cancelButtonText: 'No, cancelar!',
+        confirmButtonClass: 'btn btn-success',
+        cancelButtonClass: 'btn btn-danger',
+        buttonsStyling: false
+    }).then(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('[name="_token"]').val()
+            }
+        });
+        $.ajax({
+            type: 'POST',
+            url: '/congelar_delete',
+            // data: $('#form_plan').serializeArray(),
+            data: 'id='+id,
+            // data:valor,
+            // Mostramos un mensaje con la respuesta de PHP
+            success: function(data){
+                // $("#estado_"+cuota).val(0);
+                if(data==1){
+                    swal(
+                        'Excente!',
+                        'La membresia fue descongelada corectamente.',
+                        'success'
+                    )
+                    $('#Congelado_'+id).fadeOut();
+                    $('#Congelado_'+id).remove();
+                    
+                    // $("#rpt_membresia").html('<div class="alert alert-success" role="success"> <strong>Bien!</strong>La membresia fue congelada corectamente</div>');
+                }
+                else if(data==0){
+                    swal(
+                        'Advertencia!',
+                        'No se pudo descongelar esta membresia.',
+                        'warning'
+                    )
+                }
+            }
+        });
+    }, function (dismiss) {
+        // dismiss can be 'cancel', 'overlay',
+        // 'close', and 'timer'
+        if (dismiss === 'cancel') {
 
+        }
+    })
+}
+function buscar_membresia_ampliar(){
+    var dni=$("#term").val();
+    console.log('dni:'+dni);
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('[name="_token"]').val()
+        }
+    });
+    $.post('/buscar_cuotas_ampliar', {dni: dni}, function(markup) {
+        $('#respusta').html(markup);
+        // var rpt=markup.split('_');
+        // if(rpt[0]==1){
+        //     var rpt1=markup.split('/');
+        //     var cuotas=rpt1[1];
+        //     var rpt1=rpt1[2].split('_');
+        //     var membresia='<p>el cliente esta asociado mediante la promocion '+rpt1[0]+' por un monto de '+rpt1[1]+' por '+rpt1[3]+' '+rpt1[1]+'</p>';
+        //     $('#respusta').html('' +
+        //         '<div class="alert alert-success" role="alert"> <strong>Bien hecho!</strong> Se registro la asistencia del cliente con dni nro: '+dni+' <p>Cliente: '+rpt[1]+' '+rpt[2]+'</p><p>Fecha: '+rpt[3]+' '+rpt[4]+'</p></div>' +
+        //         membresia+
+        //         cuotas);
+        // }
+        // else if(rpt[0]==0){
+        //     $('#respusta').html('<div class="alert alert-success" role="alert"> <strong>Bien hecho!</strong> No existe el cliente con dni nro: '+dni+'</div>');
+        // }
+    }).fail(function (markup) {
+        $('#respusta').html(markup);
+    });
+}
+function ampliar_membresia() {
+    swal({
+        title: 'Estas seguro?',
+        text: "Deseas ampliar la membresia!(esta operacion no se puede deshacer)",
+        type: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, ampliar ahora!',
+        cancelButtonText: 'No, cancelar!',
+        confirmButtonClass: 'btn btn-success',
+        cancelButtonClass: 'btn btn-danger',
+        buttonsStyling: false
+    }).then(function () {
+
+        var id=$('#id').val();
+        var hasta=$('#hasta').val();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('[name="_token"]').val()
+            }
+        });
+        $.ajax({
+            type: 'POST',
+            url: '/ampliar_add',
+            // data: $('#form_plan').serializeArray(),
+            data: 'id='+id+'&&hasta='+hasta,
+            // data:valor,
+            // Mostramos un mensaje con la respuesta de PHP
+            success: function(data){
+                // $("#estado_"+cuota).val(0);
+                if(data==1){
+                    swal(
+                        'Excente!',
+                        'La membresia fue ampliada corectamente hasta la fecha '+hasta,
+                        'success'
+                    )
+                    $('#Membresia_hasta').html(hasta);
+                    
+                    // $("#rpt_membresia").html('<div class="alert alert-success" role="success"> <strong>Bien!</strong>La membresia fue congelada corectamente</div>');
+                }
+                else if(data==0){
+                    swal(
+                        'Advertencia!',
+                        'No se pudo ampliar esta membresia.',
+                        'warning'
+                    )
+                }
+            }
+        });
+    }, function (dismiss) {
+        // dismiss can be 'cancel', 'overlay',
+        // 'close', and 'timer'
+        if (dismiss === 'cancel') {
+
+        }
+    })
+}
 //# sourceMappingURL=myjava.js.map

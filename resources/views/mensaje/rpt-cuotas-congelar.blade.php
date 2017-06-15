@@ -1,3 +1,4 @@
+
 @if($tipomensaje=='1')
     @foreach($membresias->take(1) as $membresia)
         <h3>Cliente encontrado</h3>
@@ -22,7 +23,33 @@
                 @endforeach
             </div>
         </div>
+        <h3>Congelamientos realizados</h3>
         <div class="row">
+            <div class="col-lg-6">
+                <table class="table table-striped">
+                    <tr>
+                        <th style="width: 10px">#</th>
+                        <th>Desde</th>
+                        <th>hasta</th>
+                        <th>Observacion</th>
+                    </tr>
+                    <?php $i=1;?>
+                    @foreach($congelados as $congelado)
+                        <tr id="Congelado_{{$congelado->id}}">
+                            <td>{{$i}}</td>
+                            <td><input type="date" name="cuota_fecha" id="cuota_fecha_'.$i.'" value="{{$congelado->desde}}" required disabled></td>
+                            <td><input type="date" name="cuota_fecha" id="cuota_fecha_'.$i.'" value="{{$congelado->hasta}}" required disabled></td>
+                            <td>
+                                <a type="button" class="btn btn-primary" id="descongelar_{{$congelado->id}}" onclick="descongelar({{$congelado->id}})">Descongelar</a>    
+                            </td>
+                        </tr>
+                        <?php $i++;?>
+
+                    @endforeach
+                </table>
+            </div>
+        </div>
+        <div class="row hide">
             <div class="col-lg-6">
                 <table class="table table-striped">
                     <tr>
@@ -42,7 +69,7 @@
                                 @if($cuota->estado==1)
                                     <a type="button" class="btn btn-success">Pagado</a>
                                 @else
-                                    <a type="button" class="btn btn-primary"  id="pagar_{{$cuota->id}}">Falta pagar</a>
+                                    <a type="button" class="btn btn-primary"  id="pagar_{{$cuota->id}}">Falta pagar1</a>
                                 @endif
                             </td>
                         </tr>

@@ -329,13 +329,43 @@ class MembresiaController extends Controller
         $congelado->desde=$desde;
         $congelado->hasta=$hasta;
         $congelado->membresia_id=$id;
-        if($congelado->save()>0)
+        if($congelado->save()>0){
+            $membresia=Membresia::FindOrFail($id);
+            $membresia->estado=2;
+            $membresia->save();
+            return 1;
+        }
+        else
+            return 0;
+
+    }
+    public function congelar_membresia_delete(Request $request){
+        $id=$request->input('id');
+        $congelado=Congelado::FindOrFail($id);
+        if($congelado->delete()>0)
             return 1;
         else
             return 0;
 
     }
+    
     public function ampliar_membresia(){
+        $cliente=Cliente::get();
+        $miembros=count($cliente);
+        $membresias=Membresia::get();
+        $membresias=count($membresias);
+        $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
+        return view('ampliar',['miembros'=>$miembros,'membresias'=>$membresias,'privilegios'=>$privilegio]);
+    }
+    public function ampliar_membresia_add(Request $request){
+        $id=$request->input('id');
+        $hasta=$request->input('hasta');
+        $membresia=Membresia::FindOrFail($id);
+        $membresia->fechaFin=$hasta;
+        if($membresia->save()>0)
+            return 1;
+        else
+            return 0;
 
     }
 }

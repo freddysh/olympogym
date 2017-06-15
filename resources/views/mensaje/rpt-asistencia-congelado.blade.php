@@ -1,4 +1,4 @@
-@if($tipomensaje=='1')
+@if($tipomensaje=='2')
     @foreach($membresias->take(1) as $membresia)
         <h3>Cliente encontrado</h3>
         <div class="row">
@@ -13,9 +13,13 @@
                 </table>
             </div>
             <div class="col-lg-6">
-                <h3>La cuenta esta congelada <span class="text-green glyphicon glyphicon-ok" aria-hidden="hrue"></span></h3>
+                <h3>La cuenta esta congelada <span class="text-red glyphicon glyphicon-exclamation-sign" aria-hidden="hrue"></span></h3>
                 @foreach($congelado as $conge)
-                <h4 class="text-blue"><b>Fecha:</b>{{$conge->desde}} a {{$conge->hasta}}</h4>
+                    @foreach($conge->congelados as $con)
+                        <h4 class="text-blue"><b>Fecha:</b>{{$con->desde}} a {{$con->hasta}}</h4>
+                        <h3 class="text-red"><b>No se podra registrar la asistencia hasta pasar la fecha o anular el congelamiento</b></h3>
+                        <h4 class="text-red">Vaya a "Herramientas>Congelar"</h4>
+                    @endforeach
                 @endforeach
             </div>
         </div>
