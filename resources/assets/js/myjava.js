@@ -717,7 +717,7 @@ function buscar_membresia_ampliar(){
             'X-CSRF-TOKEN': $('[name="_token"]').val()
         }
     });
-    $.post('/buscar_cuotas_ampliar', {dni: dni}, function(markup) {
+    $.post('/buscar_membresia_ampliar', {dni: dni}, function(markup) {
         $('#respusta').html(markup);
         // var rpt=markup.split('_');
         // if(rpt[0]==1){
@@ -740,7 +740,7 @@ function buscar_membresia_ampliar(){
 function ampliar_membresia() {
     swal({
         title: 'Estas seguro?',
-        text: "Deseas ampliar la membresia!(esta operacion no se puede deshacer)",
+        text: "Deseas ampliar la membresia!(esta operacion no se puede deshacer, ademas se descongelará esta cuenta en caso de estar congelada)",
         type: 'question',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',

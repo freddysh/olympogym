@@ -9,6 +9,7 @@ use App\Asistencia;
 use App\Cliente;
 use App\Membresia;
 use App\Promocion;
+use Carbon\Carbon;
 
 class AsistenciaController extends Controller
 {
@@ -25,8 +26,14 @@ class AsistenciaController extends Controller
         try {
             $dni =explode(' ',$request->input('dni'));
             $cliente=Cliente::where('dni', $dni[0])->get();
-            $fecha = date('Y-m-d');
-            $hora = date('H:m:s');
+            $dt = Carbon::now();
+//            $fecha = date('Y-m-d');
+//            $hora = date('H:i:s');
+            $dt->subHours(5);
+            $fecha=$dt->toDateString();
+            $hora=$dt->toTimeString();
+//            dd($dt->toTimeString());
+
             if(count($dni)>0) {
                 $membresia = Membresia::with(['cuotas', 'cliente'])
                     ->where('cliente_id',$cliente[0]->id)

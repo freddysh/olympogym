@@ -329,9 +329,18 @@ class MembresiaController extends Controller
         $congelado->desde=$desde;
         $congelado->hasta=$hasta;
         $congelado->membresia_id=$id;
+
+        $dias   = (strtotime($desde)-strtotime($hasta))/86400;
+        $dias   = abs($dias); $dias = floor($dias); 
+        
+
         if($congelado->save()>0){
             $membresia=Membresia::FindOrFail($id);
             $membresia->estado=2;
+            $fecha = date($membresia->fechaFin);
+            $nuevafecha = strtotime ( '+'.$dias.' day' , strtotime ( $fecha ) ) ;
+            $nuevafecha = date ( 'Y-m-d' , $nuevafecha );
+            $membresia->fechaFin=$nuevafecha;
             $membresia->save();
             return 1;
         }
@@ -357,13 +366,59 @@ class MembresiaController extends Controller
         $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
         return view('ampliar',['miembros'=>$miembros,'membresias'=>$membresias,'privilegios'=>$privilegio]);
     }
+    function buscar_membresia_ampliar(Request $request){
+        try {
+            $dni =explode(' ',$request->input('dni'));
+            $cliente=Cliente::where('dni', $dni[0])->get();
+            $fecha = date('Y-m-d');
+            $hora = date('H:m:s');
+            if(count($dni)>0) {
+                $membresia = Membresia::with(['cuotas', 'cliente'])
+                    ->where('cliente_id',$cliente[0]->id)
+                    ->get()
+                    ->sortByDesc('id');
+
+//                    ->sortByDesc('id');
+//                dd($membresia);
+                if (count($membresia) > 0) {
+                    foreach ($membresia->take(1) as $membresi) {
+                        if($membresi->estado==1 ||$membresi->estado==2){
+                            $promocion = Promocion::where('id', $membresi->promocion_id)->get();
+                              $tipomensaje = '1';
+                            $mensaje = '';
+                            return view('mensaje.rpt-membresia-ampliar', ['membresias' => $membresia, 'promociones' => $promocion, 'fecha' => $fecha, 'hora' => $hora, 'tipomensaje' => $tipomensaje, 'mensaje' => $mensaje,'estado'=>$membresi->estado]);
+                        }
+//                        else if($membresi->estado==2){
+//                            $tipomensaje='0';
+//                            $mensaje='no hay una membresia asignada para este cliente';
+//                            return view('mensaje.rpt-membresia-ampliar', ['membresias' => $membresia,'promocion'=>'', 'fecha' => $fecha, 'hora' => $hora,'tipomensaje'=>$tipomensaje,'mensaje'=>$mensaje]);
+//                        }
+                    }
+                } else{
+                    $tipomensaje='0';
+                    $mensaje='no hay una membresia asignada para este cliente';
+                    return view('mensaje.rpt-membresia-ampliar', ['membresias' => $membresia,'promocion'=>'', 'fecha' => $fecha, 'hora' => $hora,'tipomensaje'=>$tipomensaje,'mensaje'=>$mensaje]);
+                }
+//                return '0';
+            }
+        }catch(Exception $e){
+            $tipomensaje='-1';
+            $mensaje=$e;
+            return view('mensaje.rpt-membresia-ampliar', ['membresias' => $membresia, 'fecha' => $fecha, 'hora' => $hora,'tipomensaje'=>$tipomensaje,'mensaje'=>$mensaje]);
+        }
+    }
+
     public function ampliar_membresia_add(Request $request){
         $id=$request->input('id');
         $hasta=$request->input('hasta');
         $membresia=Membresia::FindOrFail($id);
         $membresia->fechaFin=$hasta;
-        if($membresia->save()>0)
+        $membresia->estado=1;
+
+        if($membresia->save()>0) {
+            $congelados=Congelado::where('membresia_id',$id)->delete();
             return 1;
+        }
         else
             return 0;
 

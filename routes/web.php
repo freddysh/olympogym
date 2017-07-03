@@ -243,9 +243,9 @@ Route::group(['middleware'=>'admin'],function(){
         'uses' => 'MembresiaController@ampliar_membresia',
         'as' => 'ampliar_path',
     ]);
-    Route::post('/buscar_cuotas_ampliar', [
-        'uses' => 'CuotaController@buscar_cuotas_ampliar',
-        'as' => 'buscar_cuotas_congelar_path',
+    Route::post('/buscar_membresia_ampliar', [
+        'uses' => 'MembresiaController@buscar_membresia_ampliar',
+        'as' => 'buscar_membresia_ampliar_path',
     ]);
     Route::post('/ampliar_add', [
         'uses' => 'MembresiaController@ampliar_membresia_add',
