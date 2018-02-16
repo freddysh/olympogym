@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 |
 */
 /*-- Inicio Metodos para logeo de usuarios del sistema*/
+
 Route::get('/', [
     'uses' => 'UserController@index',
     'as' => 'login_path',

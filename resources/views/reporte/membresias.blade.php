@@ -233,10 +233,15 @@
                         <td>{{$i}}</td>
                         <td>{{$membresia->cliente->dni}} {{$membresia->cliente->nombres}} {{$membresia->cliente->apellidos}}</td>
                         <td>
-                            <div class="col-lg-10">{{$membresia->promocion->titulo}}</div>
+                            <div class="col-lg-10">
+                            @foreach($promociones->where('id',$membresia->promocion_id) as $promo)
+                                    {{$promo->titulo}}
+                            @endforeach
+                            </div>
                             <div class="col-lg-1 right"><a href="{{route('rpt_membresia_path',$membresia->id)}}" class=" text-blue">
                                     <i class="glyphicon glyphicon-print"></i>
-                                </a></div>
+                                </a>
+                            </div>
                         </td>
                         <td>{{$membresia->fechaInicio}} - {{$membresia->fechaFin}}</td>
                         <td>
@@ -245,6 +250,7 @@
                             </a>
                         </td>
                     </tr>
+
                 @endforeach
                 </tbody>
                 <tfoot>

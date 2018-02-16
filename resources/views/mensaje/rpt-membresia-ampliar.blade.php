@@ -1,3 +1,53 @@
+@php
+function fecha_to_string($fecha){
+$dia='';
+$mes='';
+$anio='';
+$fecha=explode('-',$fecha);
+$dia=$fecha[2];
+switch ($fecha[1]){
+case '01':
+    $mes='Enero';
+    break;
+    case '02':
+    $mes='Febrero';
+    break;
+    case '03':
+    $mes='Marzo';
+    break;
+    case '04':
+    $mes='Abril';
+    break;
+    case '05':
+    $mes='Mayo';
+    break;
+    case '06':
+    $mes='Junio';
+    break;
+    case '07':
+    $mes='Julio';
+    break;
+    case '08':
+    $mes='Agosto';
+    break;
+    case '09':
+    $mes='Septiembre';
+    break;
+    case '10':
+    $mes='Octubre';
+    break;
+    case '11':
+    $mes='Noviembre';
+    break;
+    case '12':
+    $mes='Diciembre';
+    break;
+}
+$anio=$fecha[0];
+return $dia.' de '.$mes.' del '.$anio;
+
+}
+@endphp
 @if($tipomensaje=='1')
     @foreach($membresias->take(1) as $membresia)
         <h3>Cliente encontrado</h3>
@@ -18,7 +68,7 @@
             <div class="col-lg-12">
                 @foreach($promociones as $promocion)
                     <p class="text-info">Esta asociado a la promocion <b>{{$promocion->titulo}}</b> por un precio total de <b>S/. {{$promocion->precio}}</b> por un periodo de <b>{{$promocion->duracion}} {{$promocion->tipoDuracion}}</b></p>
-                    <p class="text-orange"><b>Desde:{{$membresia->fechaInicio}} hasta <span id="Membresia_hasta">{{$membresia->fechaFin}}</span></b></p>
+                    <p class="text-orange"><b>Desde: {{fecha_to_string($membresia->fechaInicio)}} hasta <span id="Membresia_hasta">{{fecha_to_string($membresia->fechaFin)}}</span></b></p>
                 @endforeach
             </div>
             @if($estado==1)

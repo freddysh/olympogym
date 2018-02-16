@@ -238,12 +238,15 @@ class MembresiaController extends Controller
     public function rpt_contratos()
     {
         $cliente1 = Cliente::get();
+//        dd($cliente1);
         $miembros1 = count($cliente1);
         $membresias1 = Membresia::get();
         $membresias1 = count($membresias1);
         $membresias = Membresia::with('cliente', 'promocion', 'asistemacias')->get();
         $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
-        return view('reporte.membresias', ['miembros' => $miembros1, 'membresias' => $membresias1, 'membresiass' => $membresias,'privilegios'=>$privilegio]);
+        $promociones=Promocion::get();
+//        dd($privilegio);
+        return view('reporte.membresias', ['miembros' => $miembros1, 'membresias' => $membresias1, 'membresiass' => $membresias,'privilegios'=>$privilegio,'promociones'=>$promociones]);
     }
 
     public function rpt_membresia($id)
