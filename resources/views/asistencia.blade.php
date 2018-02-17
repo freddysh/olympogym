@@ -226,7 +226,7 @@
                             <input type="text" name="term" id="term" class="form-control validation" placeholder="44942054">
                         </div>
                         <div class="box-footer">
-                            <button type="button" onclick="guardar_asistencia()" class="btn btn-primary btn-lg">Guardar Asistencia</button>
+                            <button type="button" onclick="guardar_asistencia()" class="btn btn-primary btn-lg">Registrar Asistencia</button>
                         </div>
                     </div>
                     <div class="col-lg-8" id="respusta">

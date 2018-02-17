@@ -1,3 +1,9 @@
+@php
+function fecha_peru($fecha){
+$fecha=explode('-',$fecha);
+return $fecha[2].'-'.$fecha[1].'-'.$fecha[0];
+}
+@endphp
 <!doctype html>
 <html lang="en">
 <head>
@@ -68,7 +74,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-12">
                     <h3>Asistencias</h3>
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
@@ -84,7 +90,7 @@
                             <?php $i++?>
                             <tr>
                                 <td>{{$i}}</td>
-                                <td>{{$asistencia->fecha}}</td>
+                                <td>{{fecha_peru($asistencia->fecha)}}</td>
                                 <td>{{$asistencia->hora}}</td>
                             </tr>
                         @endforeach

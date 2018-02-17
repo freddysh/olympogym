@@ -37,8 +37,10 @@ $plazo=15;
     $valor=intval($interval->format('%R%a'));
 
     if($valor>=0){
-
-        if($valor>=$plazo){
+        if($valor==0){
+            return 'VENCE HOY';
+        }
+        elseif($valor>=$plazo){
             return 'ACTIVO';
         }
         else{
@@ -100,16 +102,89 @@ function fecha_to_string($fecha){
 @endphp
 @if($tipomensaje=='1')
 @foreach($membresias->take(1) as $membresia)
-    <h3>Cliente encontrado</h3>
     <div class="row">
         <div class="col-lg-6">
-            <table class="table">
+            <table class="table table-bordered table-striped">
+                <thead>
                 <tr>
-                    <tr><td><b>Dni: </b>{{$membresia->cliente->dni}}</td></tr>
-                    <tr><td><b>Nombres: </b>{{$membresia->cliente->nombres}}, {{$membresia->cliente->apellidos}}</td></tr>
-                    <tr><td><b>Telefono: </b>{{$membresia->cliente->telefono}}</td></tr>
-                    <tr><td><b>Email: </b>{{$membresia->cliente->email}}</td></tr>
+                    <th><b class="text-20">Cliente encontrado</b></th>
+                    <th>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal"><i class="fa fa-edit"></i></button>
+
+                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <form id="editar_cliente_ajax" action="{{route('editar_cliente_ajax_path')}}" method="post">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="myModalLabel">Editar datos del cliente</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <div class="form-group">
+                                                        <label>Dni</label>
+                                                        <input type="text" name="dni" id="dni" class="form-control validation" placeholder="Ingrese el dni" value="{{$membresia->cliente->dni}}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <div class="form-group">
+                                                        <label>Nombres</label>
+                                                        <input type="text" name="nombres" id="nombres" class="form-control validation" placeholder="Ingrese los nombres" value="{{$membresia->cliente->nombres}}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <div class="form-group">
+                                                        <label>Apellidos</label>
+                                                        <input type="text" name="apellidos" id="apellidos" class="form-control validation" placeholder="Ingrese los apellidos" value="{{$membresia->cliente->apellidos}}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <div class="form-group">
+                                                        <label>Direccion</label>
+                                                        <input type="text" name="direccion" id="direccion" class="form-control validation" placeholder="Ingrese la direccion" value="{{$membresia->cliente->direccion}}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <div class="form-group">
+                                                        <label>Telefono</label>
+                                                        <input type="text" name="telefono" id="telefono" class="form-control validation" placeholder="Ingrese el telefono" value="{{$membresia->cliente->telefono}}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <div class="form-group">
+                                                        <label>Email</label>
+                                                        <input type="email" name="email" id="email" class="form-control validation" placeholder="Ingrese el Email" value="{{$membresia->cliente->email}}">
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <p id="result"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            {{csrf_field()}}
+                                            <input type="hidden" name="id" value="{{$membresia->cliente->id}}">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                            <button type="submit" class="btn btn-primary" onclick="editar_cliente_ajax()">Guardar cambios</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                    </th>
                 </tr>
+                </thead>
+                <tbody>
+                    <tr><td colspan="2"><b>Dni: </b><span id="dni_b">{{$membresia->cliente->dni}}</span></td></tr>
+                    <tr><td colspan="2"><b>Nombres: </b><span id="nombres_b">{{$membresia->cliente->nombres}}, {{$membresia->cliente->apellidos}}</span></td></tr>
+                    <tr><td colspan="2"><b>Telefono: </b><span id="telefono_b">{{$membresia->cliente->telefono}}</span></td></tr>
+                    <tr><td colspan="2"><b>Email: </b><span id="email_b">{{$membresia->cliente->email}}</span></td></tr>
+                </tbody>
             </table>
         </div>
         <div class="col-lg-6">

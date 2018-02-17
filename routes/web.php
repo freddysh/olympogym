@@ -252,6 +252,11 @@ Route::group(['middleware'=>'admin'],function(){
         'uses' => 'MembresiaController@ampliar_membresia_add',
         'as' => 'ampliar_add_path',
     ]);
+
+    Route::post('/editar-cliente', [
+        'uses' => 'ClienteController@editar_cliente_ajax',
+        'as' => 'editar_cliente_ajax_path',
+    ]);
 });
 /*-- Fin Metodos para logeo de usuarios del sistema*/
 

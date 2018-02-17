@@ -1,3 +1,9 @@
+@php
+    function fecha_peru($fecha){
+    $fecha=explode('-',$fecha);
+    return $fecha[2].'-'.$fecha[1].'-'.$fecha[0];
+    }
+@endphp
 <!doctype html>
 <html lang="en">
 <head>
@@ -61,10 +67,10 @@
             <div class="row">
                 <div class="col-lg-6">
                     <h3>Datos de la memebresia</h3>
-                    <p for=""><b>Titulo:</b>{{$membresi->promocion->titulo}} {{$membresi->promocion->duracion}} {{$membresi->promocion->tipoDuracion}}</p>
-                    <p for=""><b>Descripcion:</b>{{$membresi->promocion->detalle}}</p>
-                    <p for=""><b>Total:</b>{{$membresi->total}}</p>
-                    <p for=""><b>Fecha:</b>{{$membresi->fechaInicio}} - {{$membresi->fechaFin}}</p>
+                    <p for=""><b>Titulo: </b>{{$membresi->promocion->titulo}} {{$membresi->promocion->duracion}} {{$membresi->promocion->tipoDuracion}}</p>
+                    <p for=""><b>Descripcion: </b>{{$membresi->promocion->detalle}}</p>
+                    <p for=""><b>Total: </b>{{$membresi->total}}</p>
+                    <p for=""><b>Fecha: </b>{{fecha_peru($membresi->fechaInicio)}} - {{fecha_peru($membresi->fechaFin)}}</p>
                 </div>
             </div>
             <div class="row">
@@ -136,7 +142,7 @@
                     </p>
                     <p class="text-right">
                         <b>PLAZA TUPAC AMARU 114 WANCHAQ</b><br>
-                        <b>TELF: 254798</b>
+                        <b>TELF: (084)254798</b>
                     </p>
                 </div>
             </div>
@@ -173,10 +179,10 @@
                             <?php $i++?>
                             <tr>
                                 <td>{{$i}}</td>
-                                <td>{{$cuota->fechaCancelacion}}</td>
+                                <td>{{fecha_peru($cuota->fechaCancelacion)}}</td>
                                 <td>{{$cuota->monto}}</td>
                                 @if($cuota->estado==1)
-                                    <td>{{$cuota->fechaQCancelo}}</td>
+                                    <td>{{fecha_peru($cuota->fechaQCancelo)}}</td>
                                     <td>Pagado</td>
                                 @else
                                     <td></td>

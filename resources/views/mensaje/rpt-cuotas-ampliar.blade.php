@@ -1,3 +1,9 @@
+@php
+    function fecha_peru($fecha){
+    $fecha=explode('-',$fecha);
+    return $fecha[2].'-'.$fecha[1].'-'.$fecha[0];
+    }
+@endphp
 @if($tipomensaje=='1')
     @foreach($membresias->take(1) as $membresia)
         <h3>Cliente encontrado</h3>
@@ -18,7 +24,7 @@
             <div class="col-lg-12">
                 @foreach($promociones as $promocion)
                     <p class="text-info">Esta asociado a la promocion <b>{{$promocion->titulo}}</b> por un precio total de <b>S/. {{$promocion->precio}}</b> por un periodo de <b>{{$promocion->duracion}} {{$promocion->tipoDuracion}}</b></p>
-                    <p class="text-orange"><b>Desde:{{$membresia->fechaInicio}} hasta <span id="Membresia_hasta">{{$membresia->fechaFin}}</span></b></p>
+                    <p class="text-orange"><b>Desde: {{fecha_peru($membresia->fechaInicio)}} hasta <span id="Membresia_hasta">{{fecha_peru($membresia->fechaFin)}}</span></b></p>
                 @endforeach
             </div>
         </div>

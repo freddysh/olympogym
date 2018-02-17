@@ -1,3 +1,9 @@
+@php
+    function fecha_peru($fecha){
+    $fecha=explode('-',$fecha);
+    return $fecha[2].'-'.$fecha[1].'-'.$fecha[0];
+    }
+@endphp
 @extends('partial.default')
 @section('menu')
     <?php
@@ -243,7 +249,7 @@
                                 </a>
                             </div>
                         </td>
-                        <td>{{$membresia->fechaInicio}} - {{$membresia->fechaFin}}</td>
+                        <td>{{fecha_peru($membresia->fechaInicio)}} - {{fecha_peru($membresia->fechaFin)}}</td>
                         <td>
                             <a href="{{route('rpt_asistencia_path',$membresia->id)}}" class="text-blue">
                                 <i class="glyphicon glyphicon-print"></i>

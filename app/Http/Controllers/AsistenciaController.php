@@ -57,35 +57,31 @@ class AsistenciaController extends Controller
                             $mensaje = '';
                             return view('mensaje.rpt-asistencia', ['membresias' => $membresia, 'promociones' => $promocion, 'fecha' => $fecha, 'hora' => $hora, 'tipomensaje' => $tipomensaje, 'mensaje' => $mensaje]);
                         }
-                        else if($membresi->estado==2){
+                        elseif($membresi->estado==2){
                             $hoy=date("Y-m-d");
                             $congelado=Membresia::with(['congelados'=>function($query) use ($hoy) {
                                 $query->where('desde', '<=', $hoy)
                                     ->where('hasta', '>=', $hoy);
                             }])->get();
                             $promocion = Promocion::where('id', $membresi->promocion_id)->get();
-                            foreach ($congelado as $value) {
-                            //dd(count($value->congelados));
-                                if(count($value->congelados)>0){
-                                //dd($congelado);
+                            if(count($congelado)>0){
                                 $tipomensaje = '2';
                                 $mensaje = 'El cliente con dni:  tiene su membresia congelada';
-                                return view('mensaje.rpt-asistencia-congelado', ['congelado'=>$congelado,'membresias' => $membresia, 'promociones' => $promocion, 'fecha' => $fecha, 'hora' => $hora, 'tipomensaje' => $tipomensaje, 'mensaje' => $mensaje]);
-                                }
-                                else{
-                                $promocion = Promocion::where('id', $membresi->promocion_id)->get();
-                            $asistencia = new Asistencia();
-                            $asistencia->cliente_id = $membresi->cliente_id;
-                            $asistencia->fecha = $fecha;
-                            $asistencia->hora = $hora;
-                            $asistencia->estado = 1;
-                            $asistencia->membresia_id = $membresi->id;
-                            $asistencia->save();
-                            $tipomensaje = '1';
-                            $mensaje = '';
-                            return view('mensaje.rpt-asistencia', ['membresias' => $membresia, 'promociones' => $promocion, 'fecha' => $fecha, 'hora' => $hora, 'tipomensaje' => $tipomensaje, 'mensaje' => $mensaje]);
-                                }
+                            return view('mensaje.rpt-asistencia-congelado', ['congelado'=>$congelado,'membresias' => $membresia, 'promociones' => $promocion, 'fecha' => $fecha, 'hora' => $hora, 'tipomensaje' => $tipomensaje, 'mensaje' => $mensaje]);
                             }
+                            else{
+                                $promocion = Promocion::where('id', $membresi->promocion_id)->get();
+                                $asistencia = new Asistencia();
+                                $asistencia->cliente_id = $membresi->cliente_id;
+                                $asistencia->fecha = $fecha;
+                                $asistencia->hora = $hora;
+                                $asistencia->estado = 1;
+                                $asistencia->membresia_id = $membresi->id;
+                                $asistencia->save();
+                                $tipomensaje = '1';
+                                $mensaje = '';
+                                return view('mensaje.rpt-asistencia', ['membresias' => $membresia, 'promociones' => $promocion, 'fecha' => $fecha, 'hora' => $hora, 'tipomensaje' => $tipomensaje, 'mensaje' => $mensaje]);
+                                }
                         }
                     }
                 } else{

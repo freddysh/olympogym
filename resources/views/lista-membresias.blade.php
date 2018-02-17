@@ -235,7 +235,11 @@
                     <tr id="membre_{{$membresia->id}}">
                         <td>{{$membresia->cliente->dni}} {{$membresia->cliente->nombres}} {{$membresia->cliente->apellidos}}</td>
                         <td>{{$membresia->user->name}} {{$membresia->user->apellidos}}</td>
-                        <td>{{$membresia->promocion->titulo}}</td>
+                        <td>
+                            @foreach($promociones->where('id',$membresia->promocion_id) as $promo_)
+                                {{$promo_->titulo}}
+                            @endforeach
+                        </td>
                         <td>{{$membresia->fechaInicio}}</td>
                         <td>{{$membresia->fechaFin}}</td>
                         <td>{{$membresia->total}}</td>
@@ -248,7 +252,7 @@
                         </td>
                         <td>
                             <a href="{{route('editar_membresia_get_path',$membresia->id)}}"><i class="text-yellow fa fa-edit fa-2x"></i></a>
-                            {{--<a href="#!"><i class="text-red glyphicon glyphicon-trash fa-2x"></i></a>--}}
+                            <a href="#!"><i class="text-red glyphicon glyphicon-trash fa-2x"></i></a>
                             <a onclick="eliminar_membresia({{$membresia->id}})"><i class="text-red glyphicon glyphicon-trash fa-2x"></i></a>
 
                         </td>

@@ -178,4 +178,31 @@ class ClienteController extends Controller
         $pdf =\PDF::loadView('reporte-pdf.clientes',['clientes'=>$clientes]);
         return $pdf->download('rpt_cliente'.date("d_m_Y").'.pdf');
     }
+    public function editar_cliente_ajax(Request $request){
+        try{
+            $id=$request->input('id');
+            $dni=$request->input('dni');
+            $nombres=strtoupper($request->input('nombres'));
+            $apellidos=strtoupper($request->input('apellidos'));
+            $direccion=$request->input('direccion');
+            $telefono=$request->input('telefono');
+            $email=$request->input('email');
+
+            $cliente=Cliente::FindOrFail($id);
+            $cliente->dni=$dni;
+            $cliente->nombres=$nombres;
+            $cliente->apellidos=$apellidos;
+            $cliente->direccion=$direccion;
+            $cliente->telefono=$telefono;
+            $cliente->email=$email;
+            $cliente->estado='1';
+            if($cliente->save())
+                return 1;
+            else
+                return 0;
+        }
+        catch(Exception $e){
+            return 0;
+        }
+    }
 }

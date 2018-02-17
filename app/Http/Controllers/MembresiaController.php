@@ -211,8 +211,9 @@ class MembresiaController extends Controller
         $miembros1 = count($cliente1);
         $membresias1 = Membresia::get();
         $membresias1 = count($membresias1);
+        $promociones=Promocion::get();
         $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
-        return view('lista-membresias', ['membresias2' => $membresias, 'miembros' => $miembros1, 'membresias' => $membresias1,'privilegios'=>$privilegio]);
+        return view('lista-membresias', ['membresias2' => $membresias, 'miembros' => $miembros1, 'membresias' => $membresias1,'privilegios'=>$privilegio,'promociones'=>$promociones]);
     }
 
     public function cambiar_estado_cliente(Request $request)
@@ -258,8 +259,9 @@ class MembresiaController extends Controller
 
     public function rpt_asistencia($id)
     {
-        $membresia = Membresia::with('cliente', 'promocion', 'asistemacias')->where('id', $id)->get();
-        $pdf = \PDF::loadView('reporte-pdf.asistencia', ['membresia' => $membresia]);
+        $promociones=Promocion::get();
+        $membresia = Membresia::where('id', $id)->get();
+        $pdf = \PDF::loadView('reporte-pdf.asistencia', ['membresia' => $membresia,'promociones'=>$promociones]);
         return $pdf->download('rpt_asistencia' . '_' . $id . '_' . date("d_m_Y") . '.pdf');
     }
 
@@ -354,8 +356,13 @@ class MembresiaController extends Controller
     public function congelar_membresia_delete(Request $request){
         $id=$request->input('id');
         $congelado=Congelado::FindOrFail($id);
-        if($congelado->delete()>0)
+        $membresia=Membresia::FindOrFail($congelado->membresia_id);
+
+        if($congelado->delete()>0){
+            $membresia->estado=1;
+            $membresia->save();
             return 1;
+        }
         else
             return 0;
 

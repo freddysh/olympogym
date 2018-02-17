@@ -19,3 +19,9 @@
     color: white;
     background: #00a7d0;
 }
+.bg-aviso{
+    text-align: center;
+    background: #00dd00;
+    color: #000;
+    font-weight: bold;
+}
