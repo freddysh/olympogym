@@ -9,8 +9,10 @@ use App\Cliente;
 use App\Cuota;
 use App\Privilegio;
 use App\Promocion;
+use Carbon\Carbon;
 
 use Illuminate\Http\Request;
+use Symfony\Component\VarDumper\Dumper\DataDumperInterface;
 
 class MembresiaController extends Controller
 {
@@ -432,5 +434,59 @@ class MembresiaController extends Controller
         else
             return 0;
 
+    }
+    public function ctas_vencimiento(){
+        $periodo=10;
+        $dt = Carbon::now();
+        $dt->subHours(5);
+        $fecha_actual=$dt->toDateString();
+        $dt->addDay($periodo);
+        $fecha=$dt->toDateString();
+        $membresia2=Membresia::get();
+        $cliente=Cliente::get();
+        $miembros=count($cliente);
+        $membresias=Membresia::get();
+        $membresias=count($membresias);
+        $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
+        $promociones=Promocion::get();
+        return view('reporte.cuentas',['miembros'=>$miembros,'membresias'=>$membresias,'privilegios'=>$privilegio,
+            'membresia2'=>$membresia2,'periodo'=>$periodo,'fecha_actual'=>$fecha_actual,'fecha'=>$fecha,'promociones'=>$promociones]);
+    }
+    public function lista_cuentas(Request $request){
+        $periodo=$request->input('periodo');
+        $dt = Carbon::now();
+        $dt->subHours(5);
+        $fecha_actual=$dt->toDateString();
+        $dt->addDay($periodo);
+        $fecha=$dt->toDateString();
+        $membresia2=Membresia::get();
+        $cliente=Cliente::get();
+        $miembros=count($cliente);
+        $membresias=Membresia::get();
+        $membresias=count($membresias);
+        $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
+        $promociones=Promocion::get();
+        return view('reporte.cuentas',['miembros'=>$miembros,'membresias'=>$membresias,'privilegios'=>$privilegio,
+            'membresia2'=>$membresia2,'periodo'=>$periodo,'fecha_actual'=>$fecha_actual,'fecha'=>$fecha,'promociones'=>$promociones]);
+    }
+    public function rpt_cuentas($id)
+    {
+        $periodo=$id;
+        $dt = Carbon::now();
+        $dt->subHours(5);
+        $fecha_actual=$dt->toDateString();
+        $dt->addDay($periodo);
+        $fecha=$dt->toDateString();
+        $membresia2=Membresia::get();
+        $cliente=Cliente::get();
+        $miembros=count($cliente);
+        $membresias=Membresia::get();
+        $membresias=count($membresias);
+        $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
+        $promociones=Promocion::get();
+
+        $pdf = \PDF::loadView('reporte-pdf.cuentas',['miembros'=>$miembros,'membresias'=>$membresias,'privilegios'=>$privilegio,
+            'membresia2'=>$membresia2,'periodo'=>$periodo,'fecha_actual'=>$fecha_actual,'fecha'=>$fecha,'promociones'=>$promociones]);
+        return $pdf->download('rpt_cuentas_por_cobrar' . '_' . $id . '_' . date("d_m_Y") . '.pdf');
     }
 }

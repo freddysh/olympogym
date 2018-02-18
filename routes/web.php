@@ -203,6 +203,10 @@ Route::group(['middleware'=>'admin'],function(){
         'uses' => 'MembresiaController@ingresos',
         'as' => 'reporte_ingresos_path',
     ]);
+    Route::get('rpt-ctas-vencimiento', [
+        'uses' => 'MembresiaController@ctas_vencimiento',
+        'as' => 'reporte_cuentas_por_vencer_path',
+    ]);
     Route::post('rpt-ingresos', [
         'uses' => 'MembresiaController@lista_ingresos',
         'as' => 'listar_ingresos_path',
@@ -256,6 +260,14 @@ Route::group(['middleware'=>'admin'],function(){
     Route::post('/editar-cliente', [
         'uses' => 'ClienteController@editar_cliente_ajax',
         'as' => 'editar_cliente_ajax_path',
+    ]);
+    Route::post('/lista-cuentas', [
+        'uses' => 'MembresiaController@lista_cuentas',
+        'as' => 'lista_cuentas_path',
+    ]);
+    Route::get('rpt-cuentas/{id}', [
+        'uses' => 'MembresiaController@rpt_cuentas',
+        'as' => 'rpt-cuentas_path',
     ]);
 });
 /*-- Fin Metodos para logeo de usuarios del sistema*/

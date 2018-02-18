@@ -328,7 +328,8 @@
             </form>
             <!-- /.search form -->
             <!-- sidebar menu: : style can be found in sidebar.less -->
-            @yield('menu')
+            {{--@yield('menu')--}}
+            @include('menu.menu-lateral')
         </section>
         <!-- /.sidebar -->
     </aside>
@@ -426,9 +427,9 @@
 
     <footer class="main-footer">
         <div class="pull-right hidden-xs">
-            <b>Version</b> 0.0.1
+            <b>Version</b> 1.0
         </div>
-        <strong>Copyright &copy; 2017 <a href="http://dominio.com">Yo mismo</a>.</strong> All rights
+        <strong>Copyright &copy; 2017 <a href="http://dominio.com"></a>.</strong> All rights
         reserved.
     </footer>
 
