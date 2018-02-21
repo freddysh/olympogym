@@ -12,6 +12,7 @@ use App\Promocion;
 use Carbon\Carbon;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Symfony\Component\VarDumper\Dumper\DataDumperInterface;
 
 class MembresiaController extends Controller
@@ -251,6 +252,35 @@ class MembresiaController extends Controller
 //        dd($privilegio);
         return view('reporte.membresias', ['miembros' => $miembros1, 'membresias' => $membresias1, 'membresiass' => $membresias,'privilegios'=>$privilegio,'promociones'=>$promociones]);
     }
+    public function asistencia_view($id)
+    {
+        $promociones=Promocion::get();
+        $membresia = Membresia::where('id', $id)->get();
+
+        $cliente=Cliente::get();
+        $miembros=count($cliente);
+        $membresias=Membresia::get();
+        $membresias=count($membresias);
+        $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
+        return view('view.asistencia',['miembros'=>$miembros,'membresias'=>$membresias,'privilegios'=>$privilegio,'id'=>$id,'promociones'=>$promociones,'membresia'=>$membresia]);
+//
+//        return view('reporte.asistencia', ['membresia' => $membresia,'promociones'=>$promociones]);
+    }
+    public function asistencia_view_get($id)
+    {
+        $membresia =DB::table('asistencia')
+            ->select('id','hora as title','fecha as start','fecha as end')
+            ->where('membresia_id',$id)->get()->toArray();
+
+//        $membresia = Membresia::where('id', $id)->get();
+//        $arreglo=array();
+//        foreach($membresia as $membresia_){
+//            foreach($membresia->asistemacias as $asistencia){
+//                $arreglo[]=$asistencia->id.'';
+//            }
+//        }
+        return response()->json($membresia);
+    }
 
     public function rpt_membresia($id)
     {
@@ -263,7 +293,8 @@ class MembresiaController extends Controller
     {
         $promociones=Promocion::get();
         $membresia = Membresia::where('id', $id)->get();
-        $pdf = \PDF::loadView('reporte-pdf.asistencia', ['membresia' => $membresia,'promociones'=>$promociones]);
+//        return view('reporte-pdf.asistencia', ['membresia' => $membresia,'promociones'=>$promociones,'id'=>$id]);
+        $pdf = \PDF::loadView('reporte-pdf.asistencia', ['membresia' => $membresia,'promociones'=>$promociones,'id'=>$id]);
         return $pdf->download('rpt_asistencia' . '_' . $id . '_' . date("d_m_Y") . '.pdf');
     }
 

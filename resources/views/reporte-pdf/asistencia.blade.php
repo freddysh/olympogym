@@ -43,6 +43,7 @@ return $fecha[2].'-'.$fecha[1].'-'.$fecha[0];
           $pdf->page_text(765, 550, "Pagina {PAGE_NUM} de {PAGE_COUNT}", $font, 9, array(0, 0, 0));
         }
     </script>
+    <link href="{{elixir('css/fullcalendar.print.css')}}" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
 <body>
 <div class="row">
@@ -62,6 +63,8 @@ return $fecha[2].'-'.$fecha[1].'-'.$fecha[0];
                     <p for=""><b>Direccion:</b>{{$membresi->cliente->direccion}}</p>
                     <p for=""><b>Telefono:</b>{{$membresi->cliente->telefono}}</p>
                     <p for=""><b>Email:</b>{{$membresi->cliente->email}}</p>
+                    {{csrf_field()}}
+                    <input type="hidden" id="membresia_id" value="{{$id}}">
                 </div>
             </div>
             <div class="row">
@@ -70,37 +73,42 @@ return $fecha[2].'-'.$fecha[1].'-'.$fecha[0];
                     <p for=""><b>Titulo:</b>{{$membresi->promocion->titulo}} {{$membresi->promocion->duracion}} {{$membresi->promocion->tipoDuracion}}</p>
                     <p for=""><b>Descripcion:</b>{{$membresi->promocion->detalle}}</p>
                     <p for=""><b>Total:</b>{{$membresi->total}}</p>
-                    <p for=""><b>Fecha:</b>{{$membresi->fechaInicio}} - {{$membresi->fechaFin}}</p>
+                    <p for=""><b>Fecha:</b>{{fecha_peru($membresi->fechaInicio)}} - {{fecha_peru($membresi->fechaFin)}}</p>
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-12">
-                    <h3>Asistencias</h3>
-                    <table id="example1" class="table table-bordered table-striped">
-                        <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Fecha llegada</th>
-                            <th>Hora llegada</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <?php $i=0;?>
-                        @foreach($membresi->asistemacias as $asistencia)
-                            <?php $i++?>
-                            <tr>
-                                <td>{{$i}}</td>
-                                <td>{{fecha_peru($asistencia->fecha)}}</td>
-                                <td>{{$asistencia->hora}}</td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
+                <div class="col-lg-6">
+                    <div id='calendar'></div>
                 </div>
             </div>
         @endforeach
 
     </div>
 </div>
+<script src="{{asset('js/plugins/jQuery/jquery-2.2.3.min.js')}}"></script>
+<script src="{{asset('js/moment.min.js')}}"></script>
+<script src="{{asset('js/fullcalendar.js')}}"></script>
+<script>
+    $(document).ready(function() {
+        var evt=[];
+        $.ajax({
+            url:'/membresia/asistencia-get/'+$('#membresia_id').val(),
+            type:'GET',
+            dataType:'JSON',
+            async:false
+        }).done(function(r){
+            evt=r;
+        });
+        $('#calendar').fullCalendar({
+            header:{
+                left:'prev,next today',
+                center:'title',
+                right:'month,basicWeek,basicDay'
+            },
+            eventLimit: true,
+            events:evt
+        })
+    });
+</script>
 </body>
 </html>

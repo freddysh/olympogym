@@ -14,21 +14,39 @@ require('laravel-elixir-vue-2');
  */
 
 elixir((mix) => {
-    // mix.copy('node_modules/sweetalert2/dist/sweetalert.css','resources/assets/css/vendors');
-    // mix.copy('node_modules/sweetalert2/dist/sweetalert2.js','resources/assets/js/vendors');
+    mix.copy('node_modules/fullcalendar/dist/fullcalendar.css','resources/assets/css/vendors');
+mix.copy('node_modules/fullcalendar/dist/fullcalendar.print.css','resources/assets/css/vendors');
+    mix.copy('node_modules/fullcalendar/dist/fullcalendar.js','resources/assets/js/vendors');
+mix.copy('node_modules/fullcalendar/dist/locale/es.js','resources/assets/js/vendors');
+    mix.copy('node_modules/moment/min/moment.min.js','resources/assets/js/vendors');
 mix.styles([
     'vendors/sweetalert2.css',
     'resources/assets/css/vendors/mis_estilos.css',
+    // 'resources/assets/css/vendors/fullcalendar.css',
 ], 'public/css/stilos.css');
+mix.styles([
+    'resources/assets/css/vendors/fullcalendar.css'
+], 'public/css/fullcalendar.css');
+mix.styles([
+    'resources/assets/css/vendors/fullcalendar.print.css'
+], 'public/css/fullcalendar.print.css');
 mix.scripts([
     'vendors/sweetalert2.js',
 ], 'public/js/funciones.js');
+mix.scripts([
+    'resources/assets/js/vendors/moment.min.js'
+], 'public/js/moment.min.js');
+mix.scripts([
+    'resources/assets/js/vendors/fullcalendar.js',
+    'resources/assets/js/vendors/es.js'
+], 'public/js/fullcalendar.js');
 mix.sass('app.scss')
         // .sass('plugins/jvectormap/jquery-jvectormap-1.2.2.css')
         // .sass('dist/css/AdminLTE.min.css')
     .webpack('app.js'),
     mix.scripts([
         'resources/assets/js/myjava.js',
+        // 'resources/assets/js/vendors/fullcalendar.js'
     ], 'public/js/myjava.js')
     // mix.scripts([
     //     'plugins/jQuery/jquery-2.2.3.min.js',

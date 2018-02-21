@@ -199,6 +199,14 @@ Route::group(['middleware'=>'admin'],function(){
         'uses' => 'MembresiaController@rpt_asistencia',
         'as' => 'rpt_asistencia_path',
     ]);
+    Route::get('membresia/asistencia/{id}', [
+        'uses' => 'MembresiaController@asistencia_view',
+        'as' => 'asistencia_view_path',
+    ]);
+    Route::get('membresia/asistencia-get/{id}', [
+        'uses' => 'MembresiaController@asistencia_view_get',
+        'as' => 'asistencia_view_get_path',
+    ]);
     Route::get('rpt-ingresos', [
         'uses' => 'MembresiaController@ingresos',
         'as' => 'reporte_ingresos_path',

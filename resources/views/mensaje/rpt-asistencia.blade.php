@@ -97,7 +97,6 @@ function fecha_to_string($fecha){
     }
     $anio=$fecha[0];
     return $dia.' de '.$mes.' del '.$anio;
-
 }
 @endphp
 @if($tipomensaje=='1')

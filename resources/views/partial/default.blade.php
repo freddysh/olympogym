@@ -34,7 +34,7 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <link href="{{elixir('css/stilos.css')}}" type="text/css" rel="stylesheet" media="screen,projection"/>
-
+    <link href="{{elixir('css/fullcalendar.css')}}" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -661,6 +661,8 @@
 
 <script src="{{asset('js/funciones.js')}}"></script>
 <script src="{{asset('js/myjava.js')}}"></script>
+<script src="{{asset('js/moment.min.js')}}"></script>
+<script src="{{asset('js/fullcalendar.js')}}"></script>
 <script>
     $(function () {
         $("#example1").DataTable();
@@ -682,6 +684,28 @@
         });
     });
 
+</script>
+<script>
+    $(document).ready(function() {
+        var evt=[];
+        $.ajax({
+            url:'/membresia/asistencia-get/'+$('#membresia_id').val(),
+            type:'GET',
+            dataType:'JSON',
+            async:false
+        }).done(function(r){
+            evt=r;
+        });
+        $('#calendar').fullCalendar({
+            header:{
+                left:'prev,next today',
+                center:'title',
+                right:'month,basicWeek,basicDay'
+            },
+            eventLimit: true,
+            events:evt
+        })
+    });
 </script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 {{--<script src="js/dist/js/pages/dashboard2.js"></script>--}}
