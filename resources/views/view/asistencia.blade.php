@@ -86,7 +86,7 @@
                             </div>
                         </div>
                     @endforeach
-                    {{--<a href="{{route('imprimir_asistencia')}}" class="btn btn-lg btn-warning">Imprimir Asistencia</a>--}}
+                    <button id="print_calendario" class="btn btn-lg btn-warning">Imprimir Asistencia</button>
                 </div>
                 <div class="col-lg-6">
                     <div id='calendar'></div>

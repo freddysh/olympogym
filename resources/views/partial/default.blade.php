@@ -34,7 +34,8 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <link href="{{elixir('css/stilos.css')}}" type="text/css" rel="stylesheet" media="screen,projection"/>
-    <link href="{{elixir('css/fullcalendar.css')}}" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="{{elixir('css/fullcalendar.css')}}" type="text/css" rel="stylesheet"/>
+    <link href="{{elixir('css/fullcalendar.print.css')}}" type="text/css" rel="stylesheet" media="print"/>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -705,6 +706,14 @@
             eventLimit: true,
             events:evt
         })
+        $('#print_calendario').click(function(){
+            // window.print();
+            w=window.open();
+            w.document.write($('#calendar').html());
+            w.print();
+            w.close();
+        });
+
     });
 </script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->

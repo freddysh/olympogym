@@ -796,3 +796,34 @@ function ampliar_membresia() {
         }
     })
 }
+
+
+function editar_cliente_ajax(id){
+    $('#editar_cliente_ajax').submit(function() {
+        // Enviamos el formulario usando AJAX
+        $.ajax({
+            type: 'POST',
+            url: $(this).attr('action'),
+            data: $(this).serialize(),
+            // Mostramos un mensaje con la respuesta de PHP
+            success: function(data) {
+                if(data==1){
+                    $('#dni_b').html($('#dni').val());
+                    $('#nombres_b').html($('#nombres').val()+', '+$('#apellidos').val());
+                    $('#telefono_b').html($('#telefono').val());
+                    $('#email_b').html($('#email').val());
+
+                    $('#result').removeClass('text-danger');
+                    $('#result').addClass('text-success');
+                    $('#result').html('Datos guardado Correctamente!');
+                }
+                else{
+                    $('#result').removeClass('text-success');
+                    $('#result').addClass('text-danger');
+                    $('#result').html('Error al guardar los datos, intentelo de nuevo');
+                }
+            }
+        })
+        return false;
+    });
+}
