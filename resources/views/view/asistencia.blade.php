@@ -85,8 +85,9 @@
                                 <p for=""><b>Fecha:</b>{{fecha_to_string($membresi->fechaInicio)}} - {{fecha_to_string($membresi->fechaFin)}}</p>
                             </div>
                         </div>
+
+                    <a href="{{route('rpt_asistencia_path',$membresi->id)}}" class="btn btn-lg btn-warning">Imprimir Asistencia</a>
                     @endforeach
-                    <button id="print_calendario" class="btn btn-lg btn-warning">Imprimir Asistencia</button>
                 </div>
                 <div class="col-lg-6">
                     <div id='calendar'></div>

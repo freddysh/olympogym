@@ -1,7 +1,74 @@
 @php
+
 function fecha_peru($fecha){
 $fecha=explode('-',$fecha);
 return $fecha[2].'-'.$fecha[1].'-'.$fecha[0];
+}
+
+function GetCalendario($fecha1,$Asiarray){
+# definimos los valores iniciales para nuestro calendario
+$fecha= new DateTime($fecha1.'-01');
+$month=$fecha->format("n");
+$year=$fecha->format("Y");
+$diaActual=$fecha->format("j");
+# Obtenemos el dia de la semana del primer dia
+# Devuelve 0 para domingo, 6 para sabado
+$diaSemana=date("w",mktime(0,0,0,$month,1,$year))+7;
+# Obtenemos el ultimo dia del mes
+$ultimoDiaMes=date("d",(mktime(0,0,0,$month+1,1,$year)-1));
+
+$meses=array(1=>"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio",
+"Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
+
+
+$Calend='<table class="calendario">'.
+	'<tr><th colspan="7" class="tituloca">'.$meses[$month].' '.$year.'</th></tr>'.
+	'<tr>'.
+		'<th>Lun</th><th>Mar</th><th>Mie</th><th>Jue</th>'.
+		'<th>Vie</th><th>Sab</th><th>Dom</th>'.
+	'</tr>'.
+	'<tr bgcolor="silver">';
+		$last_cell=$diaSemana+$ultimoDiaMes;
+		// hacemos un bucle hasta 42, que es el máximo de valores que puede
+		// haber... 6 columnas de 7 dias
+		for($i=1;$i<=42;$i++)
+		{
+			if($i==$diaSemana)
+			{
+				// determinamos en que dia empieza
+				$day=1;
+			}
+			if($i<$diaSemana || $i>=$last_cell)
+			{
+				// celca vacia
+				$Calend.='<td class="vacio"></td>';
+			}else{
+				// mostramos el dia
+				if(array_key_exists($day,$Asiarray))
+					$Calend.='<td class="hoy">'.$day.'<br><b>Asistio</b><br>'.$Asiarray[$day].'</td>';
+				else
+					$Calend.='<td class="no_asistio">'.$day.'<br><b>No<br>Asistio</b></td>';
+				$day++;
+			}
+			// cuando llega al final de la semana, iniciamos una columna nueva
+			if($i%7==0)
+			{
+				$Calend.='</tr><tr>';
+			}
+		}
+
+	$Calend.='</tr>
+	</table>';
+	return $Calend;
+}
+function exists_asistencia($dia,$mes,$anio){
+$existe='';
+foreach($asistencia1 as $asis){
+    if($asis->fecha==$anio.'-'.$mes.'-'.$dia){
+        $existe=$asis->hora;
+    }
+}
+return $existe;
 }
 @endphp
 <!doctype html>
@@ -30,20 +97,61 @@ return $fecha[2].'-'.$fecha[1].'-'.$fecha[0];
             font-family: Tahoma, Helvetica, Arial;
             text-align: center;
         }
-        th {
-            background-color: #367fa9;
-            color: white;
+
+        .calendario {
+            font-family:Arial;
+            font-size:12px;
+            border: 1px solid #cdcdcd;
         }
-        tr:nth-child(even) {background-color: #f2f2f2}
+        .calendario .tituloca {
+            font-size: 15px;
+            text-align:center;
+            padding:5px 10px;
+            background:#003366;
+            color:#fff;
+            font-weight:bold;
+        }
+        .calendario th {
+            background:#006699;
+            color:#fff;
+            width:50px;
+            text-align: center;
+        }
+        .calendario td {
+            text-align:center;
+            /*padding:2px 2px;*/
+            background-color: rgba(255, 255, 255, 0.13);
+            /*border: 1px solid #dbdbdb;*/
+        }
+        .calendario .hoy {
+            width: 50px;
+            height: 40px;
+            background-color: #0d85ec52;
+        }
+        .calendario .no_asistio {
+            width: 50px;
+            height: 40px;
+            background-color: #eaeaea;
+        }
+        .calendario .titulo {
+            text-align: center;
+            font-size: 15px;
+        }
+        .calendario .vacio {
+            width: 0px;
+            height: 0px;
+        }
+        .contenedor-fila-dato{
+            width: 390px;
+            height: auto;
+            float: left;
+        }
+        .padre{
+            text-align: center;
+            margin: 0px;
+            padding: 0px;
+        }
     </style>
-    <script type="text/php">
-      if (isset($pdf))
-        {
-          $font = Font_Metrics::get_font("Arial", "bold");
-          $pdf->page_text(765, 550, "Pagina {PAGE_NUM} de {PAGE_COUNT}", $font, 9, array(0, 0, 0));
-        }
-    </script>
-    <link href="{{elixir('css/fullcalendar.print.css')}}" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
 <body>
 <div class="row">
@@ -53,62 +161,90 @@ return $fecha[2].'-'.$fecha[1].'-'.$fecha[0];
 
         <?php $i=0;?>
         @foreach($membresia as $membresi)
-            <?php $i++?>
             <div class="row">
                 <div class="col-lg-6">
                     <h3>Datos del cliente</h3>
-                    <p for=""><b>Dni:</b>{{$membresi->cliente->dni}}</p>
-                    <p for=""><b>Nombres:</b>{{$membresi->cliente->nombres}}</p>
-                    <p for=""><b>Apellidos:</b>{{$membresi->cliente->apellidos}}</p>
-                    <p for=""><b>Direccion:</b>{{$membresi->cliente->direccion}}</p>
-                    <p for=""><b>Telefono:</b>{{$membresi->cliente->telefono}}</p>
-                    <p for=""><b>Email:</b>{{$membresi->cliente->email}}</p>
+                    <p for=""><b>Dni: </b>{{$membresi->cliente->dni}}</p>
+                    <p for=""><b>Nombres: </b>{{$membresi->cliente->nombres}}</p>
+                    <p for=""><b>Apellidos: </b>{{$membresi->cliente->apellidos}}</p>
+                    <p for=""><b>Direccion: </b>{{$membresi->cliente->direccion}}</p>
+                    <p for=""><b>Telefono: </b>{{$membresi->cliente->telefono}}</p>
+                    <p for=""><b>Email: </b>{{$membresi->cliente->email}}</p>
                     {{csrf_field()}}
                     <input type="hidden" id="membresia_id" value="{{$id}}">
                 </div>
-            </div>
-            <div class="row">
                 <div class="col-lg-6">
-                    <h3>Datos de la memebresia</h3>
-                    <p for=""><b>Titulo:</b>{{$membresi->promocion->titulo}} {{$membresi->promocion->duracion}} {{$membresi->promocion->tipoDuracion}}</p>
-                    <p for=""><b>Descripcion:</b>{{$membresi->promocion->detalle}}</p>
-                    <p for=""><b>Total:</b>{{$membresi->total}}</p>
-                    <p for=""><b>Fecha:</b>{{fecha_peru($membresi->fechaInicio)}} - {{fecha_peru($membresi->fechaFin)}}</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-6">
-                    <div id='calendar'></div>
+                    <h3>Datos de la membresia</h3>
+                    <p for=""><b>Titulo: </b>{{$membresi->promocion->titulo}} {{$membresi->promocion->duracion}} {{$membresi->promocion->tipoDuracion}}</p>
+                    <p for=""><b>Descripcion: </b>{{$membresi->promocion->detalle}}</p>
+                    <p for=""><b>Total: </b>{{$membresi->total}}</p>
+                    <p for=""><b>Fecha: </b>Desde{{fecha_peru($membresi->fechaInicio)}} - Hasta {{fecha_peru($membresi->fechaFin)}}</p>
+                    <h3>Calendario de asistencia</h3>
                 </div>
             </div>
         @endforeach
-
     </div>
 </div>
-<script src="{{asset('js/plugins/jQuery/jquery-2.2.3.min.js')}}"></script>
-<script src="{{asset('js/moment.min.js')}}"></script>
-<script src="{{asset('js/fullcalendar.js')}}"></script>
-<script>
-    $(document).ready(function() {
-        var evt=[];
-        $.ajax({
-            url:'/membresia/asistencia-get/'+$('#membresia_id').val(),
-            type:'GET',
-            dataType:'JSON',
-            async:false
-        }).done(function(r){
-            evt=r;
-        });
-        $('#calendar').fullCalendar({
-            header:{
-                left:'prev,next today',
-                center:'title',
-                right:'month,basicWeek,basicDay'
-            },
-            eventLimit: true,
-            events:evt
-        })
-    });
-</script>
+<div class="padre">
+<table class="padre">
+<tr>
+@php
+$i=0;
+@endphp
+@foreach($arrayAsistMes as $data)
+    @php
+        $i++;
+        $fechaMes=explode('-',$data);
+        $asistArray=[];
+    @endphp
+    @foreach($asistencia1 as $asist)
+        @php
+            $fechaAsistencia=explode('-',$asist->fecha);
+            $dia=$fechaAsistencia[2];
+            switch ($dia){
+            case '01':
+                $dia=1;
+                break;
+            case '02':
+                $dia=2;
+                break;
+            case '03':
+                $dia=3;
+                break;
+            case '04':
+                $dia=4;
+                break;
+            case '05':
+                $dia=5;
+                break;
+            case '06':
+                $dia=6;
+                break;
+            case '07':
+                $dia=7;
+                break;
+            case '08':
+                $dia=8;
+                break;
+            case '09':
+                $dia=9;
+                break;
+            }
+        @endphp
+        @if($fechaAsistencia[0]==$fechaMes[0] && $fechaAsistencia[1]==$fechaMes[1] )
+            @php
+                $asistArray[$dia]=$asist->hora;
+            @endphp
+        @endif
+    @endforeach
+    <td style="vertical-align: top">
+    {!! GetCalendario($data,$asistArray) !!}
+    </td>
+    @if(($i%2)==0)
+    </tr><tr>
+    @endif
+@endforeach
+</table>
+</div>
 </body>
 </html>

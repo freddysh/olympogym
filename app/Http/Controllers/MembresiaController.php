@@ -293,8 +293,19 @@ class MembresiaController extends Controller
     {
         $promociones=Promocion::get();
         $membresia = Membresia::where('id', $id)->get();
-//        return view('reporte-pdf.asistencia', ['membresia' => $membresia,'promociones'=>$promociones,'id'=>$id]);
-        $pdf = \PDF::loadView('reporte-pdf.asistencia', ['membresia' => $membresia,'promociones'=>$promociones,'id'=>$id]);
+        $asistencia1=Asistencia::where('membresia_id',$id)->get();
+
+        $arrayAsistMes=[];
+        foreach($asistencia1 as $memb){
+            $fecha=explode('-',$memb->fecha);
+            $fecha=$fecha[0].'-'.$fecha[1];
+            if(!in_array($fecha,$arrayAsistMes))
+                $arrayAsistMes[]=$fecha;
+        }
+//        dd($arrayAsistMes);
+//        return view('reporte-pdf.asistencia', ['membresia' => $membresia,'promociones'=>$promociones,'id'=>$id,'arrayAsistMes'=>$arrayAsistMes,'asistencia1'=>$asistencia1]);
+        $pdf = \PDF::loadView('reporte-pdf.asistencia', ['membresia' => $membresia,'promociones'=>$promociones,'id'=>$id,'arrayAsistMes'=>$arrayAsistMes,'asistencia1'=>$asistencia1]);
+        $pdf->setPaper('A4', 'landscape');
         return $pdf->download('rpt_asistencia' . '_' . $id . '_' . date("d_m_Y") . '.pdf');
     }
 
