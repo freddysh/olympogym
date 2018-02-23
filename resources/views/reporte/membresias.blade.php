@@ -51,7 +51,7 @@
                             <a href="{{route('asistencia_view_path',$membresia->id)}}" class="text-success">
                                 <i class="fa fa-eye fa-2x"></i>
                             </a>
-                            <a href="{{route('rpt_asistencia_path',$membresia->id)}}" class="text-blue">
+                            <a href="{{route('rpt_asistencia_path',$membresia->id)}}" class="text-blue hide">
                                 <i class="glyphicon glyphicon-print  fa-2x"></i>
                             </a>
                         </td>

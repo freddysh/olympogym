@@ -102,11 +102,12 @@ return $existe;
             font-family:Arial;
             font-size:12px;
             border: 1px solid #cdcdcd;
+            text-align: center;
         }
         .calendario .tituloca {
             font-size: 15px;
             text-align:center;
-            padding:5px 10px;
+            padding:1px 5px;
             background:#003366;
             color:#fff;
             font-weight:bold;
@@ -125,12 +126,12 @@ return $existe;
         }
         .calendario .hoy {
             width: 50px;
-            height: 40px;
+            height: 35px;
             background-color: #0d85ec52;
         }
         .calendario .no_asistio {
             width: 50px;
-            height: 40px;
+            height: 35px;
             background-color: #eaeaea;
         }
         .calendario .titulo {
@@ -147,9 +148,10 @@ return $existe;
             float: left;
         }
         .padre{
-            text-align: center;
+            text-align: center !important;
             margin: 0px;
             padding: 0px;
+            width: 100%;
         }
     </style>
 </head>
@@ -185,8 +187,8 @@ return $existe;
         @endforeach
     </div>
 </div>
-<div class="padre">
-<table class="padre">
+<div>
+<table>
 <tr>
 @php
 $i=0;
