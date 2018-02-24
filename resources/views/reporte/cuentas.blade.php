@@ -80,12 +80,12 @@
                         <tfoot>
                         <tr>
                             <th>#</th>
-                            <th>Dni</th>
-                            <th>Nombres</th>
-                            <th>Direccion</th>
-                            <th>Telefono</th>
-                            <th>Email</th>
-                            <th>Estado</th>
+                            <th>Cliente</th>
+                            <th>Cuenta</th>
+                            <th>Fecha Contrato</th>
+                            <th>Fecha a cancelar</th>
+                            <th>Total</th>
+                            <th>Deuda a pagar</th>
                         </tr>
                         </tfoot>
                     </table>

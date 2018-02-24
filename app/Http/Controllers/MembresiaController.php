@@ -30,7 +30,18 @@ class MembresiaController extends Controller
         $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
         return view('nueva-membresia', ['mensaje' => $mensaje, 'promociones' => $promociones, 'tipomensaje' => $tipomensaje, 'miembros' => $miembros, 'membresias' => $membresias,'privilegios'=>$privilegio]);
     }
-
+    public function membresiarenovar()
+    {
+        $tipomensaje = '2';
+        $mensaje = '';
+        $promociones = Promocion::get();
+        $cliente = Cliente::get();
+        $miembros = count($cliente);
+        $membresias = Membresia::get();
+        $membresias = count($membresias);
+        $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
+        return view('renovar-membresia', ['mensaje' => $mensaje, 'promociones' => $promociones, 'tipomensaje' => $tipomensaje, 'miembros' => $miembros, 'membresias' => $membresias,'privilegios'=>$privilegio]);
+    }
     public function editarmembresia(Request $request, $id)
     {
         $tipomensaje = '2';
@@ -115,7 +126,82 @@ class MembresiaController extends Controller
 //            return view('nueva-membresia',['mensaje'=>$mensaje,'promociones'=>$promociones,'tipomensaje'=>$tipomensaje]);
         }
     }
+    public function agregar_membresiarenovar(Request $request)
+    {
+        try {
+            $cliente1 = Cliente::get();
+            $miembros1 = count($cliente1);
+            $membresias1 = Membresia::get();
+            $membresias1 = count($membresias1);
 
+            $dni = explode(' ', $request->input('term'));
+            $promocion = explode('_', $request->input('promocion'));
+            $fechaInicio = $request->input('fechaInicio');
+            $fechaFin = $request->input('fechafin');
+            $total = $request->input('total');
+
+            $estado = explode('[]', $request->input('estado'));
+            $cuota_fecha = explode('[]', $request->input('cuota_fecha'));
+            $cuota_precio = explode('[]', $request->input('cuota_precio'));
+
+            $cliente = Cliente::where('dni', $dni[0])->get();
+            $cliente1 = '';
+            foreach ($cliente as $cli) {
+                $cliente1 = $cli;
+            }
+            if (count($cliente) > 0) {
+
+                $membresia_standBy=Membresia::where('cliente_id',$cliente1->id)->get();
+                foreach ($membresia_standBy as $membresia_standBy_){
+                    $temp=Membresia::findOrFail($membresia_standBy_->id);
+                    $temp->estado=0;
+                    $temp->save();
+                }
+
+                $membresia = new Membresia();
+                $membresia->user_id = auth()->guard('admin')->user()->id;
+                $membresia->cliente_id = $cliente1->id;
+                $membresia->promocion_id = $promocion[0];
+                $membresia->fechaInicio = $fechaInicio;
+                $membresia->fechaFin = $fechaFin;
+                $membresia->total = $total;
+                $membresia->estado = '1';
+                if ($membresia->save()) {
+                    $i = 0;
+//                dd($estado);
+                    foreach ($estado as $dato) {
+                        $cuota = new Cuota();
+                        $cuota->membresia_id = $membresia->id;
+                        $cuota->user_id = auth()->guard('admin')->user()->id;;
+                        $cuota->fechaCancelacion = $cuota_fecha[$i];
+                        $cuota->monto = $cuota_precio[$i];
+                        $cuota->fechaQCancelo = date("Y-m-d");
+                        $cuota->estado = $dato;
+                        $cuota->save();
+                        $i++;
+                    }
+                }
+                $tipomensaje = '1';
+                $mensaje = 'Se guardo la membresia.';
+//            $promociones=Promocion::get();
+                return $tipomensaje . '_' . $mensaje.'_'.$membresia->id;
+//            return view('nueva-membresia',['mensaje'=>$mensaje,'promociones'=>$promociones,'tipomensaje'=>$tipomensaje]);
+            } else {
+                $tipomensaje = '0';
+                $mensaje = 'El cliente no existe.';
+//                $promociones=Promocion::get();
+                return $tipomensaje . '_' . $mensaje.'_0';
+//                return view('nueva-membresia',['mensaje'=>$mensaje,'promociones'=>$promociones,'tipomensaje'=>$tipomensaje]);
+            }
+        } catch (Exception $e) {
+//            return $e;
+            $tipomensaje = '-1';
+            $mensaje = $e;
+//            $promociones=Promocion::get();
+            return $tipomensaje . '_' . $mensaje.'_0';
+//            return view('nueva-membresia',['mensaje'=>$mensaje,'promociones'=>$promociones,'tipomensaje'=>$tipomensaje]);
+        }
+    }
     public function editar_membresia(Request $request)
     {
         try {
@@ -484,7 +570,7 @@ class MembresiaController extends Controller
         $fecha_actual=$dt->toDateString();
         $dt->addDay($periodo);
         $fecha=$dt->toDateString();
-        $membresia2=Membresia::get();
+        $membresia2=Membresia::where('estado','>',0)->get();
         $cliente=Cliente::get();
         $miembros=count($cliente);
         $membresias=Membresia::get();
@@ -494,6 +580,23 @@ class MembresiaController extends Controller
         return view('reporte.cuentas',['miembros'=>$miembros,'membresias'=>$membresias,'privilegios'=>$privilegio,
             'membresia2'=>$membresia2,'periodo'=>$periodo,'fecha_actual'=>$fecha_actual,'fecha'=>$fecha,'promociones'=>$promociones]);
     }
+    public function membresias_vencimiento(){
+        $periodo=10;
+        $dt = Carbon::now();
+        $dt->subHours(5);
+        $fecha_actual=$dt->toDateString();
+        $dt->addDay($periodo);
+        $fecha=$dt->toDateString();
+        $membresia2=Membresia::get();
+        $cliente=Cliente::get();
+        $miembros=count($cliente);
+        $membresias=Membresia::get();
+        $membresias=count($membresias);
+        $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
+        $promociones=Promocion::get();
+        return view('reporte.membresias-vencimiento',['miembros'=>$miembros,'membresias'=>$membresias,'privilegios'=>$privilegio,
+            'membresia2'=>$membresia2,'periodo'=>$periodo,'fecha_actual'=>$fecha_actual,'fecha'=>$fecha,'promociones'=>$promociones]);
+    }
     public function lista_cuentas(Request $request){
         $periodo=$request->input('periodo');
         $dt = Carbon::now();
@@ -501,7 +604,7 @@ class MembresiaController extends Controller
         $fecha_actual=$dt->toDateString();
         $dt->addDay($periodo);
         $fecha=$dt->toDateString();
-        $membresia2=Membresia::get();
+        $membresia2=Membresia::where('estado','>',0)->get();
         $cliente=Cliente::get();
         $miembros=count($cliente);
         $membresias=Membresia::get();
@@ -519,7 +622,7 @@ class MembresiaController extends Controller
         $fecha_actual=$dt->toDateString();
         $dt->addDay($periodo);
         $fecha=$dt->toDateString();
-        $membresia2=Membresia::get();
+        $membresia2=Membresia::where('estado','>',0)->get();
         $cliente=Cliente::get();
         $miembros=count($cliente);
         $membresias=Membresia::get();
@@ -530,5 +633,42 @@ class MembresiaController extends Controller
         $pdf = \PDF::loadView('reporte-pdf.cuentas',['miembros'=>$miembros,'membresias'=>$membresias,'privilegios'=>$privilegio,
             'membresia2'=>$membresia2,'periodo'=>$periodo,'fecha_actual'=>$fecha_actual,'fecha'=>$fecha,'promociones'=>$promociones]);
         return $pdf->download('rpt_cuentas_por_cobrar' . '_' . $id . '_' . date("d_m_Y") . '.pdf');
+    }
+    public function lista_membresias(Request $request){
+        $periodo=$request->input('periodo');
+        $dt = Carbon::now();
+        $dt->subHours(5);
+        $fecha_actual=$dt->toDateString();
+        $dt->addDay($periodo);
+        $fecha=$dt->toDateString();
+        $membresia2=Membresia::get();
+        $cliente=Cliente::get();
+        $miembros=count($cliente);
+        $membresias=Membresia::get();
+        $membresias=count($membresias);
+        $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
+        $promociones=Promocion::get();
+        return view('reporte.membresias',['miembros'=>$miembros,'membresias'=>$membresias,'privilegios'=>$privilegio,
+            'membresia2'=>$membresia2,'periodo'=>$periodo,'fecha_actual'=>$fecha_actual,'fecha'=>$fecha,'promociones'=>$promociones]);
+    }
+    public function rpt_membresias($id)
+    {
+        $periodo=$id;
+        $dt = Carbon::now();
+        $dt->subHours(5);
+        $fecha_actual=$dt->toDateString();
+        $dt->addDay($periodo);
+        $fecha=$dt->toDateString();
+        $membresia2=Membresia::get();
+        $cliente=Cliente::get();
+        $miembros=count($cliente);
+        $membresias=Membresia::get();
+        $membresias=count($membresias);
+        $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
+        $promociones=Promocion::get();
+
+        $pdf = \PDF::loadView('reporte-pdf.membresias',['miembros'=>$miembros,'membresias'=>$membresias,'privilegios'=>$privilegio,
+            'membresia2'=>$membresia2,'periodo'=>$periodo,'fecha_actual'=>$fecha_actual,'fecha'=>$fecha,'promociones'=>$promociones]);
+        return $pdf->download('rpt_membresias_por_cobrar' . '_' . $id . '_' . date("d_m_Y") . '.pdf');
     }
 }

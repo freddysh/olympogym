@@ -15,6 +15,8 @@ $p13='';
 $p14='';
 $p15='';
 $p16='';
+$p17='';
+$p18='';
 
 ?>
 @foreach($privilegios as $privilegio)
@@ -42,6 +44,9 @@ $p16='';
     @if($privilegio->nombre=='nueva-membresia')
         <?php $p8='1'?>
     @endif
+    @if($privilegio->nombre=='renovar-membresia')
+        <?php $p18='1'?>
+    @endif
     @if($privilegio->nombre=='lista-membresia')
         <?php $p9='1'?>
     @endif
@@ -65,6 +70,9 @@ $p16='';
     @endif
     @if($privilegio->nombre=='cta-vencidas')
         <?php $p16='1'?>
+    @endif
+    @if($privilegio->nombre=='membresias-vencidas')
+        <?php $p17='1'?>
     @endif
 @endforeach
 <ul class="sidebar-menu">
@@ -146,6 +154,9 @@ $p16='';
             @if($p8=='1')
                 <li><a href="{{route('nueva_membresia_path')}}"><i class="fa fa-circle-o"></i> Nueva</a></li>
             @endif
+            @if($p18=='1')
+                <li><a href="{{route('renovar_membresia_path')}}"><i class="fa fa-circle-o"></i> Renovar membresia</a></li>
+            @endif
             @if($p9=='1')
                 <li><a href="{{route('lista_membresia_path')}}"><i class="fa fa-circle-o"></i> Lista de membresias</a></li>
             @endif
@@ -186,6 +197,10 @@ $p16='';
             @if($p16=='1')
                 <li><a href="{{route('reporte_cuentas_por_vencer_path')}}"><i class="fa fa-circle-o"></i> Cuentas</a></li>
             @endif
+            @if($p17=='1')
+                <li><a href="{{route('reporte_membresias_por_vencer_path')}}"><i class="fa fa-circle-o"></i> Membresias por vencer</a></li>
+            @endif
+
         </ul>
     </li>
     <li class="treeview">

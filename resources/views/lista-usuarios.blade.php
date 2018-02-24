@@ -37,13 +37,13 @@
                         <td>{{$usuario->email}}</td>
                         <td id="usuario_{{$usuario->id}}">
                             @if($usuario->estado==1)
-                                <a href="#!" onclick="cambiar_estado({{$usuario->id}},0)"><i class="fa fa-fw fa-power-off text-green"></i></a>
+                                <a class="btn btn-success" href="#!" onclick="cambiar_estado({{$usuario->id}},0)"><i class="fa fa-fw fa-power-off"></i></a>
                                 @else
-                                <a href="#!" onclick="cambiar_estado({{$usuario->id}},1)"><i class="fa fa-fw fa-power-off text-red"></i></a>
+                                <a class="btn btn-danger" href="#!" onclick="cambiar_estado({{$usuario->id}},1)"><i class="fa fa-fw fa-power-off"></i></a>
                             @endif
                         </td>
                         <td>{{$usuario->tipoPersonal}}</td>
-                        <td><a href="{{route('editar_usuario_get_path',$usuario->id)}}"><i class="fa fa-edit"></i></a></td>
+                        <td><a class="btn btn-warning" href="{{route('editar_usuario_get_path',$usuario->id)}}"><i class="fa fa-edit"></i></a></td>
                     </tr>
                 @endforeach
                 </tbody>

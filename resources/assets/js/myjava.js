@@ -7,10 +7,10 @@ function cambiar_estado(id,estado){
     });
     $.post('/cambiar_estado_usuario', {id: id,estado:estado}, function(markup) {
         if(estado==1){
-            $('#usuario_'+id).html('<a href="" onclick="cambiar_estado('+id+',0)"><i class="fa fa-fw fa-power-off text-green"></i></a>');
+            $('#usuario_'+id).html('<a class="btn btn-success" href="" onclick="cambiar_estado('+id+',0)"><i class="fa fa-fw fa-power-off"></i></a>');
         }
         else{
-            $('#usuario_'+id).html('<a href="" onclick="cambiar_estado('+id+',1)"><i class="fa fa-fw fa-power-off text-red"></i></a>');
+            $('#usuario_'+id).html('<a class="btn btn-danger" href="" onclick="cambiar_estado('+id+',1)"><i class="fa fa-fw fa-power-off"></i></a>');
         }
     }).fail(function (markup) {
 
@@ -259,6 +259,53 @@ function Envia_membresia(){
                 // $("#imprimir").attr("href","{{route('rpt_membresia_path',"+data[2]+")}}");
             }
         });
+
+}
+function Renovar_membresia(){
+    var estado= '';
+    jQuery("input[name='estado']").each(function(){
+        estado+= $(this).val() + '[]';
+    });
+    estado=estado.substring(0, estado.length-2);
+    var cuota_fecha= '';
+    jQuery("input[name='cuota_fecha']").each(function(){
+        cuota_fecha+= $(this).val() + '[]';
+    });
+    cuota_fecha=cuota_fecha.substring(0, cuota_fecha.length-2);
+    var cuota_precio= '';
+    jQuery("input[name='cuota_precio']").each(function(){
+        cuota_precio+= $(this).val() + '[]';
+    });
+    cuota_precio=cuota_precio.substring(0, cuota_precio.length-2);
+
+    console.log('estado:'+estado);
+    console.log('cuota_fecha:'+cuota_fecha);
+    console.log('cuota_precio:'+cuota_precio);
+    $.ajax({
+        type: 'POST',
+        url: '/renovar_membresia',
+        // data: $('#form_plan').serializeArray(),
+        data: $('#Membresia').serialize()+'&&estado='+estado+'&&cuota_fecha='+cuota_fecha+'&&cuota_precio='+cuota_precio,
+        // data:valor,
+        // Mostramos un mensaje con la respuesta de PHP
+        success: function(data){
+            data=data.split('_');
+            // $('#lista_cuotas').html(data);
+            if(data[0]=='-1')
+                $('#mensaje').html('<div class="alert alert-danger" role="alert"> <strong>Error!</strong> '+data[1]+'</div>');
+            else if(data[0]=='0')
+                $('#mensaje').html('<div class="alert alert-warning" role="alert"> <strong>Advertencia!</strong> '+data[1]+'</div>');
+            else if(data[0]=='1')
+                $('#mensaje').html('<div class="alert alert-success" role="alert"> <strong>Bien hecho!</strong> '+data[1]+' <a href="rpt_membresia/'+data[2]+'" class="text-white"><i class="glyphicon glyphicon-print"></i></a></div>');
+            $('#term').val();
+            $('#fechaInicio').val();
+            $('#fechafin').val();
+            $('#total').val();
+            $("#promocion option[value="+ 0 +"]").attr("selected",true);
+            $('#lista_cuotas').html('');
+            // $("#imprimir").attr("href","{{route('rpt_membresia_path',"+data[2]+")}}");
+        }
+    });
 
 }
 var nrocuotas=1;

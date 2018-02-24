@@ -125,11 +125,22 @@ Route::group(['middleware'=>'admin'],function(){
         'uses' => 'MembresiaController@agregar_membresianueva',
         'as' => 'nueva_membresia_path',
     ]);
+    Route::get('renovar-membresia', [
+        'uses' => 'MembresiaController@membresiarenovar',
+        'as' => 'renovar_membresia_path',
+    ]);
+    Route::post('renovar-membresia', [
+        'uses' => 'MembresiaController@agregar_membresiarenovar',
+        'as' => 'renovar_membresia_path',
+    ]);
     Route::post('/nueva_membresia', [
         'uses' => 'MembresiaController@agregar_membresianueva',
         'as' => 'nueva_membresia1_path',
     ]);
-
+    Route::post('/renovar_membresia', [
+        'uses' => 'MembresiaController@agregar_membresiarenovar',
+        'as' => 'renovar_membresia1_path',
+    ]);
     Route::get('editar-membresia/{id}', [
         'uses' => 'MembresiaController@editarmembresia',
         'as' => 'editar_membresia_get_path',
@@ -276,6 +287,18 @@ Route::group(['middleware'=>'admin'],function(){
     Route::get('rpt-cuentas/{id}', [
         'uses' => 'MembresiaController@rpt_cuentas',
         'as' => 'rpt-cuentas_path',
+    ]);
+    Route::get('rpt-membresias-vencimiento', [
+        'uses' => 'MembresiaController@membresias_vencimiento',
+        'as' => 'reporte_membresias_por_vencer_path',
+    ]);
+    Route::post('/lista-membresias', [
+        'uses' => 'MembresiaController@lista_membresias',
+        'as' => 'reporte_membresias_por_vencer2_path',
+    ]);
+    Route::get('rpt-membresias/{id}', [
+        'uses' => 'MembresiaController@rpt_membresias',
+        'as' => 'rpt-membresias_path',
     ]);
 });
 /*-- Fin Metodos para logeo de usuarios del sistema*/

@@ -85,11 +85,13 @@
                     $nueva_promocion=0;
                     $lista_promocion=0;
                     $nueva_membresia=0;
+                    $renovar_membresia=0;
                     $lista_membresia=0;
                     $primero=0;
                     $segundo=0;
                     $tercero=0;
                     $cuarto=0;
+                    $quinto=0;
                     $pagar_cuota=0;
                     $congelar=0;
                     $ampliaciones=0;
@@ -121,6 +123,9 @@
                     @if($privilegio1->nombre=='nueva-membresia')
                         <?php $nueva_membresia=1; ?>
                     @endif
+                    @if($privilegio1->nombre=='renovar-membresia')
+                        <?php $renovar_membresia=1; ?>
+                    @endif
                     @if($privilegio1->nombre=='lista-membresia')
                         <?php $lista_membresia=1; ?>
                     @endif
@@ -138,6 +143,9 @@
                     @endif
                     @if($privilegio1->nombre=='cta-vencidas')
                         <?php $cuarto=1; ?>
+                    @endif
+                    @if($privilegio1->nombre=='membresias-vencidas')
+                        <?php $quinto=1; ?>
                     @endif
                     @if($privilegio1->nombre=='congelar')
                         <?php $congelar=1; ?>
@@ -222,6 +230,7 @@
                             <div class="box-footer no-padding">
                                 <ul class="nav nav-stacked">
                                     <li><a href="#">Nuevo <span class="pull-right badge bg-green"><input type="checkbox" name="privilegio[]" id="privilegio" value="nueva-membresia" @if($nueva_membresia==1)  <?php echo 'checked';?> @endif ></span></a></li>
+                                    <li><a href="#">Renovar membresia <span class="pull-right badge bg-green"><input type="checkbox" name="privilegio[]" id="privilegio" value="renovar-membresia" @if($renovar_membresia==1)  <?php echo 'checked';?> @endif ></span></a></li>
                                     <li><a href="#">Lista de membresias <span class="pull-right badge bg-green"><input type="checkbox" name="privilegio[]" id="privilegio" value="lista-membresia" @if($lista_membresia==1)  <?php echo 'checked';?> @endif ></span></a></li>
                                 </ul>
                             </div>
@@ -256,6 +265,7 @@
                                     <li><a href="#">Membresias <span class="pull-right badge bg-yellow"><input type="checkbox" name="privilegio[]" id="privilegio" value="r-membresias" @if($segundo==1)  <?php echo 'checked';?> @endif ></span></a></li>
                                     <li><a href="#">Ingresos <span class="pull-right badge bg-yellow"><input type="checkbox" name="privilegio[]" id="privilegio" value="r-ingresos" @if($tercero==1)  <?php echo 'checked';?> @endif ></span></a></li>
                                     <li><a href="#">Cuentas <span class="pull-right badge bg-yellow"><input type="checkbox" name="privilegio[]" id="privilegio" value="cta-vencidas" @if($cuarto==1)  <?php echo 'checked';?> @endif ></span></a></li>
+                                    <li><a href="#">Membresias por vencer <span class="pull-right badge bg-yellow"><input type="checkbox" name="privilegio[]" id="privilegio" value="membresias-vencidas" @if($quinto==1)  <?php echo 'checked';?> @endif ></span></a></li>
                                 </ul>
                             </div>
                         </div>

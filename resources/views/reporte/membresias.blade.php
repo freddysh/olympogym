@@ -31,28 +31,48 @@
                 <tbody>
                 <?php $i=0;?>
                 @foreach($membresiass as $membresia)
+                    @php
+                        $color='';
+                        $mensa='';
+                        if($membresia->estado==0){
+                            $color='txt-rojo';
+                            $mensa='Desactivado';
+                        }
+                        if($membresia->estado==1){
+                            $color='txt-verde';
+                            $mensa='Activo';
+                        }
+                        if($membresia->estado==2){
+                            $color='txt-naranjado';
+                            $mensa='Congelado';
+                        }
+                    @endphp
                     <?php $i++?>
                     <tr>
                         <td>{{$i}}</td>
-                        <td>{{$membresia->cliente->dni}} {{$membresia->cliente->nombres}} {{$membresia->cliente->apellidos}}</td>
+                        <td>
+                            {{$membresia->cliente->dni}} {{$membresia->cliente->nombres}} {{$membresia->cliente->apellidos}}
+                        </td>
                         <td>
                             <div class="col-lg-10">
-                            @foreach($promociones->where('id',$membresia->promocion_id) as $promo)
+                                @foreach($promociones->where('id',$membresia->promocion_id) as $promo)
                                     {{$promo->titulo}}
-                            @endforeach
+                                @endforeach
+                                    <span class="{{$color}}">({{$mensa}})</span>
                             </div>
-                            <div class="col-lg-1 right"><a href="{{route('rpt_membresia_path',$membresia->id)}}" class=" text-blue">
-                                    <i class="glyphicon glyphicon-print fa-2x"></i>
+                            <div class="col-lg-1">
+                                <a href="{{route('rpt_membresia_path',$membresia->id)}}" class="btn btn-primary">
+                                    <i class="glyphicon glyphicon-print"></i>
                                 </a>
                             </div>
                         </td>
                         <td>{{fecha_peru($membresia->fechaInicio)}} - {{fecha_peru($membresia->fechaFin)}}</td>
                         <td>
-                            <a href="{{route('asistencia_view_path',$membresia->id)}}" class="text-success">
-                                <i class="fa fa-eye fa-2x"></i>
+                            <a href="{{route('asistencia_view_path',$membresia->id)}}" class=" btn btn-success">
+                                <i class="fa fa-eye"></i>
                             </a>
                             <a href="{{route('rpt_asistencia_path',$membresia->id)}}" class="text-blue hide">
-                                <i class="glyphicon glyphicon-print  fa-2x"></i>
+                                <i class="glyphicon glyphicon-print"></i>
                             </a>
                         </td>
                     </tr>
