@@ -33,11 +33,9 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-
-    <link href="{{elixir('css/fullcalendar.css')}}" type="text/css" rel="stylesheet"/>
     <link href="{{elixir('css/stilos.css')}}" type="text/css" rel="stylesheet" media="screen,projection"/>
-    <script src="{{asset('js/plugins/jQuery/jquery-2.2.3.min.js')}}"></script>
-    <script src="{{asset('js/plugins/jQueryUI/jquery-ui.js')}}"></script>
+    <link href="{{elixir('css/fullcalendar.css')}}" type="text/css" rel="stylesheet"/>
+
     <!-- Bootstrap 3.3.6 -->
     {{--<script src="{{asset('vendor/ckeditor/ckeditor.js')}}"></script>--}}
     {{--<script src="{{asset('vendor/ckeditor/adapters/jquery.js')}}"></script>--}}
@@ -636,7 +634,8 @@
 
 <!-- jQuery 2.2.3 -->
 {{--<script src="js/plugins/jQuery/jquery-2.2.3.min.js"></script>--}}
-
+<script src="{{asset('js/plugins/jQuery/jquery-2.2.3.min.js')}}"></script>
+<script src="{{asset('js/plugins/jQueryUI/jquery-ui.js')}}"></script>
 {{--<script src="js/bootstrap/js/bootstrap.min.js"></script>--}}
 <script src="{{asset('js/bootstrap/js/bootstrap.min.js')}}"></script>
 <script src="{{asset('js/plugins/datatables/jquery.dataTables.min.js')}}"></script>
@@ -739,8 +738,9 @@
             events:evt_agenda
         })
 
-        // $('.editorcito').ckeditor();
+
     });
+
 </script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 {{--<script src="js/dist/js/pages/dashboard2.js"></script>--}}

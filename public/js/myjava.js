@@ -874,13 +874,14 @@ function editar_cliente_ajax(id){
         return false;
     });
 }
+
 function agendar_membresia_ajax(id){
-    $('#agendar_membresia_ajax_path_'+id).submit(function() {
+
         // Enviamos el formulario usando AJAX
         $.ajax({
             type: 'POST',
-            url: $(this).attr('action'),
-            data: $(this).serialize(),
+            url: $('#agendar_membresia_ajax_path_'+id).attr('action'),
+            data: $('#agendar_membresia_ajax_path_'+id).serialize(),
             // Mostramos un mensaje con la respuesta de PHP
             success: function(data) {
                 if(data==1){
@@ -897,7 +898,6 @@ function agendar_membresia_ajax(id){
             }
         })
         return false;
-    });
-}
 
+}
 //# sourceMappingURL=myjava.js.map

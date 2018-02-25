@@ -169,7 +169,7 @@
                                                                 <input type="hidden" name="prom_{{$membresia2_->id}}" value="{{$prom}}">
                                                                 <input type="hidden" name="id" value="{{$membresia2_->id}}">
                                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                                                <button type="submit" class="btn btn-primary" onclick="agendar_membresia_ajax({{$membresia2_->id}})">Guardar</button>
+                                                                <button type="button" class="btn btn-primary" onclick="agendar_membresia_ajax({{$membresia2_->id}})">Guardar</button>
                                                             </div>
                                                         </form>
                                                     </div>
@@ -269,7 +269,7 @@
                                                                 <input type="hidden" name="prom_{{$membresia2_->id}}" value="{{$prom}}">
                                                                 <input type="hidden" name="id" value="{{$membresia2_->id}}">
                                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                                                <button type="submit" class="btn btn-primary" onclick="agendar_membresia_ajax({{$membresia2_->id}})">Guardar</button>
+                                                                <button type="button" class="btn btn-primary" onclick="agendar_membresia_ajax({{$membresia2_->id}})">Guardar</button>
                                                             </div>
                                                         </form>
                                                     </div>

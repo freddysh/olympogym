@@ -687,10 +687,10 @@ class MembresiaController extends Controller
         $evento->user_id=auth()->guard('admin')->user()->id;
         $evento->estado=1;
         if($evento->save()>0) {
-            return 1;
+            return response()->json(1);
         }
         else
-            return 0;
+            return response()->json(0);
 
     }
     public function agenda_membresia(){
