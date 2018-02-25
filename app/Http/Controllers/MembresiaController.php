@@ -674,10 +674,10 @@ class MembresiaController extends Controller
     }
     public function agendar_membresia_ajax(Request $request){
         $id=$request->input('id');
-        $prom=$request->input('prom');
-        $titulo=$prom.$request->input('evento');
-        $fecha=$request->input('fecha');
-        $hora=$request->input('hora');
+        $prom=$request->input('prom_'.$id);
+        $titulo=$prom.$request->input('evento_'.$id);
+        $fecha=$request->input('fecha_'.$id);
+        $hora=$request->input('hora_'.$id);
 
         $evento=new Eventos();
         $evento->titulo=$titulo;

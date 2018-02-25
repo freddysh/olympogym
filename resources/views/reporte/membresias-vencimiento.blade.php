@@ -241,20 +241,20 @@
                                                                     <div class="col-lg-12">
                                                                         <div class="input-group">
                                                                             <label>Descripcion</label>
-                                                                            <textarea name="evento" id="evento_{{$membresia2_->id}}" class="editorcito form-control" cols="75" rows="5" required>
+                                                                            <textarea name="evento_{{$membresia2_->id}}" id="evento_{{$membresia2_->id}}" class="editorcito form-control" cols="75" rows="5" required>
                                                                             </textarea>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-lg-6">
                                                                         <div class="input-group">
                                                                             <label>Fecha</label>
-                                                                            <input type="date" name="fecha" id="fecha_{{$membresia2_->id}}" class="form-control validation" value="{{date("Y-m-d")}}" required>
+                                                                            <input type="date" name="fecha_{{$membresia2_->id}}" id="fecha_{{$membresia2_->id}}" class="form-control validation" value="{{date("Y-m-d")}}" required>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-lg-2 hide">
                                                                         <div class="input-group">
                                                                             <label>Hora</label>
-                                                                            <input type="text" name="hora" id="hora_{{$membresia2_->id}}" class="form-control validation" placeholder="09:30" value="09:30" required>
+                                                                            <input type="text" name="hora_{{$membresia2_->id}}" id="hora_{{$membresia2_->id}}" class="form-control validation" placeholder="09:30" value="09:30" required>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -266,7 +266,7 @@
                                                             </div>
                                                             <div class="modal-footer">
                                                                 {{csrf_field()}}
-                                                                <input type="hidden" name="prom" value="{{$prom}}">
+                                                                <input type="hidden" name="prom_{{$membresia2_->id}}" value="{{$prom}}">
                                                                 <input type="hidden" name="id" value="{{$membresia2_->id}}">
                                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                                                                 <button type="submit" class="btn btn-primary" onclick="agendar_membresia_ajax({{$membresia2_->id}})">Guardar</button>
