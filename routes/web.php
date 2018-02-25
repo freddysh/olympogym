@@ -300,6 +300,18 @@ Route::group(['middleware'=>'admin'],function(){
         'uses' => 'MembresiaController@rpt_membresias',
         'as' => 'rpt-membresias_path',
     ]);
+    Route::post('/agendar_membresia', [
+        'uses' => 'MembresiaController@agendar_membresia_ajax',
+        'as' => 'agendar_membresia_ajax_path',
+    ]);
+    Route::get('agenda', [
+        'uses' => 'MembresiaController@agenda_membresia',
+        'as' => 'agenda_membresias_path',
+    ]);
+    Route::get('agenda/membresia', [
+        'uses' => 'MembresiaController@agenda_membresia_get',
+        'as' => 'agenda_membresia_path',
+    ]);
 });
 /*-- Fin Metodos para logeo de usuarios del sistema*/
 

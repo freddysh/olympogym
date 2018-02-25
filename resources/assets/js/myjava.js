@@ -874,3 +874,28 @@ function editar_cliente_ajax(id){
         return false;
     });
 }
+function agendar_membresia_ajax(id){
+    $('#agendar_membresia_ajax_path_'+id).submit(function() {
+        // Enviamos el formulario usando AJAX
+        $.ajax({
+            type: 'POST',
+            url: $(this).attr('action'),
+            data: $(this).serialize(),
+            // Mostramos un mensaje con la respuesta de PHP
+            success: function(data) {
+                if(data==1){
+                    $('#evento_'+id).html('');
+                    $('#result_'+id).removeClass('text-danger');
+                    $('#result_'+id).addClass('text-success');
+                    $('#result_'+id).html('Nota guardada correctamente!');
+                }
+                else{
+                    $('#result_'+id).removeClass('text-success');
+                    $('#result_'+id).addClass('text-danger');
+                    $('#result_'+id).html('Error al guardar la nota, intentelo de nuevo');
+                }
+            }
+        })
+        return false;
+    });
+}

@@ -17,7 +17,7 @@ $p15='';
 $p16='';
 $p17='';
 $p18='';
-
+$p19='';
 ?>
 @foreach($privilegios as $privilegio)
     @if($privilegio->nombre=='nuevo-usuario')
@@ -46,6 +46,9 @@ $p18='';
     @endif
     @if($privilegio->nombre=='renovar-membresia')
         <?php $p18='1'?>
+    @endif
+    @if($privilegio->nombre=='agenda-membresias')
+        <?php $p19='1'?>
     @endif
     @if($privilegio->nombre=='lista-membresia')
         <?php $p9='1'?>
@@ -200,7 +203,9 @@ $p18='';
             @if($p17=='1')
                 <li><a href="{{route('reporte_membresias_por_vencer_path')}}"><i class="fa fa-circle-o"></i> Membresias por vencer</a></li>
             @endif
-
+            @if($p19=='1')
+                <li><a href="{{route('agenda_membresias_path')}}"><i class="fa fa-circle-o"></i> Agenda</a></li>
+            @endif
         </ul>
     </li>
     <li class="treeview">

@@ -33,9 +33,14 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <link href="{{elixir('css/stilos.css')}}" type="text/css" rel="stylesheet" media="screen,projection"/>
+
     <link href="{{elixir('css/fullcalendar.css')}}" type="text/css" rel="stylesheet"/>
-    <link href="{{elixir('css/fullcalendar.print.css')}}" type="text/css" rel="stylesheet" media="print"/>
+    <link href="{{elixir('css/stilos.css')}}" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <script src="{{asset('js/plugins/jQuery/jquery-2.2.3.min.js')}}"></script>
+    <script src="{{asset('js/plugins/jQueryUI/jquery-ui.js')}}"></script>
+    <!-- Bootstrap 3.3.6 -->
+    {{--<script src="{{asset('vendor/ckeditor/ckeditor.js')}}"></script>--}}
+    {{--<script src="{{asset('vendor/ckeditor/adapters/jquery.js')}}"></script>--}}
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -631,9 +636,7 @@
 
 <!-- jQuery 2.2.3 -->
 {{--<script src="js/plugins/jQuery/jquery-2.2.3.min.js"></script>--}}
-<script src="{{asset('js/plugins/jQuery/jquery-2.2.3.min.js')}}"></script>
-<script src="{{asset('js/plugins/jQueryUI/jquery-ui.js')}}"></script>
-<!-- Bootstrap 3.3.6 -->
+
 {{--<script src="js/bootstrap/js/bootstrap.min.js"></script>--}}
 <script src="{{asset('js/bootstrap/js/bootstrap.min.js')}}"></script>
 <script src="{{asset('js/plugins/datatables/jquery.dataTables.min.js')}}"></script>
@@ -664,6 +667,7 @@
 <script src="{{asset('js/myjava.js')}}"></script>
 <script src="{{asset('js/moment.min.js')}}"></script>
 <script src="{{asset('js/fullcalendar.js')}}"></script>
+
 <script>
     $(function () {
         $("#example1").DataTable();
@@ -688,6 +692,16 @@
 </script>
 <script>
     $(document).ready(function() {
+        var evt_agenda=[];
+        $.ajax({
+            url:'/agenda/membresia',
+            type:'GET',
+            dataType:'JSON',
+            async:false
+        }).done(function(r){
+            evt_agenda=r;
+        });
+
         var evt=[];
         $.ajax({
             url:'/membresia/asistencia-get/'+$('#membresia_id').val(),
@@ -706,14 +720,26 @@
             eventLimit: true,
             events:evt
         })
-        $('#print_calendario').click(function(){
-            // window.print();
-            w=window.open();
-            w.document.write($('#calendar').html());
-            w.print();
-            w.close();
-        });
+        // $('#print_calendario').click(function(){
+        //     // window.print();
+        //     w=window.open();
+        //     w.document.write($('#calendar').html());
+        //     w.print();
+        //     w.close();
+        // });
 
+
+        $('#calendar_agenda').fullCalendar({
+            header:{
+                left:'prev,next today',
+                center:'title',
+                right:'month,basicWeek,listWeek'
+            },
+            eventLimit: true,
+            events:evt_agenda
+        })
+
+        // $('.editorcito').ckeditor();
     });
 </script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->

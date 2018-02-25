@@ -30,7 +30,7 @@
                 </thead>
                 <tbody>
                 <?php $i=0;?>
-                @foreach($membresiass as $membresia)
+                @foreach($membresia2 as $membresia)
                     @php
                         $color='';
                         $mensa='';

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Asistencia;
 use App\Congelado;
+use App\Eventos;
 use App\Membresia;
 use App\Cliente;
 use App\Cuota;
@@ -336,7 +337,7 @@ class MembresiaController extends Controller
         $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
         $promociones=Promocion::get();
 //        dd($privilegio);
-        return view('reporte.membresias', ['miembros' => $miembros1, 'membresias' => $membresias1, 'membresiass' => $membresias,'privilegios'=>$privilegio,'promociones'=>$promociones]);
+        return view('reporte.membresias', ['miembros' => $miembros1, 'membresias' => $membresias1, 'membresia2' => $membresias,'privilegios'=>$privilegio,'promociones'=>$promociones]);
     }
     public function asistencia_view($id)
     {
@@ -648,7 +649,7 @@ class MembresiaController extends Controller
         $membresias=count($membresias);
         $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
         $promociones=Promocion::get();
-        return view('reporte.membresias',['miembros'=>$miembros,'membresias'=>$membresias,'privilegios'=>$privilegio,
+        return view('reporte.membresias-vencimiento',['miembros'=>$miembros,'membresias'=>$membresias,'privilegios'=>$privilegio,
             'membresia2'=>$membresia2,'periodo'=>$periodo,'fecha_actual'=>$fecha_actual,'fecha'=>$fecha,'promociones'=>$promociones]);
     }
     public function rpt_membresias($id)
@@ -671,4 +672,45 @@ class MembresiaController extends Controller
             'membresia2'=>$membresia2,'periodo'=>$periodo,'fecha_actual'=>$fecha_actual,'fecha'=>$fecha,'promociones'=>$promociones]);
         return $pdf->download('rpt_membresias_por_cobrar' . '_' . $id . '_' . date("d_m_Y") . '.pdf');
     }
+    public function agendar_membresia_ajax(Request $request){
+        $id=$request->input('id');
+        $prom=$request->input('prom');
+        $titulo=$prom.$request->input('evento');
+        $fecha=$request->input('fecha');
+        $hora=$request->input('hora');
+
+        $evento=new Eventos();
+        $evento->titulo=$titulo;
+        $evento->fechaEvento=$fecha;
+        $evento->horaEvento=$hora;
+        $evento->membresia_id=$id;
+        $evento->user_id=auth()->guard('admin')->user()->id;
+        $evento->estado=1;
+        if($evento->save()>0) {
+            return 1;
+        }
+        else
+            return 0;
+
+    }
+    public function agenda_membresia(){
+        $agenda=Eventos::where('estado',1)->get();
+        $dt = Carbon::now();
+        $dt->subHours(5);
+        $fecha_actual=$dt->toDateString();
+        $cliente=Cliente::get();
+        $miembros=count($cliente);
+        $membresias=Membresia::get();
+        $membresias=count($membresias);
+        $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
+        return view('reporte.agenda',['miembros'=>$miembros,'membresias'=>$membresias,'privilegios'=>$privilegio,'agenda'=>$agenda,'fecha_actual'=>$fecha_actual]);
+    }
+    public function agenda_membresia_get(){
+        $agenda =DB::table('eventos')
+            ->select('id','titulo as title','fechaEvento as start','fechaEvento as end')
+            ->where('estado',1)->get()->toArray();
+        return $agenda ;
+    }
+
+
 }

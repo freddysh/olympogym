@@ -39,4 +39,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Privilegio::class, 'user_id');
     }
+    public function eventos()
+    {
+        return $this->hasMany(Eventos::class, 'user_id');
+    }
 }

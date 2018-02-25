@@ -186,6 +186,7 @@
                                     <li><a href="#">Ingresos <span class="pull-right badge bg-yellow"><input type="checkbox" name="privilegio[]" id="privilegio" value="r-ingresos"></span></a></li>
                                     <li><a href="#">Cuentas<span class="pull-right badge bg-yellow"><input type="checkbox" name="privilegio[]" id="privilegio" value="cta-vencidas"></span></a></li>
                                     <li><a href="#">Membresias por vencer<span class="pull-right badge bg-yellow"><input type="checkbox" name="privilegio[]" id="privilegio" value="membresias-vencidas"></span></a></li>
+                                    <li><a href="#">Agenda<span class="pull-right badge bg-yellow"><input type="checkbox" name="privilegio[]" id="privilegio" value="agenda-membresias"></span></a></li>
                                 </ul>
                             </div>
                         </div>

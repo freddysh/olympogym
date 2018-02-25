@@ -39,4 +39,8 @@ class Membresia extends Model
     {
         return $this->hasMany(Congelado::class, 'membresia_id');
     }
+    public function eventos()
+    {
+        return $this->hasMany(Eventos::class, 'membresia_id');
+    }
 }

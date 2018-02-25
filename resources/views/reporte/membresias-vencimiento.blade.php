@@ -54,7 +54,7 @@
             </form>
             <div class="row">
                 <div class="col-lg-12">
-                    <table id="example1" class="table table-bordered table-striped">
+                    <table id="example1" class="table table-bordered table-striped table-responsive table-condensed">
                         <thead>
                         <tr>
                             <th>#</th>
@@ -64,6 +64,7 @@
                             <th>Fecha Inicio</th>
                             <th>Fecha Fin</th>
                             <th>Tiempo</th>
+                            <th>Operaciones</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -105,7 +106,76 @@
                                                 Pasó {{$interval->format('%a dias')}}
                                             @endif
                                         </td>
-
+                                        <td>
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal_{{$membresia2_->id}}">Agendar</button>
+                                            <div class="modal fade" id="myModal_{{$membresia2_->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <form id="agendar_membresia_ajax_path_{{$membresia2_->id}}" action="{{route('agendar_membresia_ajax_path')}}" method="post">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                                <h4 class="modal-title" id="myModalLabel">Agregar a la agenda</h4>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="row">
+                                                                    <div class="col-lg-12 text-center">
+                                                                        @php
+                                                                            $prom='';
+                                                                        @endphp
+                                                                        @foreach($promociones->where('id',$membresia2_->promocion_id) as $promo )
+                                                                            <b class="text-primary text-20">{{$promo->duracion}} {{$promo->tipoDuracion}}</b>
+                                                                            @php
+                                                                                $prom='['.$promo->titulo.' | '.$promo->duracion.' | '.$promo->tipoDuracion;
+                                                                            @endphp
+                                                                        @endforeach | <b class="text-primary text-20">{{fecha_peru($membresia2_->fechaInicio)}} - {{fecha_peru($membresia2_->fechaFin)}}</b>
+                                                                        @php
+                                                                            $prom.=' | '.fecha_peru($membresia2_->fechaInicio).' - '.fecha_peru($membresia2_->fechaFin).'] ';
+                                                                        @endphp
+                                                                    </div>
+                                                                    <div class="col-lg-12 text-center">
+                                                                        <b class="txt-naranjado text-15">DNI: {{$membresia2_->cliente->dni}}</b> | <b class="txt-naranjado text-15">Cliente: {{$membresia2_->cliente->nombres}} {{$membresia2_->cliente->apellidos}}</b> | <b class="txt-naranjado text-15">Cel.: {{$membresia2_->cliente->telefono}}</b>
+                                                                        @php
+                                                                            $prom.='[DNI: '.$membresia2_->cliente->dni.' | Cliente: '.$membresia2_->cliente->nombres.' '.$membresia2_->cliente->apellidos.' | Cel.: '.$membresia2_->cliente->telefono.'] ';
+                                                                        @endphp
+                                                                    </div>
+                                                                    <div class="col-lg-12">
+                                                                        <div class="input-group">
+                                                                            <label>Descripcion</label>
+                                                                            <textarea name="evento" id="evento_{{$membresia2_->id}}" class="editorcito form-control" cols="75" rows="5" required>
+                                                                            </textarea>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-6">
+                                                                        <div class="input-group">
+                                                                            <label>Fecha</label>
+                                                                            <input type="date" name="fecha" id="fecha_{{$membresia2_->id}}" class="form-control validation" value="{{date("Y-m-d")}}" required>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-2 hide">
+                                                                        <div class="input-group">
+                                                                            <label>Hora</label>
+                                                                            <input type="text" name="hora" id="hora_{{$membresia2_->id}}" class="form-control validation" placeholder="09:30" value="09:30" required>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-lg-12">
+                                                                        <p class="text-15" id="result_{{$membresia2_->id}}"></p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                {{csrf_field()}}
+                                                                <input type="hidden" name="prom" value="{{$prom}}">
+                                                                <input type="hidden" name="id" value="{{$membresia2_->id}}">
+                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                                                <button type="submit" class="btn btn-primary" onclick="agendar_membresia_ajax({{$membresia2_->id}})">Guardar</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
                                     </tr>
                                 @endif
                             @else
@@ -136,7 +206,76 @@
                                             @endphp
                                             Vencio hace {{$interval->format('%a dias')}}
                                         </td>
-
+                                        <td>
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal_{{$membresia2_->id}}">Agendar</button>
+                                            <div class="modal fade" id="myModal_{{$membresia2_->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <form id="agendar_membresia_ajax_path_{{$membresia2_->id}}" action="{{route('agendar_membresia_ajax_path')}}" method="post">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                                <h4 class="modal-title" id="myModalLabel">Agregar a la agenda</h4>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="row">
+                                                                    <div class="col-lg-12 text-center">
+                                                                        @php
+                                                                            $prom='';
+                                                                        @endphp
+                                                                        @foreach($promociones->where('id',$membresia2_->promocion_id) as $promo )
+                                                                            <b class="text-primary text-20">{{$promo->duracion}} {{$promo->tipoDuracion}}</b>
+                                                                            @php
+                                                                                $prom='['.$promo->titulo.' | '.$promo->duracion.' | '.$promo->tipoDuracion;
+                                                                            @endphp
+                                                                        @endforeach | <b class="text-primary text-20">{{fecha_peru($membresia2_->fechaInicio)}} - {{fecha_peru($membresia2_->fechaFin)}}</b>
+                                                                        @php
+                                                                            $prom.=' | '.fecha_peru($membresia2_->fechaInicio).' - '.fecha_peru($membresia2_->fechaFin).'] ';
+                                                                        @endphp
+                                                                    </div>
+                                                                    <div class="col-lg-12 text-center">
+                                                                        <b class="txt-naranjado text-15">DNI: {{$membresia2_->cliente->dni}}</b> | <b class="txt-naranjado text-15">Cliente: {{$membresia2_->cliente->nombres}} {{$membresia2_->cliente->apellidos}}</b> | <b class="txt-naranjado text-15">Cel.: {{$membresia2_->cliente->telefono}}</b>
+                                                                        @php
+                                                                            $prom.='[DNI: '.$membresia2_->cliente->dni.' | Cliente: '.$membresia2_->cliente->nombres.' '.$membresia2_->cliente->apellidos.' | Cel.: '.$membresia2_->cliente->telefono.'] ';
+                                                                        @endphp
+                                                                    </div>
+                                                                    <div class="col-lg-12">
+                                                                        <div class="input-group">
+                                                                            <label>Descripcion</label>
+                                                                            <textarea name="evento" id="evento_{{$membresia2_->id}}" class="editorcito form-control" cols="75" rows="5" required>
+                                                                            </textarea>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-6">
+                                                                        <div class="input-group">
+                                                                            <label>Fecha</label>
+                                                                            <input type="date" name="fecha" id="fecha_{{$membresia2_->id}}" class="form-control validation" value="{{date("Y-m-d")}}" required>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-2 hide">
+                                                                        <div class="input-group">
+                                                                            <label>Hora</label>
+                                                                            <input type="text" name="hora" id="hora_{{$membresia2_->id}}" class="form-control validation" placeholder="09:30" value="09:30" required>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-lg-12">
+                                                                        <p class="text-15" id="result_{{$membresia2_->id}}"></p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                {{csrf_field()}}
+                                                                <input type="hidden" name="prom" value="{{$prom}}">
+                                                                <input type="hidden" name="id" value="{{$membresia2_->id}}">
+                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                                                <button type="submit" class="btn btn-primary" onclick="agendar_membresia_ajax({{$membresia2_->id}})">Guardar</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
                                     </tr>
                                 @endif
                             @endif
@@ -151,6 +290,7 @@
                             <th>Fecha Inicio</th>
                             <th>Fecha Fin</th>
                             <th>Periodo</th>
+                            <th>Operaciones</th>
                         </tr>
                         </tfoot>
                     </table>
@@ -158,4 +298,5 @@
             </div>
         </div>
     </div>
+
 @stop
