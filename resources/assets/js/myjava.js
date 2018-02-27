@@ -230,10 +230,15 @@ function Envia_membresia(){
             cuota_precio+= $(this).val() + '[]';
         });
     cuota_precio=cuota_precio.substring(0, cuota_precio.length-2);
-
-        console.log('estado:'+estado);
-        console.log('cuota_fecha:'+cuota_fecha);
-        console.log('cuota_precio:'+cuota_precio);
+    swal({
+        title: 'MENSAJE DEL SISTEMA',
+        text: "¿Estas seguro de registrar la membresia?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+    }).then(function () {
         $.ajax({
             type: 'POST',
             url: '/nueva_membresia',
@@ -243,7 +248,6 @@ function Envia_membresia(){
             // Mostramos un mensaje con la respuesta de PHP
             success: function(data){
                 data=data.split('_');
-                // $('#lista_cuotas').html(data);
                 if(data[0]=='-1')
                     $('#mensaje').html('<div class="alert alert-danger" role="alert"> <strong>Error!</strong> '+data[1]+'</div>');
                 else if(data[0]=='0')
@@ -256,10 +260,9 @@ function Envia_membresia(){
                 $('#total').val();
                 $("#promocion option[value="+ 0 +"]").attr("selected",true);
                 $('#lista_cuotas').html('');
-                // $("#imprimir").attr("href","{{route('rpt_membresia_path',"+data[2]+")}}");
             }
         });
-
+    })
 }
 function Renovar_membresia(){
     var estado= '';

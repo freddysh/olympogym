@@ -86,7 +86,7 @@ eval("\r\nwindow._ = __webpack_require__(6);\r\n\r\n/**\r\n * We'll load jQuery 
 /* 3 */
 /***/ function(module, exports) {
 
-eval("throw new Error(\"Module build failed: Error: \\n\\nVue packages version mismatch:\\n\\n- vue@2.5.13\\n- vue-template-compiler@2.2.2\\n\\nThis may cause things to work incorrectly. Make sure to use the same version for both.\\nIf you are using vue-loader@>=10.0, simply update vue-template-compiler.\\nIf you are using vue-loader@<10.0 or vueify, re-installing vue-loader/vueify should bump vue-template-compiler to the latest.\\n\\n    at Object.<anonymous> (C:\\\\laragon\\\\www\\\\olympogym\\\\node_modules\\\\vue-template-compiler\\\\index.js:8:9)\\n    at Module._compile (module.js:570:32)\\n    at Object.Module._extensions..js (module.js:579:10)\\n    at Module.load (module.js:487:32)\\n    at tryModuleLoad (module.js:446:12)\\n    at Function.Module._load (module.js:438:3)\\n    at Module.require (module.js:497:17)\\n    at require (internal/module.js:20:19)\\n    at Object.<anonymous> (C:\\\\laragon\\\\www\\\\olympogym\\\\node_modules\\\\vue-loader\\\\lib\\\\parser.js:1:78)\\n    at Module._compile (module.js:570:32)\");//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMy5qcyIsInNvdXJjZXMiOltdLCJtYXBwaW5ncyI6IiIsInNvdXJjZVJvb3QiOiIifQ==");
+eval("throw new Error(\"Module build failed: Error: \\n\\nVue packages version mismatch:\\n\\n- vue@2.5.13\\n- vue-template-compiler@2.2.2\\n\\nThis may cause things to work incorrectly. Make sure to use the same version for both.\\nIf you are using vue-loader@>=10.0, simply update vue-template-compiler.\\nIf you are using vue-loader@<10.0 or vueify, re-installing vue-loader/vueify should bump vue-template-compiler to the latest.\\n\\n    at Object.<anonymous> (C:\\\\laragon\\\\www\\\\olympo\\\\node_modules\\\\vue-template-compiler\\\\index.js:8:9)\\n    at Module._compile (module.js:570:32)\\n    at Object.Module._extensions..js (module.js:579:10)\\n    at Module.load (module.js:487:32)\\n    at tryModuleLoad (module.js:446:12)\\n    at Function.Module._load (module.js:438:3)\\n    at Module.require (module.js:497:17)\\n    at require (internal/module.js:20:19)\\n    at Object.<anonymous> (C:\\\\laragon\\\\www\\\\olympo\\\\node_modules\\\\vue-loader\\\\lib\\\\parser.js:1:78)\\n    at Module._compile (module.js:570:32)\");//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMy5qcyIsInNvdXJjZXMiOltdLCJtYXBwaW5ncyI6IiIsInNvdXJjZVJvb3QiOiIifQ==");
 
 /***/ },
 /* 4 */
@@ -135,7 +135,7 @@ eval("module.exports = function(module) {\r\n\tif(!module.webpackPolyfill) {\r\n
 /* 11 */
 /***/ function(module, exports) {
 
-eval("/* (ignored) *///# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMTEuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vZ290IChpZ25vcmVkKT84MDdiIl0sInNvdXJjZXNDb250ZW50IjpbIi8qIChpZ25vcmVkKSAqL1xuXG5cbi8vLy8vLy8vLy8vLy8vLy8vL1xuLy8gV0VCUEFDSyBGT09URVJcbi8vIGdvdCAoaWdub3JlZClcbi8vIG1vZHVsZSBpZCA9IDExXG4vLyBtb2R1bGUgY2h1bmtzID0gMCJdLCJtYXBwaW5ncyI6IkFBQUEiLCJzb3VyY2VSb290IjoiIn0=");
+eval("/* (ignored) *///# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMTEuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vZ290IChpZ25vcmVkKT83MTliIl0sInNvdXJjZXNDb250ZW50IjpbIi8qIChpZ25vcmVkKSAqL1xuXG5cbi8vLy8vLy8vLy8vLy8vLy8vL1xuLy8gV0VCUEFDSyBGT09URVJcbi8vIGdvdCAoaWdub3JlZClcbi8vIG1vZHVsZSBpZCA9IDExXG4vLyBtb2R1bGUgY2h1bmtzID0gMCJdLCJtYXBwaW5ncyI6IkFBQUEiLCJzb3VyY2VSb290IjoiIn0=");
 
 /***/ },
 /* 12 */

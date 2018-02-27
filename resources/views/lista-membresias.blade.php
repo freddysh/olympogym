@@ -49,7 +49,6 @@
                         </td>
                         <td>
                             <a href="{{route('editar_membresia_get_path',$membresia->id)}}"><i class="text-yellow fa fa-edit fa-2x"></i></a>
-                            <a href="#!"><i class="text-red glyphicon glyphicon-trash fa-2x"></i></a>
                             <a onclick="eliminar_membresia({{$membresia->id}})"><i class="text-red glyphicon glyphicon-trash fa-2x"></i></a>
 
                         </td>

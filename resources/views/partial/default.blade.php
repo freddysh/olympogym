@@ -39,6 +39,9 @@
     <!-- Bootstrap 3.3.6 -->
     {{--<script src="{{asset('vendor/ckeditor/ckeditor.js')}}"></script>--}}
     {{--<script src="{{asset('vendor/ckeditor/adapters/jquery.js')}}"></script>--}}
+    <script src="{{asset('js/plugins/jQuery/jquery-2.2.3-1.min.js')}}"></script>
+    <script src="{{asset('js/plugins/jQueryUI/jquery-ui.js')}}"></script>
+    <script src="//cdn.ckeditor.com/4.8.0/standard/ckeditor.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -634,8 +637,7 @@
 
 <!-- jQuery 2.2.3 -->
 {{--<script src="js/plugins/jQuery/jquery-2.2.3.min.js"></script>--}}
-<script src="{{asset('js/plugins/jQuery/jquery-2.2.3.min.js')}}"></script>
-<script src="{{asset('js/plugins/jQueryUI/jquery-ui.js')}}"></script>
+
 {{--<script src="js/bootstrap/js/bootstrap.min.js"></script>--}}
 <script src="{{asset('js/bootstrap/js/bootstrap.min.js')}}"></script>
 <script src="{{asset('js/plugins/datatables/jquery.dataTables.min.js')}}"></script>
@@ -666,6 +668,7 @@
 <script src="{{asset('js/myjava.js')}}"></script>
 <script src="{{asset('js/moment.min.js')}}"></script>
 <script src="{{asset('js/fullcalendar.js')}}"></script>
+
 
 <script>
     $(function () {
@@ -738,7 +741,7 @@
             events:evt_agenda
         })
 
-
+        CKEDITOR.replace('membresia_formato',{ height:['850px'] });
     });
 
 </script>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Asistencia;
 use App\Congelado;
 use App\Eventos;
+use App\FormatoMembresia;
 use App\Membresia;
 use App\Cliente;
 use App\Cuota;
@@ -62,6 +63,7 @@ class MembresiaController extends Controller
     public function agregar_membresianueva(Request $request)
     {
         try {
+//return $request->input('membresia_formato');
             $cliente1 = Cliente::get();
             $miembros1 = count($cliente1);
             $membresias1 = Membresia::get();
@@ -93,6 +95,10 @@ class MembresiaController extends Controller
                 $membresia->estado = '1';
                 if ($membresia->save()) {
                     $i = 0;
+                    $formato=new FormatoMembresia();
+                    $formato->contenido=$request->input('membresia_formato');
+                    $formato->membresia_id=$membresia->id;
+                    $formato->save();
 //                dd($estado);
                     foreach ($estado as $dato) {
                         $cuota = new Cuota();
@@ -168,6 +174,10 @@ class MembresiaController extends Controller
                 $membresia->total = $total;
                 $membresia->estado = '1';
                 if ($membresia->save()) {
+                    $formato=new FormatoMembresia();
+                    $formato->contenido=$request->input('membresia_formato');
+                    $formato->membresia_id=$membresia->id;
+                    $formato->save();
                     $i = 0;
 //                dd($estado);
                     foreach ($estado as $dato) {
@@ -206,6 +216,7 @@ class MembresiaController extends Controller
     public function editar_membresia(Request $request)
     {
         try {
+            $formato_id=$request->input('formato_id');
             $cliente1 = Cliente::get();
             $miembros1 = count($cliente1);
             $membresias1 = Membresia::get();
@@ -237,6 +248,10 @@ class MembresiaController extends Controller
                 $membresia->total = $total;
                 $membresia->estado = '1';
                 if ($membresia->save()) {
+                    $formato=FormatoMembresia::FindOrFail($formato_id);
+                    $formato->contenido=$request->input('membresia_formato');
+                    $formato->membresia_id=$membresia->id;
+                    $formato->save();
                     $i = 0;
 //                dd($estado);
                     $antigua_cuota = Cuota::where('membresia_id', $id)->delete();

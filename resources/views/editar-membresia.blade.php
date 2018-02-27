@@ -105,10 +105,20 @@
                             </tbody>
                         </table>
                     </div>
+                    @foreach($membresi->formato as $formato)
+                    <div class="col-lg-12">
+                        <textarea name="membresia_formato" id="membresia_formato" >
+                            {!! $formato->contenido !!}
+                        </textarea>
+                    </div>
+                    @endforeach
                 </div>
                 @endforeach
                 <div class="box-footer">
                     <input type="hidden" name="cuotas" id="cuotas" value="{{$pos}}">
+                    @foreach($membresi->formato as $formato)
+                    <input type="hidden" name="formato_id" id="formato_id" value="{{$formato->id}}">
+                    @endforeach
                     <button type="button" class="btn btn-primary btn-lg" onclick="editar_membresia({{$id}})">Guardar membresia</button>
                     <button type="button" class="btn btn-success btn-lg" onclick="imprimir_membresia()">Impimir</button>
                 </div>

@@ -74,91 +74,10 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-12">
-                    <h3>CONGELAMIENTO</h3>
-                    <ul>
-                        <li>En caso de los acuerdos de membresia de 3 meses, 6 meses y 12 meses; cancelados al contado, le permiten al
-                            cliente el derecho de ausentarse y recuperar los dias no asistidos a Olympo Fitness & Wellness al final de su
-                            acuerdo de membresia.
-                            <ul>
-                                <li>Membresia de 03 meses, por ausencia 10 dias recuperables</li>
-                                <li>Membresia de 06 meses, por ausencia 20 dias recuperables</li>
-                                <li>Membresia de 12 meses, por ausencia 40 dias recuperables</li>
-                            </ul>
-                        </li>
-                        <li>
-                            Olympo Fitness & Wellness evaluara el sustento correspondiente del cliente, para otorgar los días recuperables ofrecidos
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-lg-12">
-                        <h3>RESPONSABILIDAD</h3>
-                    <ul>
-                        <li>Olympo Fitness & Wellness, le garantiza al socio el monto de la cuota pactada por todo el periodo elegido.
-                        </li>
-                        <li>El cliente se responsabiliza por los daños que pudiera causara las instalaciones y/o mobiliario de Olympo Fitness &
-                            Wellness como consecuencias de practicas negligenteso usos incorretos de los equipos sin la supervision de un trainer,
-                            debidamente comprobados.
-                        </li>
-                        <li>El cliente libera y exonera a Olympo Fitness & Wellness de cualquier responsabilidad civil y/o penal, por lesiones
-                            corporales, daños a la propiedad, homicidio culposo causado por negligencia en la que el socio hubiera incurrido.
-                        </li>
-                        <li>La empresa no se responsabiliza de perdida o robo de los objetos personales dentro de nnuestras instalaciones.
-                        </li>
-                        <li>El cliente se responsabiliza por todo menor de 18 años de edad que ingrese a Olympo Fitness & Wellness bajo su custodia.
-                        </li>
-                        <li>Olympo Fitness & Wellness se reserva el derecho de dar por concluido en cualquier momento el acuerdo de membresia
-                            unilateralmente impedir el ingreso del miembro que falte a la mora, a las buenas costumbres, que en forma negligente
-                            ocacione daños a las instalaciones y/o de Olympo Fitness & Wellnesso que realice acto que signifique falta de
-                            higiene o limpieza.
-                        </li>
-                        <li>
-                            Olympo Fitness & Wellness evaluara el sustento correspondiente del cliente, para otorgar los días recuperables ofrecidos
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-lg-12">
-                    <h3>RESOLUCION Y DISPOSICIONES FINALES</h3>
-                    <ul>
-                        <li>Las cantidades pagadas por concepto de matricula, acuerdo de membresia no son reembosables, si el socio
-                            decidiera dar termino al contrato de membresia.
-                        </li>
-                        <li>Olympo Fitness & Wellness modificarar los horarios grupales sin previo aviso.
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-lg-12">
-                    <h3>OBSERVACIONES DE SALUD</h3>
-                    <p>
-                        ----------------------------------------------------------------------------------------------------------------------------------
-                    </p>
-                </div>
+                    @foreach($membresi->formato as $formato)
+                        {!! $formato->contenido !!}
+                    @endforeach
 
-            </div>
-            <div class="row">
-                <div class="col-lg-12 text-right" >
-                    <p class="text-right">
-                        Cusco.......... de ....................... del 20....
-                    </p>
-                    <p class="text-right">
-                        <b>PLAZA TUPAC AMARU 114 WANCHAQ</b><br>
-                        <b>TELF: (084)254798</b>
-                    </p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-6">
-                    <p class="text-center">
-                        -----------------------------------<br>
-                        Olympo Fitness & Wellness
-                    </p>
-                </div>
-                <div class="col-lg-6">
-                    <p class="text-center">
-                        -----------------------------------<br>
-                        Cliente
-                    </p>
-                </div>
             </div>
             <div class="row">
                 <div class="col-lg-6">

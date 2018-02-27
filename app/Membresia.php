@@ -43,4 +43,8 @@ class Membresia extends Model
     {
         return $this->hasMany(Eventos::class, 'membresia_id');
     }
+    public function formato()
+    {
+        return $this->hasMany(FormatoMembresia::class, 'membresia_id');
+    }
 }
