@@ -5,6 +5,9 @@
 @section('membresias')
     {{$membresias}}
 @endsection
+@section('archivos-js')
+    <script src="https://cdn.ckeditor.com/4.8.0/standard/ckeditor.js"></script>
+@stop
 @section('contenido')
     <div class="box box-warning">
         <div class="box-header with-border">
@@ -12,7 +15,7 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-            <form name="Membresia" id="Membresia" role="form" action="" method="post" enctype="multipart/form-data">
+            <form name="Membresia" id="Membresia" role="form" action="{{route('editar_membresia_path')}}" method="post" enctype="multipart/form-data">
                 <div id="mensaje"></div>
                 @if($tipomensaje=='-1')
                     <div class="alert alert-danger" role="alert"> <strong>Error!</strong> {{$mensaje}}</div>
@@ -96,10 +99,22 @@
                             @foreach($membresi->cuotas as $cuotas)
                                 <?php $pos++;?>
                                 <tr id="elemento_{{$pos}}">
-                                    <td><input type="hidden" id="id_{{$pos}}" value="{{$cuotas->id}}"><input type="hidden" name="estado" id="estado_{{$pos}}" value="{{$cuotas->estado}}"><input type="date" name="cuota_fecha" id="cuota_fecha_{{$pos}}" value="{{$cuotas->fechaCancelacion}}" required></td>
-                                    <td><input type="number" name="cuota_precio" id="cuota_precio_{{$pos}}" value="{{$cuotas->monto}}" required></td>
-                                    <td><a id="pagar_{{$pos}}" type="button" class="btn btn-primary" onclick="pagar_cuota({{$pos}})">Pagar ahora</a></td>
-                                    <td><a href="#!" onclick="borrar_cuota({{$pos}})"><i class="text-red glyphicon glyphicon-trash fa-2x"></i></a></td>
+                                    <td><input type="hidden" id="id_{{$pos}}" value="{{$cuotas->id}}">
+                                        <input type="hidden" name="estado[]" id="estado_{{$pos}}" value="{{$cuotas->estado}}"><input type="date" name="cuota_fecha[]" id="cuota_fecha_{{$pos}}" value="{{$cuotas->fechaCancelacion}}" required></td>
+                                    <td><input type="number" name="cuota_precio[]" id="cuota_precio_{{$pos}}" value="{{$cuotas->monto}}" required></td>
+                                    <td>
+                                        @if($cuotas->estado==1)
+                                            <a id="pagar_{{$pos}}" type="button" class="btn btn-success">Pagado</a>
+                                        @else
+                                            <a id="pagar_{{$pos}}" type="button" class="btn btn-primary" onclick="pagar_cuota({{$pos}})">Pagar ahora</a>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if($cuotas->estado==0)
+                                            <a href="#!" onclick="borrar_cuota({{$pos}})"><i class="text-red glyphicon glyphicon-trash fa-2x"></i></a>
+                                        @endif
+
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -116,15 +131,18 @@
                 @endforeach
                 <div class="box-footer">
                     <input type="hidden" name="cuotas" id="cuotas" value="{{$pos}}">
-                    @foreach($membresi->formato as $formato)
+                    <input type="hidden" name="id" id="id" value="{{$id}}">
+
+                @foreach($membresi->formato as $formato)
                     <input type="hidden" name="formato_id" id="formato_id" value="{{$formato->id}}">
                     @endforeach
-                    <button type="button" class="btn btn-primary btn-lg" onclick="editar_membresia({{$id}})">Guardar membresia</button>
-                    <button type="button" class="btn btn-success btn-lg" onclick="imprimir_membresia()">Impimir</button>
+                    <button type="submit" class="btn btn-primary btn-lg">Guardar membresia</button>
                 </div>
             </form>
         </div>
         <!-- /.box-body -->
     </div>
-
+    <script>
+        CKEDITOR.replace('membresia_formato',{ height:['850px'] });
+    </script>
 @stop

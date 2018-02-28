@@ -5,6 +5,9 @@
 @section('membresias')
     {{$membresias}}
 @endsection
+@section('archivos-js')
+    <script src="https://cdn.ckeditor.com/4.8.0/standard/ckeditor.js"></script>
+@stop
 @section('contenido')
     <div class="box box-warning">
         <div class="box-header with-border">
@@ -12,7 +15,7 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-            <form name="Membresia" id="Membresia" role="form" action="" method="post" enctype="multipart/form-data">
+            <form name="Membresia" id="Membresia" action="{{route('nueva_membresia1_path')}}" method="post">
                 <div id="mensaje"></div>
                 @if($tipomensaje=='-1')
                     <div class="alert alert-danger" role="alert"> <strong>Error!</strong> {{$mensaje}}</div>
@@ -86,8 +89,8 @@
                             </thead>
                             <tbody id="lista_cuotas">
                                 <tr id="elemento_1">
-                                    <td><input type="hidden" name="estado" id="estado_1" value="0"><input type="date" name="cuota_fecha" id="cuota_fecha_1" value="{{date("Y-m-d")}}" required></td>
-                                    <td><input type="number" name="cuota_precio" id="cuota_precio_1"  required></td>
+                                    <td><input type="hidden" name="estado[]" id="estado_1" value="0"><input type="date" name="cuota_fecha[]" id="cuota_fecha_1" value="{{date("Y-m-d")}}" required></td>
+                                    <td><input type="number" name="cuota_precio[]" id="cuota_precio_1"  required></td>
                                     <td><a id="pagar_1" type="button" class="btn btn-primary" onclick="pagar_cuota(1)">Pagar ahora</a></td>
                                     <td><a href="#!" onclick="borrar_cuota(1)"><i class="text-red glyphicon glyphicon-trash fa-2x"></i></a></td>
                                 </tr>
@@ -95,7 +98,9 @@
                         </table>
                     </div>
                     <div class="col-lg-12">
-                        <textarea name="membresia_formato" id="membresia_formato">
+                        <div class="form-group">
+                            <label for="txt_descripcion">Descripcion</label>
+                            <textarea class="form-control" name="membresia_formato" id="membresia_formato" rows="5" cols="30">
                             <h3>CONGELAMIENTO</h3>
                             <ul>
                                 <li>En caso de los acuerdos de membresia de 3 meses, 6 meses y 12 meses; cancelados al contado, le permiten al
@@ -162,17 +167,21 @@
                                 -----------------------------------<br>
                                 Cliente
                             </p>
-                        </textarea>
+                            </textarea>
+                        </div>
                     </div>
                 </div>
                 <div class="box-footer">
                     <input type="hidden" name="cuotas" id="cuotas" value="1">
-                    <button type="button" class="btn btn-primary btn-lg" onclick="Envia_membresia()">Guardar membresia</button>
-
+                    <button type="submit" class="btn btn-primary btn-lg" >Guardar membresia</button>
+                    {{--<button type="submit" class="btn btn-primary btn-lg" onclick="Envia_membresia()">Guardar membresia</button>--}}
                 </div>
             </form>
         </div>
         <!-- /.box-body -->
     </div>
+    <script>
+        CKEDITOR.replace('membresia_formato',{ height:['850px'] });
+    </script>
 
 @stop

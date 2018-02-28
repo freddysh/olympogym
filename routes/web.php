@@ -145,6 +145,7 @@ Route::group(['middleware'=>'admin'],function(){
         'uses' => 'MembresiaController@editarmembresia',
         'as' => 'editar_membresia_get_path',
     ]);
+
     Route::post('/editar_membresia', [
         'uses' => 'MembresiaController@editar_membresia',
         'as' => 'editar_membresia_path',
@@ -311,6 +312,14 @@ Route::group(['middleware'=>'admin'],function(){
     Route::get('agenda/membresia', [
         'uses' => 'MembresiaController@agenda_membresia_get',
         'as' => 'agenda_membresia_path',
+    ]);
+    Route::get('rpt-nueva-membresia/{id}/{id2}/{id3}', [
+        'uses' => 'MembresiaController@rpt_nueva_membresia',
+        'as' => 'rpt_nueva_membresia_path',
+    ]);
+    Route::get('rpt-renovar-membresia/{id}/{id2}/{id3}', [
+        'uses' => 'MembresiaController@rpt_renovar_membresia',
+        'as' => 'rpt_renovar_membresia_path',
     ]);
 });
 /*-- Fin Metodos para logeo de usuarios del sistema*/

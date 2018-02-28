@@ -41,7 +41,8 @@
     {{--<script src="{{asset('vendor/ckeditor/adapters/jquery.js')}}"></script>--}}
     <script src="{{asset('js/plugins/jQuery/jquery-2.2.3-1.min.js')}}"></script>
     <script src="{{asset('js/plugins/jQueryUI/jquery-ui.js')}}"></script>
-    <script src="//cdn.ckeditor.com/4.8.0/standard/ckeditor.js"></script>
+    @yield('archivos-js')
+
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -741,7 +742,7 @@
             events:evt_agenda
         })
 
-        CKEDITOR.replace('membresia_formato',{ height:['850px'] });
+
     });
 
 </script>

@@ -75,9 +75,9 @@ class MembresiaController extends Controller
             $fechaFin = $request->input('fechafin');
             $total = $request->input('total');
 
-            $estado = explode('[]', $request->input('estado'));
-            $cuota_fecha = explode('[]', $request->input('cuota_fecha'));
-            $cuota_precio = explode('[]', $request->input('cuota_precio'));
+            $estado =$request->input('estado');
+            $cuota_fecha = $request->input('cuota_fecha');
+            $cuota_precio = $request->input('cuota_precio');
 
             $cliente = Cliente::where('dni', $dni[0])->get();
             $cliente1 = '';
@@ -114,23 +114,17 @@ class MembresiaController extends Controller
                 }
                 $tipomensaje = '1';
                 $mensaje = 'Se guardo la membresia.';
-//            $promociones=Promocion::get();
-                return $tipomensaje . '_' . $mensaje.'_'.$membresia->id;
-//            return view('nueva-membresia',['mensaje'=>$mensaje,'promociones'=>$promociones,'tipomensaje'=>$tipomensaje]);
+                return redirect()->route('rpt_nueva_membresia_path',['membresia_id'=>$membresia->id,'mensaje'=>$mensaje,'tipomensaje'=>$tipomensaje]);
             } else {
                 $tipomensaje = '0';
                 $mensaje = 'El cliente no existe.';
-//                $promociones=Promocion::get();
-                return $tipomensaje . '_' . $mensaje.'_0';
-//                return view('nueva-membresia',['mensaje'=>$mensaje,'promociones'=>$promociones,'tipomensaje'=>$tipomensaje]);
+                return redirect()->route('rpt_nueva_membresia_path',['membresia_id'=>0,'mensaje'=>$mensaje,'tipomensaje'=>$tipomensaje]);
+
             }
         } catch (Exception $e) {
-//            return $e;
             $tipomensaje = '-1';
             $mensaje = $e;
-//            $promociones=Promocion::get();
-            return $tipomensaje . '_' . $mensaje.'_0';
-//            return view('nueva-membresia',['mensaje'=>$mensaje,'promociones'=>$promociones,'tipomensaje'=>$tipomensaje]);
+            return redirect()->route('rpt_nueva_membresia_path',['membresia_id'=>0,'mensaje'=>$mensaje,'tipomensaje'=>$tipomensaje]);
         }
     }
     public function agregar_membresiarenovar(Request $request)
@@ -147,9 +141,9 @@ class MembresiaController extends Controller
             $fechaFin = $request->input('fechafin');
             $total = $request->input('total');
 
-            $estado = explode('[]', $request->input('estado'));
-            $cuota_fecha = explode('[]', $request->input('cuota_fecha'));
-            $cuota_precio = explode('[]', $request->input('cuota_precio'));
+            $estado =$request->input('estado');
+            $cuota_fecha = $request->input('cuota_fecha');
+            $cuota_precio = $request->input('cuota_precio');
 
             $cliente = Cliente::where('dni', $dni[0])->get();
             $cliente1 = '';
@@ -194,23 +188,16 @@ class MembresiaController extends Controller
                 }
                 $tipomensaje = '1';
                 $mensaje = 'Se guardo la membresia.';
-//            $promociones=Promocion::get();
-                return $tipomensaje . '_' . $mensaje.'_'.$membresia->id;
-//            return view('nueva-membresia',['mensaje'=>$mensaje,'promociones'=>$promociones,'tipomensaje'=>$tipomensaje]);
+                return redirect()->route('rpt_renovar_membresia_path',['membresia_id'=>$membresia->id,'mensaje'=>$mensaje,'tipomensaje'=>$tipomensaje]);
             } else {
                 $tipomensaje = '0';
                 $mensaje = 'El cliente no existe.';
-//                $promociones=Promocion::get();
-                return $tipomensaje . '_' . $mensaje.'_0';
-//                return view('nueva-membresia',['mensaje'=>$mensaje,'promociones'=>$promociones,'tipomensaje'=>$tipomensaje]);
+                return redirect()->route('rpt_renovar_membresia_path',['membresia_id'=>0,'mensaje'=>$mensaje,'tipomensaje'=>$tipomensaje]);
             }
         } catch (Exception $e) {
-//            return $e;
             $tipomensaje = '-1';
             $mensaje = $e;
-//            $promociones=Promocion::get();
-            return $tipomensaje . '_' . $mensaje.'_0';
-//            return view('nueva-membresia',['mensaje'=>$mensaje,'promociones'=>$promociones,'tipomensaje'=>$tipomensaje]);
+            return redirect()->route('rpt_renovar_membresia_path',['membresia_id'=>0,'mensaje'=>$mensaje,'tipomensaje'=>$tipomensaje]);
         }
     }
     public function editar_membresia(Request $request)
@@ -229,9 +216,9 @@ class MembresiaController extends Controller
             $fechaFin = $request->input('fechafin');
             $total = $request->input('total');
 
-            $estado = explode('[]', $request->input('estado'));
-            $cuota_fecha = explode('[]', $request->input('cuota_fecha'));
-            $cuota_precio = explode('[]', $request->input('cuota_precio'));
+            $estado = $request->input('estado');
+            $cuota_fecha = $request->input('cuota_fecha');
+            $cuota_precio = $request->input('cuota_precio');
 
             $cliente = Cliente::where('dni', $dni[0])->get();
             $cliente1 = '';
@@ -269,23 +256,16 @@ class MembresiaController extends Controller
                 }
                 $tipomensaje = '1';
                 $mensaje = 'Se edito la membresia.';
-//            $promociones=Promocion::get();
-                return $tipomensaje . '_' . $mensaje;
-//            return view('editar-membresia',['mensaje'=>$mensaje,'promociones'=>$promociones,'tipomensaje'=>$tipomensaje]);
+                return redirect()->route('rpt_nueva_membresia_path',['membresia_id'=>$membresia->id,'mensaje'=>$mensaje,'tipomensaje'=>$tipomensaje]);
             } else {
                 $tipomensaje = '0';
                 $mensaje = 'El cliente no existe.';
-//                $promociones=Promocion::get();
-                return $tipomensaje . '_' . $mensaje;
-//                return view('editar-membresia',['mensaje'=>$mensaje,'promociones'=>$promociones,'tipomensaje'=>$tipomensaje]);
+                return redirect()->route('rpt_nueva_membresia_path',['membresia_id'=>0,'mensaje'=>$mensaje,'tipomensaje'=>$tipomensaje]);
             }
         } catch (Exception $e) {
-//            return $e;
             $tipomensaje = '-1';
             $mensaje = $e;
-//            $promociones=Promocion::get();
-            return $tipomensaje . '_' . $mensaje;
-//            return view('editar-membresia',['mensaje'=>$mensaje,'promociones'=>$promociones,'tipomensaje'=>$tipomensaje]);
+            return redirect()->route('rpt_nueva_membresia_path',['membresia_id'=>0,'mensaje'=>$mensaje,'tipomensaje'=>$tipomensaje]);
         }
 
 
@@ -726,6 +706,31 @@ class MembresiaController extends Controller
             ->where('estado',1)->get()->toArray();
         return $agenda ;
     }
-
+    public function rpt_nueva_membresia($id,$mensaje,$tipomensaje){
+        $membresia=null;
+        if($id!=0) {
+            $membresia = Membresia::FindOrFail($id);
+        }
+        $promociones=Promocion::get();
+        $cliente = Cliente::get();
+        $miembros = count($cliente);
+        $membresias = Membresia::get();
+        $membresias = count($membresias);
+        $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
+        return view('rpt.rpt-nueva-membresia',['membresia_id'=>$id,'membresi'=>$membresia,'mensaje'=>$mensaje,'promociones'=>$promociones,'tipomensaje'=>$tipomensaje, 'miembros' => $miembros, 'membresias' => $membresias,'privilegios'=>$privilegio]);
+    }
+    public function rpt_renovar_membresia($id,$mensaje,$tipomensaje){
+        $membresia=null;
+        if($id!=0) {
+            $membresia = Membresia::FindOrFail($id);
+        }
+        $promociones=Promocion::get();
+        $cliente = Cliente::get();
+        $miembros = count($cliente);
+        $membresias = Membresia::get();
+        $membresias = count($membresias);
+        $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
+        return view('rpt.rpt-nueva-membresia',['membresia_id'=>$id,'membresi'=>$membresia,'mensaje'=>$mensaje,'promociones'=>$promociones,'tipomensaje'=>$tipomensaje, 'miembros' => $miembros, 'membresias' => $membresias,'privilegios'=>$privilegio]);
+    }
 
 }

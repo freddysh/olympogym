@@ -247,6 +247,7 @@ function Envia_membresia(){
             // data:valor,
             // Mostramos un mensaje con la respuesta de PHP
             success: function(data){
+                console.log('data:'+data);
                 data=data.split('_');
                 if(data[0]=='-1')
                     $('#mensaje').html('<div class="alert alert-danger" role="alert"> <strong>Error!</strong> '+data[1]+'</div>');
@@ -318,8 +319,8 @@ function agregar_cuota() {
     $('#cuotas').val(nrocuotas);
     $('#lista_cuotas').append('' +
         '<tr id="elemento_'+nrocuotas+'">'+
-            '<td><input type="hidden" id="id_'+nrocuotas+'" value="0"><input type="hidden" name="estado" id="estado_'+nrocuotas+'" value="0"><input type="date" name="cuota_fecha" id="cuota_fecha_'+nrocuotas+'" value="'+Date("Y-m-d")+'" required></td>'+
-            '<td><input type="number" name="cuota_precio" id="cuota_precio_'+nrocuotas+'"  required></td>'+
+            '<td><input type="hidden" id="id_'+nrocuotas+'" value="0"><input type="hidden" name="estado[]" id="estado_'+nrocuotas+'" value="0"><input type="date" name="cuota_fecha[]" id="cuota_fecha_'+nrocuotas+'" value="'+Date("Y-m-d")+'" required></td>'+
+            '<td><input type="number" name="cuota_precio[]" id="cuota_precio_'+nrocuotas+'"  required></td>'+
             '<td><a id="pagar_'+nrocuotas+'" type="button" class="btn btn-primary" onclick="pagar_cuota('+nrocuotas+')">Pagar ahora</a></td>'+
             '<td><a href="#!" onclick="borrar_cuota('+nrocuotas+')"><i class="text-red glyphicon glyphicon-trash fa-2x"></i></a></td>'+
         '</tr>');
