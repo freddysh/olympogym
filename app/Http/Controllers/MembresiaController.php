@@ -235,10 +235,18 @@ class MembresiaController extends Controller
                 $membresia->total = $total;
                 $membresia->estado = '1';
                 if ($membresia->save()) {
-                    $formato=FormatoMembresia::FindOrFail($formato_id);
-                    $formato->contenido=$request->input('membresia_formato');
-                    $formato->membresia_id=$membresia->id;
-                    $formato->save();
+                    if ($formato_id == 0) {
+                        $formato =new FormatoMembresia();
+                        $formato->contenido = $request->input('membresia_formato');
+                        $formato->membresia_id = $membresia->id;
+                        $formato->save();
+                    }
+                    else {
+                        $formato = FormatoMembresia::FindOrFail($formato_id);
+                        $formato->contenido = $request->input('membresia_formato');
+                        $formato->membresia_id = $membresia->id;
+                        $formato->save();
+                    }
                     $i = 0;
 //                dd($estado);
                     $antigua_cuota = Cuota::where('membresia_id', $id)->delete();

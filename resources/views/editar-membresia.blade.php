@@ -205,10 +205,15 @@
                 <div class="box-footer">
                     <input type="hidden" name="cuotas" id="cuotas" value="{{$pos}}">
                     <input type="hidden" name="id" id="id" value="{{$id}}">
-
-                @foreach($membresi->formato as $formato)
-                    <input type="hidden" name="formato_id" id="formato_id" value="{{$formato->id}}">
-                    @endforeach
+                @php
+                    $formato_id=0;
+                @endphp
+                @foreach($membresi->formato->take(1) as $formato)
+                        @php
+                            $formato_id=$formato->id;
+                        @endphp
+                @endforeach
+                    <input type="hidden" name="formato_id" id="formato_id" value="{{$formato_id}}">
                     <button type="submit" class="btn btn-primary btn-lg">Guardar membresia</button>
                 </div>
             </form>
