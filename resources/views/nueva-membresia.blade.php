@@ -44,7 +44,7 @@
                             <select class="form-control" name="promocion" id="promocion" onchange="escojer_promo()" required>
                                 <option value="0">Escoja una promocion</option>
                                 @foreach($promociones as $promocion)
-                                    <option value="{{$promocion->id}}_{{$promocion->precio}}_{{$promocion->duracion}}_{{$promocion->tipoDuracion}}">{{$promocion->titulo}} Costo:{{$promocion->precio}} por {{$promocion->duracion}} {{$promocion->tipoDuracion}}</option>
+                                    <option value="{{$promocion->id}}_{{$promocion->precio}}_{{$promocion->duracion}}_{{$promocion->tipoDuracion}}">[{{$promocion->modalidad}}] | {{$promocion->titulo}} Costo:{{$promocion->precio}} por {{$promocion->duracion}} {{$promocion->tipoDuracion}}</option>
                                 @endforeach
                             </select>
                         </div>

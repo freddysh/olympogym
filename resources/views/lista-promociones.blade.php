@@ -16,6 +16,7 @@
             <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
+                    <th>Modalidad</th>
                     <th>Titulo</th>
                     <th>Detalle</th>
                     <th>Precio</th>
@@ -29,6 +30,7 @@
 
                 @foreach($promociones as $promocion)
                     <tr id="promo_{{$promocion->id}}">
+                        <td>{{$promocion->modalidad}}</td>
                         <td>{{$promocion->titulo}}</td>
                         <td>{{$promocion->detalle}}</td>
                         <td>{{$promocion->precio}}</td>
@@ -51,6 +53,7 @@
                 </tbody>
                 <tfoot>
                 <tr>
+                    <th>Modalidad</th>
                     <th>Titulo</th>
                     <th>Detalle</th>
                     <th>Precio</th>

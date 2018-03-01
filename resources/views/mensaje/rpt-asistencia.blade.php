@@ -188,17 +188,20 @@ function fecha_to_string($fecha){
         </div>
         <div class="col-lg-6">
             <h3 class="text-center {{mensaje_color($membresia->fechaFin)}}">{{mensaje_plazo($membresia->fechaFin)}}</h3>
-            <h3>Asistencia registrada <span class="text-green glyphicon glyphicon-ok" aria-hidden="hrue"></span></h3>
+            <h3>Asistencia registrada <span class="text-green glyphicon glyphicon-ok" aria-hidden="true"></span></h3>
             <h4 class="text-blue"><b>Fecha:</b>{{fecha_to_string($fecha)}} {{$hora}}</h4>
         </div>
     </div>
     <div class="row">
         <div class="col-lg-12">
-            @foreach($promociones as $promocion)
-                <p class="text-15">Esta asociado a la promocion <b>{{$promocion->titulo}}</b> por un precio total de <b>S/. {{$promocion->precio}}</b> por un periodo de <b>{{$promocion->duracion}} {{$promocion->tipoDuracion}}</b></p>
+            @if(strtoupper($promocion->modalidad)=='VIAJERO')
+                <p class="text-15">Esta asociado a la promocion <b>VIAJERO | {{$promocion->titulo}}</b> por un precio total de <b>S/. {{$promocion->precio}}</b> por un periodo de <b>{{$promocion->duracion}} {{$promocion->tipoDuracion}}</b></p>
                 <p class="text-orange text-20"><b>Desde: {{fecha_to_string($membresia->fechaInicio)}} hasta {{fecha_to_string($membresia->fechaFin)}}</b></p>
-
-            @endforeach
+                <p class="text-primary text-25"><b>Asistencia # {{count($asistencias)}} de {{$promocion->duracion}} {{$promocion->tipoDuracion}}</b></p>
+            @else
+                <p class="text-15">Esta asociado a la promocion <b>REGULAR | {{$promocion->titulo}}</b> por un precio total de <b>S/. {{$promocion->precio}}</b> por un periodo de <b>{{$promocion->duracion}} {{$promocion->tipoDuracion}}</b></p>
+                <p class="text-orange text-25"><b>Desde: {{fecha_to_string($membresia->fechaInicio)}} hasta {{fecha_to_string($membresia->fechaFin)}}</b></p>
+            @endif
         </div>
     </div>
     <div class="row">

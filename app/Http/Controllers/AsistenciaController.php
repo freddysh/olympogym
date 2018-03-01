@@ -45,17 +45,43 @@ class AsistenciaController extends Controller
                 if (count($membresia) > 0) {
                     foreach ($membresia->take(1) as $membresi) {
                         if($membresi->estado==1){
-                            $promocion = Promocion::where('id', $membresi->promocion_id)->get();
-                            $asistencia = new Asistencia();
-                            $asistencia->cliente_id = $membresi->cliente_id;
-                            $asistencia->fecha = $fecha;
-                            $asistencia->hora = $hora;
-                            $asistencia->estado = 1;
-                            $asistencia->membresia_id = $membresi->id;
-                            $asistencia->save();
-                            $tipomensaje = '1';
-                            $mensaje = '';
-                            return view('mensaje.rpt-asistencia', ['membresias' => $membresia, 'promociones' => $promocion, 'fecha' => $fecha, 'hora' => $hora, 'tipomensaje' => $tipomensaje, 'mensaje' => $mensaje]);
+                            $promocion = Promocion::FindOrFail($membresi->promocion_id);
+                            if(strtoupper($promocion->modalidad)=='VIAJERO'){
+                                $asistencias=Asistencia::where('membresia_id',$membresi->id)->get();
+                                $nroAsistencias=count($asistencias);
+                                if($nroAsistencias<=$promocion->duracion){
+                                    $asistencia = new Asistencia();
+                                    $asistencia->cliente_id = $membresi->cliente_id;
+                                    $asistencia->fecha = $fecha;
+                                    $asistencia->hora = $hora;
+                                    $asistencia->estado = 1;
+                                    $asistencia->membresia_id = $membresi->id;
+                                    $asistencia->save();
+                                    $tipomensaje = '1';
+                                    $mensaje = '';
+                                    $asistencias = Asistencia::where('membresia_id', $membresi->id)->get();
+                                    return view('mensaje.rpt-asistencia', ['membresias' => $membresia, 'promocion' => $promocion, 'fecha' => $fecha, 'hora' => $hora, 'tipomensaje' => $tipomensaje, 'mensaje' => $mensaje, 'asistencias' => $asistencias]);
+                                }
+                                else{
+                                    $tipomensaje = '3';
+                                    $mensaje = '';
+                                    $asistencias = Asistencia::where('membresia_id', $membresi->id)->get();
+                                    return view('mensaje.rpt-asistencia-vencida', ['membresias' => $membresia, 'promocion' => $promocion, 'fecha' => $fecha, 'hora' => $hora, 'tipomensaje' => $tipomensaje, 'mensaje' => $mensaje, 'asistencias' => $asistencias,'nroAsistencias'=>$nroAsistencias]);
+                                }
+                            }
+                            else {
+                                $asistencia = new Asistencia();
+                                $asistencia->cliente_id = $membresi->cliente_id;
+                                $asistencia->fecha = $fecha;
+                                $asistencia->hora = $hora;
+                                $asistencia->estado = 1;
+                                $asistencia->membresia_id = $membresi->id;
+                                $asistencia->save();
+                                $tipomensaje = '1';
+                                $mensaje = '';
+                                $asistencias = Asistencia::where('membresia_id', $membresi->id)->get();
+                                return view('mensaje.rpt-asistencia', ['membresias' => $membresia, 'promocion' => $promocion, 'fecha' => $fecha, 'hora' => $hora, 'tipomensaje' => $tipomensaje, 'mensaje' => $mensaje, 'asistencias' => $asistencias]);
+                            }
                         }
                         elseif($membresi->estado==2){
                             $hoy=date("Y-m-d");
@@ -67,7 +93,7 @@ class AsistenciaController extends Controller
                             if(count($congelado)>0){
                                 $tipomensaje = '2';
                                 $mensaje = 'El cliente con dni:  tiene su membresia congelada';
-                            return view('mensaje.rpt-asistencia-congelado', ['congelado'=>$congelado,'membresias' => $membresia, 'promociones' => $promocion, 'fecha' => $fecha, 'hora' => $hora, 'tipomensaje' => $tipomensaje, 'mensaje' => $mensaje]);
+                            return view('mensaje.rpt-asistencia-congelado', ['congelado'=>$congelado,'membresias' => $membresia, 'promocion' => $promocion, 'fecha' => $fecha, 'hora' => $hora, 'tipomensaje' => $tipomensaje, 'mensaje' => $mensaje]);
                             }
                             else{
                                 $promocion = Promocion::where('id', $membresi->promocion_id)->get();
@@ -80,7 +106,7 @@ class AsistenciaController extends Controller
                                 $asistencia->save();
                                 $tipomensaje = '1';
                                 $mensaje = '';
-                                return view('mensaje.rpt-asistencia', ['membresias' => $membresia, 'promociones' => $promocion, 'fecha' => $fecha, 'hora' => $hora, 'tipomensaje' => $tipomensaje, 'mensaje' => $mensaje]);
+                                return view('mensaje.rpt-asistencia', ['membresias' => $membresia, 'promocion' => $promocion, 'fecha' => $fecha, 'hora' => $hora, 'tipomensaje' => $tipomensaje, 'mensaje' => $mensaje]);
                                 }
                         }
                     }

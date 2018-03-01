@@ -62,37 +62,67 @@
         <div class="box-body">
             {{csrf_field()}}
             <input type="hidden" id="membresia_id" value="{{$id}}">
+            @foreach($membresia as $membresi)
             <div class="row">
                 <div class="col-lg-6">
-                    @foreach($membresia as $membresi)
+
                         <div class="row">
                             <div class="col-lg-12">
                                 <h3>Datos del cliente</h3>
-                                <p for=""><b>Dni:</b>{{$membresi->cliente->dni}}</p>
-                                <p for=""><b>Nombres:</b>{{$membresi->cliente->nombres}}</p>
-                                <p for=""><b>Apellidos:</b>{{$membresi->cliente->apellidos}}</p>
-                                <p for=""><b>Direccion:</b>{{$membresi->cliente->direccion}}</p>
-                                <p for=""><b>Telefono:</b>{{$membresi->cliente->telefono}}</p>
-                                <p for=""><b>Email:</b>{{$membresi->cliente->email}}</p>
+                                <p for=""><b>Dni: </b>{{$membresi->cliente->dni}}</p>
+                                <p for=""><b>Nombres: </b>{{$membresi->cliente->nombres}}</p>
+                                <p for=""><b>Apellidos: </b>{{$membresi->cliente->apellidos}}</p>
+                                <p for=""><b>Direccion: </b>{{$membresi->cliente->direccion}}</p>
+                                <p for=""><b>Telefono: </b>{{$membresi->cliente->telefono}}</p>
+                                <p for=""><b>Email: </b>{{$membresi->cliente->email}}</p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-12">
-                                <h3>Datos de la memebresia</h3>
-                                <p for=""><b>Titulo:</b>{{$membresi->promocion->titulo}} {{$membresi->promocion->duracion}} {{$membresi->promocion->tipoDuracion}}</p>
-                                <p for=""><b>Descripcion:</b>{{$membresi->promocion->detalle}}</p>
-                                <p for=""><b>Total:</b>{{$membresi->total}}</p>
-                                <p for=""><b>Fecha:</b>{{fecha_to_string($membresi->fechaInicio)}} - {{fecha_to_string($membresi->fechaFin)}}</p>
+                                <h3>Datos de la membresia</h3>
+                                <p for=""><b>Modalidad: </b>{{$membresi->promocion->modalidad}}</p>
+                                <p for=""><b>Titulo: </b>{{$membresi->promocion->titulo}} {{$membresi->promocion->duracion}} {{$membresi->promocion->tipoDuracion}}</p>
+                                <p for=""><b>Descripcion: </b>{{$membresi->promocion->detalle}}</p>
+                                <p for=""><b>Total: </b>{{$membresi->total}}</p>
+                                <p for=""><b>Fecha: </b>{{fecha_to_string($membresi->fechaInicio)}} - {{fecha_to_string($membresi->fechaFin)}}</p>
                             </div>
                         </div>
 
                     <a href="{{route('rpt_asistencia_path',$membresi->id)}}" class="btn btn-lg btn-warning">Imprimir Asistencia</a>
-                    @endforeach
+
                 </div>
                 <div class="col-lg-6">
-                    <div id='calendar'></div>
+                    @if(strtoupper($membresi->promocion->modalidad)=='VIAJERO')
+                    <table class="table table-responsive table-striped table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Fecha</th>
+                            <th>Hora</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @php
+                            $nro=0;
+                        @endphp
+                        @foreach($membresi->asistemacias as $asistencia)
+                            @php
+                                $nro++;
+                            @endphp
+                            <tr>
+                                <td>{{$nro}}</td>
+                                <td>{{fecha_to_string($asistencia->fecha)}}</td>
+                                <th>{{$asistencia->hora}}</th>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                    @else
+                        <div id='calendar'></div>
+                    @endif
                 </div>
             </div>
+            @endforeach
         </div>
     </div>
 

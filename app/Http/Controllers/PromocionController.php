@@ -24,6 +24,7 @@ class PromocionController extends Controller
     }
     public function agregar_promocionnueva(Request $request){
         try{
+            $modalidad=$request->input('modalidad');
             $titulo=strtoupper($request->input('titulo'));
             $detalle=$request->input('detalle');
             $precio=$request->input('precio');
@@ -31,6 +32,7 @@ class PromocionController extends Controller
             $periodo=$request->input('periodo');
 
             $promocion=new Promocion();
+            $promocion->modalidad=$modalidad;
             $promocion->titulo=$titulo;
             $promocion->detalle=$detalle;
             $promocion->precio=$precio;
@@ -75,6 +77,7 @@ class PromocionController extends Controller
         try{
             $id=$request->input('id');
             $titulo=strtoupper($request->input('titulo'));
+            $modalidad=$request->input('modalidad');
             $detalle=$request->input('detalle');
             $precio=$request->input('precio');
             $duracion=$request->input('duracion');
@@ -82,6 +85,7 @@ class PromocionController extends Controller
 
 
             $promocion=Promocion::FindOrFail($id);
+            $promocion->modalidad=$modalidad;
             $promocion->titulo=$titulo;
             $promocion->detalle=$detalle;
             $promocion->precio=$precio;

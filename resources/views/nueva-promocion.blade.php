@@ -23,7 +23,18 @@
 
             <!-- text input -->
                 {{csrf_field()}}
-                <div class="row">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Modalidad</label>
+                                <select name="modalidad" id="modalidad" class="form-control">
+                                    <option value="REGULAR">REGULAR</option>
+                                    <option value="VIAJERO">VIAJERO</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label>Titulo</label>

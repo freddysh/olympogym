@@ -24,7 +24,7 @@
                     <th>#</th>
                     <th>Cliente</th>
                     <th>Membresia</th>
-                    <th>Desde - hasta</th>
+                    <th width="120px">Desde - hasta</th>
                     <th>Asistencia</th>
                 </tr>
                 </thead>

@@ -20,7 +20,7 @@
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label>Dni</label>
-                            <input type="text" name="term" id="term" class="form-control validation" placeholder="44942054">
+                            <input type="text" name="term" id="term" class="form-control validation" placeholder="44942054" autofocus="autofocus">
                         </div>
                         <div class="box-footer">
                             <button type="button" onclick="guardar_asistencia()" class="btn btn-primary btn-lg">Registrar Asistencia</button>
