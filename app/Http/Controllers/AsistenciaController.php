@@ -35,6 +35,7 @@ class AsistenciaController extends Controller
 //            dd($dt->toTimeString());
 
             if(count($dni)>0) {
+
                 $membresia = Membresia::with(['cuotas', 'cliente'])
                     ->where('cliente_id',$cliente[0]->id)
                     ->get()
@@ -89,7 +90,7 @@ class AsistenciaController extends Controller
                                 $query->where('desde', '<=', $hoy)
                                     ->where('hasta', '>=', $hoy);
                             }])->get();
-                            $promocion = Promocion::where('id', $membresi->promocion_id)->get();
+                            $promocion = Promocion::FindOrFail($membresi->promocion_id);
                             if(count($congelado)>0){
                                 $tipomensaje = '2';
                                 $mensaje = 'El cliente con dni:  tiene su membresia congelada';
