@@ -199,19 +199,19 @@
             padding: 0px;
             width: 100%;
         }
-        table {
+        .table_viajero {
             border-collapse: collapse;
             width: 100%;
         }
 
-        th, td {
+        .table_viajero > th, td {
             text-align: left;
             padding: 8px;
         }
 
-        tr:nth-child(even){background-color: #f2f2f2}
+        .table_viajero > tr:nth-child(even){background-color: #f2f2f2}
 
-        th {
+        .table_viajero>th {
             background-color: #4CAF50;
             color: white;
         }
@@ -232,8 +232,9 @@
                 $membresi=$membresi_;
             @endphp
         @endforeach
-            <div class="row">
-                <div class="col-lg-6">
+        <table>
+            <tr>
+                <td width="300px">
                     <h3>Datos del cliente</h3>
                     <p for=""><b>Dni: </b>{{$membresi->cliente->dni}}</p>
                     <p for=""><b>Nombres: </b>{{$membresi->cliente->nombres}}</p>
@@ -243,22 +244,23 @@
                     <p for=""><b>Email: </b>{{$membresi->cliente->email}}</p>
                     {{csrf_field()}}
                     <input type="hidden" id="membresia_id" value="{{$id}}">
-                </div>
-                <div class="col-lg-6">
+                </td>
+                <td width="300px">
                     <h3>Datos de la membresia</h3>
                     <p for=""><b>Modalidad: </b>{{$membresi->promocion->modalidad}}</p>
                     <p for=""><b>Titulo: </b>{{$membresi->promocion->titulo}} {{$membresi->promocion->duracion}} {{$membresi->promocion->tipoDuracion}}</p>
                     <p for=""><b>Descripcion: </b>{{$membresi->promocion->detalle}}</p>
                     <p for=""><b>Total: </b>{{$membresi->total}}</p>
                     <p for=""><b>Fecha: </b>Desde: {{fecha_peru($membresi->fechaInicio)}} - Hasta: {{fecha_peru($membresi->fechaFin)}}</p>
-                    <h3>Calendario de asistencia</h3>
-                </div>
-            </div>
+
+                </td>
+            </tr>
+        </table>
     </div>
 </div>
-
-@if(strtoupper($membresi->promocion->modalidad))
-    <table>
+<h3>Calendario de asistencia</h3>
+@if(strtoupper($membresi->promocion->modalidad)=='VIAJERO')
+    <table class="table_viajero">
         <tr>
             <th>#</th>
             <th>FECHA</th>

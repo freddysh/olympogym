@@ -192,7 +192,7 @@ $p19='';
                 <li><a href="{{route('reporte_clientes_path')}}"><i class="fa fa-circle-o"></i> Clientes</a></li>
             @endif
             @if($p12=='1')
-                <li><a href="{{route('rpt_contratos_path')}}"><i class="fa fa-circle-o"></i> Membresias</a></li>
+                <li><a href="{{route('rpt_contratos_path')}}"><i class="fa fa-circle-o"></i> Membresias & Asistencia</a></li>
             @endif
             @if($p13=='1')
                 <li><a href="{{route('reporte_ingresos_path')}}"><i class="fa fa-circle-o"></i> Ingresos</a></li>
