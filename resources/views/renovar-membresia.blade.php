@@ -44,7 +44,7 @@
                             <select class="form-control" name="promocion" id="promocion" onchange="escojer_promo()" required>
                                 <option value="0">Escoja una promocion</option>
                                 @foreach($promociones as $promocion)
-                                    <option value="{{$promocion->id}}_{{$promocion->precio}}_{{$promocion->duracion}}_{{$promocion->tipoDuracion}}">{{$promocion->titulo}} Costo:{{$promocion->precio}} por {{$promocion->duracion}} {{$promocion->tipoDuracion}}</option>
+                                    <option value="{{$promocion->id}}_{{$promocion->precio}}_{{$promocion->duracion}}_{{$promocion->tipoDuracion}}">[{{$promocion->modalidad}}] | {{$promocion->titulo}} Costo:{{$promocion->precio}} por {{$promocion->duracion}} {{$promocion->tipoDuracion}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -89,8 +89,8 @@
                             </thead>
                             <tbody id="lista_cuotas">
                                 <tr id="elemento_1">
-                                    <td><input type="hidden" name="estado" id="estado_1" value="0"><input type="date" name="cuota_fecha" id="cuota_fecha_1" value="{{date("Y-m-d")}}" required></td>
-                                    <td><input type="number" name="cuota_precio" id="cuota_precio_1"  required></td>
+                                    <td><input type="hidden" name="estado[]" id="estado_1" value="0"><input type="date" name="cuota_fecha[]" id="cuota_fecha_1" value="{{date("Y-m-d")}}" required></td>
+                                    <td><input type="number" name="cuota_precio[]" id="cuota_precio_1"  required></td>
                                     <td><a id="pagar_1" type="button" class="btn btn-primary" onclick="pagar_cuota(1)">Pagar ahora</a></td>
                                     <td><a href="#!" onclick="borrar_cuota(1)"><i class="text-red glyphicon glyphicon-trash fa-2x"></i></a></td>
                                 </tr>
