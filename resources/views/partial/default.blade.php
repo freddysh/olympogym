@@ -276,7 +276,7 @@
                                 </p>
                             </li>
                             <!-- Menu Body -->
-                            <li class="user-body">
+                            <li class="user-body hide">
                                 <div class="row">
                                     <div class="col-xs-4 text-center">
                                         <a href="#">Followers</a>
@@ -292,7 +292,7 @@
                             </li>
                             <!-- Menu Footer-->
                             <li class="user-footer">
-                                <div class="pull-left">
+                                <div class="pull-left hide">
                                     <a href="#" class="btn btn-default btn-flat">Perfil</a>
                                 </div>
                                 <div class="pull-right">
@@ -302,7 +302,7 @@
                         </ul>
                     </li>
                     <!-- Control Sidebar Toggle Button -->
-                    <li>
+                    <li class="hide">
                         <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
                     </li>
                 </ul>
@@ -325,8 +325,8 @@
                 </div>
             </div>
             <!-- search form -->
-            <form action="#" method="get" class="sidebar-form">
-                <div class="input-group">
+            <form action="#" method="get" class="sidebar-form hide">
+                <div class="input-group ">
                     <input type="text" name="q" class="form-control" placeholder="Search...">
                     <span class="input-group-btn">
                 <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
@@ -385,7 +385,7 @@
                     <!-- /.info-box -->
                 </div>
                 <!-- /.col -->
-                <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="col-md-3 col-sm-6 col-xs-12 hide">
                     <div class="info-box">
                         <span class="info-box-icon bg-red"><i class="fa fa-google-plus"></i></span>
 
@@ -400,9 +400,9 @@
                 <!-- /.col -->
 
                 <!-- fix for small devices only -->
-                <div class="clearfix visible-sm-block"></div>
+                <div class="clearfix visible-sm-block "></div>
 
-                <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="col-md-3 col-sm-6 col-xs-12 hide">
                     <div class="info-box">
                         <span class="info-box-icon bg-green"><i class="ion ion-ios-cart-outline"></i></span>
 

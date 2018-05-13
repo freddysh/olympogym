@@ -125,11 +125,11 @@ Route::group(['middleware'=>'admin'],function(){
         'uses' => 'MembresiaController@agregar_membresianueva',
         'as' => 'nueva_membresia_path',
     ]);
-    Route::get('renovar-membresia', [
+    Route::get('nueva/membresia', [
         'uses' => 'MembresiaController@membresiarenovar',
         'as' => 'renovar_membresia_path',
     ]);
-    Route::post('renovar-membresia', [
+    Route::post('nueva/membresia', [
         'uses' => 'MembresiaController@agregar_membresiarenovar',
         'as' => 'renovar_membresia_path',
     ]);
@@ -320,6 +320,10 @@ Route::group(['middleware'=>'admin'],function(){
     Route::get('rpt-renovar-membresia/{id}/{id2}/{id3}', [
         'uses' => 'MembresiaController@rpt_renovar_membresia',
         'as' => 'rpt_renovar_membresia_path',
+    ]);
+    Route::post('nueva-membresia/buscar_membresia_existentes',[
+        'uses' => 'MembresiaController@buscar_membresia',
+        'as' => 'buscar_membresia_path',
     ]);
 });
 /*-- Fin Metodos para logeo de usuarios del sistema*/

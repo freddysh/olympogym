@@ -904,4 +904,21 @@ function agendar_membresia_ajax(id){
         return false;
 
 }
+function buscar_membresia_existentes(valor){
+    // Enviamos el formulario usando AJAX
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('[name="_token"]').val()
+        }
+    });
+    $.ajax({
+        type: 'POST',
+        url: '../nueva-membresia/buscar_membresia_existentes',
+        data: 'valor='+valor,
+        // Mostramos un mensaje con la respuesta de PHP
+        success: function(data) {
+            $('#cliente_encontrado').html(data);
+        }
+    })
+}
 //# sourceMappingURL=myjava.js.map

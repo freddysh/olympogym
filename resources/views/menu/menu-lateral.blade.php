@@ -154,11 +154,11 @@ $p19='';
                         </span>
         </a>
         <ul class="treeview-menu">
-            @if($p8=='1')
-                <li><a href="{{route('nueva_membresia_path')}}"><i class="fa fa-circle-o"></i> Nueva</a></li>
-            @endif
+            {{--@if($p8=='1')--}}
+                {{--<li><a href="{{route('nueva_membresia_path')}}"><i class="fa fa-circle-o"></i> Nueva</a></li>--}}
+            {{--@endif--}}
             @if($p18=='1')
-                <li><a href="{{route('renovar_membresia_path')}}"><i class="fa fa-circle-o"></i> Renovar membresia</a></li>
+                <li><a href="{{route('renovar_membresia_path')}}"><i class="fa fa-circle-o"></i> Nueva membresia</a></li>
             @endif
             @if($p9=='1')
                 <li><a href="{{route('lista_membresia_path')}}"><i class="fa fa-circle-o"></i> Lista de membresias</a></li>

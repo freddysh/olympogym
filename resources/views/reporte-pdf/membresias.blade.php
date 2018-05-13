@@ -54,7 +54,7 @@
         @endphp
         @if($periodo<0)
             @php
-                $peri=' Vencido hace '.$periodo.' Dias';
+                $peri=' Vencido hace '.$periodo*(-1).' Dias';
             @endphp
         @endif
         @if($periodo==0)
@@ -141,7 +141,7 @@
                                 </tr>
                             @endif
                         @else
-                            @if($membresia2_->fechaFin <$fecha_actual)
+                            @if($fecha<=$membresia2_->fechaFin &&$membresia2_->fechaFin<= $fecha_actual)
                                 <?php $i++?>
                                 <tr>
                                     <td>{{$i}}</td>

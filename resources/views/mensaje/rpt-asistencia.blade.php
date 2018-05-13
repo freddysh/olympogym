@@ -214,10 +214,22 @@ function fecha_to_string($fecha){
                     <th>Operacion</th>
                 </tr>
                 <?php $i=1;?>
+                @php
+                    $fecha1='';
+                @endphp
                 @foreach($membresia->cuotas as $cuota)
+                    @if($cuota->estado==1)
+                        @php
+                        $fecha1=$cuota->fechaQCancelo;
+                        @endphp
+                    @else
+                        @php
+                            $fecha1=$cuota->fechaCancelacion;
+                        @endphp
+                    @endif
                     <tr>
                         <td>{{$i}}</td>
-                        <td><input type="date" name="cuota_fecha" id="cuota_fecha_'.$i.'" value="{{$cuota->fechaCancelacion}}" required disabled></td>
+                        <td><input type="date" name="cuota_fecha" id="cuota_fecha_'.$i.'" value="{{$fecha1}}" required disabled></td>
                         <td><input type="number" name="cuota_precio" id="cuota_precio_" value="{{$cuota->monto}}"  required disabled></td>
                         <td>
                             <input type="hidden" name="estado" id="estado_'.$i.'" value="{{$cuota->estado}}">

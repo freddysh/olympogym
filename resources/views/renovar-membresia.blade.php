@@ -28,10 +28,13 @@
             <!-- text input -->
 
                 <div class="row">
+                    <div id="cliente_encontrado" class="col-lg-12">
+
+                    </div>
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label>Dni</label>
-                            <input type="text" name="term" id="term" class="form-control" placeholder="44942054" required>
+                            <input type="text" name="term" id="term" class="form-control ui-autocomplete-input" placeholder="44942054" required="required" onblur="buscar_membresia_existentes($('#term').val())" autocomplete="off">
                             {{csrf_field()}}
                         </div>
                         <div class="" id="datos_cliente">

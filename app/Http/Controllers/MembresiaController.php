@@ -657,11 +657,15 @@ class MembresiaController extends Controller
     }
     public function rpt_membresias($id)
     {
-        $periodo=$id;
+        $periodo=intval($id);
         $dt = Carbon::now();
         $dt->subHours(5);
         $fecha_actual=$dt->toDateString();
-        $dt->addDay($periodo);
+        if($periodo>=0)
+            $dt->addDay($periodo);
+        elseif($periodo<0){
+            $dt->subDay($periodo*(-1));
+        }
         $fecha=$dt->toDateString();
         $membresia2=Membresia::get();
         $cliente=Cliente::get();
@@ -671,9 +675,11 @@ class MembresiaController extends Controller
         $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
         $promociones=Promocion::get();
 
-        $pdf = \PDF::loadView('reporte-pdf.membresias',['miembros'=>$miembros,'membresias'=>$membresias,'privilegios'=>$privilegio,
+        return view('reporte-pdf.membresias',['miembros'=>$miembros,'membresias'=>$membresias,'privilegios'=>$privilegio,
             'membresia2'=>$membresia2,'periodo'=>$periodo,'fecha_actual'=>$fecha_actual,'fecha'=>$fecha,'promociones'=>$promociones]);
-        return $pdf->download('rpt_membresias_por_cobrar' . '_' . $id . '_' . date("d_m_Y") . '.pdf');
+//        $pdf = \PDF::loadView('reporte-pdf.membresias',['miembros'=>$miembros,'membresias'=>$membresias,'privilegios'=>$privilegio,
+//            'membresia2'=>$membresia2,'periodo'=>$periodo,'fecha_actual'=>$fecha_actual,'fecha'=>$fecha,'promociones'=>$promociones]);
+//        return $pdf->download('rpt_membresias_por_cobrar' . '_' . $id . '_' . date("d_m_Y") . '.pdf');
     }
     public function agendar_membresia_ajax(Request $request){
         $id=$request->input('id');
@@ -741,4 +747,109 @@ class MembresiaController extends Controller
         return view('rpt.rpt-nueva-membresia',['membresia_id'=>$id,'membresi'=>$membresia,'mensaje'=>$mensaje,'promociones'=>$promociones,'tipomensaje'=>$tipomensaje, 'miembros' => $miembros, 'membresias' => $membresias,'privilegios'=>$privilegio]);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function buscar_membresia(Request $request){
+        $dni =explode(' ',$request->input('valor'));
+        $cliente=Cliente::where('dni', $dni[0])->get();
+        $dt = Carbon::now();
+//            $fecha = date('Y-m-d');
+//            $hora = date('H:i:s');
+        $dt->subHours(5);
+        $fecha=$dt->toDateString();
+        $hora=$dt->toTimeString();
+//            dd($dt->toTimeString());
+        if(count($cliente)>0) {
+
+            $membresia = Membresia::with(['cuotas', 'cliente'])
+                ->where('cliente_id',$cliente[0]->id)
+                ->get()
+                ->sortByDesc('id');
+
+//                    ->sortByDesc('id');
+
+            if (count($membresia) > 0) {
+                foreach ($membresia->take(1) as $membresi) {
+                    if($membresi->estado==1){
+                        $promocion = Promocion::FindOrFail($membresi->promocion_id);
+                        if(strtoupper($promocion->modalidad)=='VIAJERO'){
+                            $asistencias=Asistencia::where('membresia_id',$membresi->id)->get();
+                            $nroAsistencias=count($asistencias);
+                            if($nroAsistencias<=$promocion->duracion){
+//                                $asistencia = new Asistencia();
+//                                $asistencia->cliente_id = $membresi->cliente_id;
+//                                $asistencia->fecha = $fecha;
+//                                $asistencia->hora = $hora;
+//                                $asistencia->estado = 1;
+//                                $asistencia->membresia_id = $membresi->id;
+//                                $asistencia->save();
+                                $tipomensaje = '1';
+                                $mensaje = '';
+                                $asistencias = Asistencia::where('membresia_id', $membresi->id)->get();
+                                return view('mensaje.rpt-membresia-busqueda', ['membresias' => $membresia, 'promocion' => $promocion, 'fecha' => $fecha, 'hora' => $hora, 'tipomensaje' => $tipomensaje, 'mensaje' => $mensaje, 'asistencias' => $asistencias]);
+                            }
+                            else{
+                                $tipomensaje = '3';
+                                $mensaje = '';
+                                $asistencias = Asistencia::where('membresia_id', $membresi->id)->get();
+                                return view('mensaje.rpt-membresia-busqueda-vencida', ['membresias' => $membresia, 'promocion' => $promocion, 'fecha' => $fecha, 'hora' => $hora, 'tipomensaje' => $tipomensaje, 'mensaje' => $mensaje, 'asistencias' => $asistencias,'nroAsistencias'=>$nroAsistencias]);
+                            }
+                        }
+                        else {
+                            $asistencia = new Asistencia();
+                            $asistencia->cliente_id = $membresi->cliente_id;
+                            $asistencia->fecha = $fecha;
+                            $asistencia->hora = $hora;
+                            $asistencia->estado = 1;
+                            $asistencia->membresia_id = $membresi->id;
+                            $asistencia->save();
+                            $tipomensaje = '1';
+                            $mensaje = '';
+                            $asistencias = Asistencia::where('membresia_id', $membresi->id)->get();
+                            return view('mensaje.rpt-membresia-busqueda', ['membresias' => $membresia, 'promocion' => $promocion, 'fecha' => $fecha, 'hora' => $hora, 'tipomensaje' => $tipomensaje, 'mensaje' => $mensaje, 'asistencias' => $asistencias]);
+                        }
+                    }
+                    elseif($membresi->estado==2){
+                        $hoy=date("Y-m-d");
+                        $congelado=Membresia::with(['congelados'=>function($query) use ($hoy) {
+                            $query->where('desde', '<=', $hoy)
+                                ->where('hasta', '>=', $hoy);
+                        }])->get();
+                        $promocion = Promocion::FindOrFail($membresi->promocion_id);
+                        if(count($congelado)>0){
+                            $tipomensaje = '2';
+                            $mensaje = 'El cliente con dni:  tiene su membresia congelada';
+                            return view('mensaje.rpt-membresia-busqueda-congelado', ['congelado'=>$congelado,'membresias' => $membresia, 'promocion' => $promocion, 'fecha' => $fecha, 'hora' => $hora, 'tipomensaje' => $tipomensaje, 'mensaje' => $mensaje]);
+                        }
+                        else{
+                            $promocion = Promocion::where('id', $membresi->promocion_id)->get();
+                            $asistencia = new Asistencia();
+                            $asistencia->cliente_id = $membresi->cliente_id;
+                            $asistencia->fecha = $fecha;
+                            $asistencia->hora = $hora;
+                            $asistencia->estado = 1;
+                            $asistencia->membresia_id = $membresi->id;
+                            $asistencia->save();
+                            $tipomensaje = '1';
+                            $mensaje = '';
+                            return view('mensaje.rpt-membresia-busqueda', ['membresias' => $membresia, 'promocion' => $promocion, 'fecha' => $fecha, 'hora' => $hora, 'tipomensaje' => $tipomensaje, 'mensaje' => $mensaje]);
+                        }
+                    }
+                }
+            } else{
+                $tipomensaje='0';
+                $mensaje='Cliente con dni:'.$dni[0].' no tiene membresia, prosiga con su operacion';
+                return view('mensaje.rpt-asistencia-busqueda',compact(['mensaje','tipomensaje']));
+            }
+            //   return '0';
+        }
+        else{
+            $tipomensaje='1';
+            $mensaje='No se encontro al cliente con el dni:'.$dni[0].', vaya a';
+            return view('mensaje.rpt-asistencia-busqueda',compact(['mensaje','tipomensaje']));
+
+        }
+    }
 }

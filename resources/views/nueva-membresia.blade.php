@@ -28,10 +28,11 @@
             <!-- text input -->
 
                 <div class="row">
+                    <div class="col-lg-12" id="rpt_busqueda_membresia"></div>
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label>Dni</label>
-                            <input type="text" name="term" id="term" class="form-control" placeholder="44942054" required>
+                            <input type="text" name="term" id="term" class="form-control" placeholder="44942054" required="required" onblur="buscar_membresia($('#term').val())">
                             {{csrf_field()}}
                         </div>
                         <div class="" id="datos_cliente">
