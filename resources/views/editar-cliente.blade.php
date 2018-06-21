@@ -71,6 +71,14 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label>Observaciones de salud</label>
+                            <textarea class="form-control" name="observaciones_salud" id="" cols="30" rows="5">{{$cliente->observaciones_salud}}</textarea>
+                        </div>
+                    </div>
+                </div>
                <div class="box-footer">
                     <button type="submit" class="btn btn-primary btn-lg">Guardar</button>
                 </div>

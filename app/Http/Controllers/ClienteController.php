@@ -36,6 +36,7 @@ class ClienteController extends Controller
             $telefono=$request->input('telefono');
             $email=$request->input('email');
             $contrasena=$request->input('contrasena');
+            $observaciones_salud=$request->input('observaciones_salud');
 
             $buscar=Cliente::where('dni',$dni)->where('email',$email)->get();
             if(count($buscar)==0){
@@ -46,6 +47,7 @@ class ClienteController extends Controller
                 $cliente->direccion=$direccion;
                 $cliente->telefono=$telefono;
                 $cliente->email=$email;
+                $cliente->observaciones_salud=$observaciones_salud;
                 $cliente->estado='1';
                 $cliente->password=$contrasena;
                 $cliente->save();
@@ -80,7 +82,7 @@ class ClienteController extends Controller
             $telefono=$request->input('telefono');
             $email=$request->input('email');
             $contrasena=$request->input('contrasena');
-
+            $observaciones_salud=$request->input('observaciones_salud');
             $cliente=Cliente::FindOrFail($id);
             $cliente->dni=$dni;
             $cliente->nombres=$nombres;
@@ -88,6 +90,7 @@ class ClienteController extends Controller
             $cliente->direccion=$direccion;
             $cliente->telefono=$telefono;
             $cliente->email=$email;
+            $cliente->observaciones_salud=$observaciones_salud;
             $cliente->estado='1';
             $cliente->password=$contrasena;
             $cliente->save();

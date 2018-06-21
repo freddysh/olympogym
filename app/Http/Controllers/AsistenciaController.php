@@ -27,8 +27,6 @@ class AsistenciaController extends Controller
             $dni =explode(' ',$request->input('dni'));
             $cliente=Cliente::where('dni', $dni[0])->get();
             $dt = Carbon::now();
-//            $fecha = date('Y-m-d');
-//            $hora = date('H:i:s');
             $dt->subHours(5);
             $fecha=$dt->toDateString();
             $hora=$dt->toTimeString();

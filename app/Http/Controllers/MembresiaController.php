@@ -144,6 +144,8 @@ class MembresiaController extends Controller
             $estado =$request->input('estado');
             $cuota_fecha = $request->input('cuota_fecha');
             $cuota_precio = $request->input('cuota_precio');
+            $formato = $request->input('formato');
+            $medio_pago= $request->input('medio_pago');
 
             $cliente = Cliente::where('dni', $dni[0])->get();
             $cliente1 = '';
@@ -167,11 +169,14 @@ class MembresiaController extends Controller
                 $membresia->fechaFin = $fechaFin;
                 $membresia->total = $total;
                 $membresia->estado = '1';
+                $membresia->formato_AB = $formato;
+                $membresia->forma_pago = $medio_pago;
+
                 if ($membresia->save()) {
-                    $formato=new FormatoMembresia();
-                    $formato->contenido=$request->input('membresia_formato');
-                    $formato->membresia_id=$membresia->id;
-                    $formato->save();
+//                    $formato=new FormatoMembresia();
+//                    $formato->contenido=$request->input('membresia_formato');
+//                    $formato->membresia_id=$membresia->id;
+//                    $formato->save();
                     $i = 0;
 //                dd($estado);
                     foreach ($estado as $dato) {
@@ -219,7 +224,8 @@ class MembresiaController extends Controller
             $estado = $request->input('estado');
             $cuota_fecha = $request->input('cuota_fecha');
             $cuota_precio = $request->input('cuota_precio');
-
+            $formato = $request->input('formato');
+            $medio_pago= $request->input('medio_pago');
             $cliente = Cliente::where('dni', $dni[0])->get();
             $cliente1 = '';
             foreach ($cliente as $cli) {
@@ -234,19 +240,21 @@ class MembresiaController extends Controller
                 $membresia->fechaFin = $fechaFin;
                 $membresia->total = $total;
                 $membresia->estado = '1';
+                $membresia->formato_AB = $formato;
+                $membresia->forma_pago = $medio_pago;
                 if ($membresia->save()) {
-                    if ($formato_id == 0) {
-                        $formato =new FormatoMembresia();
-                        $formato->contenido = $request->input('membresia_formato');
-                        $formato->membresia_id = $membresia->id;
-                        $formato->save();
-                    }
-                    else {
-                        $formato = FormatoMembresia::FindOrFail($formato_id);
-                        $formato->contenido = $request->input('membresia_formato');
-                        $formato->membresia_id = $membresia->id;
-                        $formato->save();
-                    }
+//                    if ($formato_id == 0) {
+//                        $formato =new FormatoMembresia();
+//                        $formato->contenido = $request->input('membresia_formato');
+//                        $formato->membresia_id = $membresia->id;
+//                        $formato->save();
+//                    }
+//                    else {
+//                        $formato = FormatoMembresia::FindOrFail($formato_id);
+//                        $formato->contenido = $request->input('membresia_formato');
+//                        $formato->membresia_id = $membresia->id;
+//                        $formato->save();
+//                    }
                     $i = 0;
 //                dd($estado);
                     $antigua_cuota = Cuota::where('membresia_id', $id)->delete();
@@ -375,7 +383,19 @@ class MembresiaController extends Controller
     public function rpt_membresia($id)
     {
         $membresia = Membresia::with('cliente', 'promocion', 'cuotas')->where('id', $id)->get();
-        $pdf = \PDF::loadView('reporte-pdf.membresia', ['membresia' => $membresia]);
+        $formato='';
+        foreach($membresia as $membresia_){
+            $formato=$membresia_->formato_AB;
+        }
+
+//        return view('reporte-pdf.membresia-ab',compact('membresia'));
+        if($formato=='A'){
+            $pdf = \PDF::loadView('reporte-pdf.membresia-a', ['membresia' => $membresia]);
+        }
+        else{
+            $pdf = \PDF::loadView('reporte-pdf.membresia-b', ['membresia' => $membresia]);
+        }
+
         return $pdf->download('rpt_membresia' . '_' . $id . '_' . date("d_m_Y") . '.pdf');
     }
 
@@ -851,5 +871,9 @@ class MembresiaController extends Controller
             return view('mensaje.rpt-asistencia-busqueda',compact(['mensaje','tipomensaje']));
 
         }
+    }
+    public function getItineraryImageName($filename){
+        $file = Storage::disk('imagenes')->get($filename);
+        return new Response($file, 200);
     }
 }

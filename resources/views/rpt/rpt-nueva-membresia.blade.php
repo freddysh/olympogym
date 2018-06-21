@@ -73,11 +73,14 @@
                         </div>
                     </div>
                     <div class="row">
-                        @foreach($membresi->formato as $formato)
-                            <div class="col-lg-12">
-                                {!! $formato->contenido !!}
-                            </div>
-                        @endforeach
+                        <div class="col-lg-12">
+                        <p class="text-primary text-25"><b>La membresia esta en formato "{{$membresi->formato_AB}}"</b></p>
+                        {{--@foreach($membresi->formato as $formato)--}}
+                            {{--<div class="col-lg-12">--}}
+                                {{--{!! $formato->contenido !!}--}}
+                            {{--</div>--}}
+                        {{--@endforeach--}}
+                        </div>
                         <div class="col-lg-12">
                             <h3>Cuotas</h3>
                         </div>

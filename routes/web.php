@@ -277,7 +277,7 @@ Route::group(['middleware'=>'admin'],function(){
         'as' => 'ampliar_add_path',
     ]);
 
-    Route::post('/editar-cliente', [
+    Route::post('/editar-cliente-ajax', [
         'uses' => 'ClienteController@editar_cliente_ajax',
         'as' => 'editar_cliente_ajax_path',
     ]);
@@ -324,6 +324,10 @@ Route::group(['middleware'=>'admin'],function(){
     Route::post('nueva-membresia/buscar_membresia_existentes',[
         'uses' => 'MembresiaController@buscar_membresia',
         'as' => 'buscar_membresia_path',
+    ]);
+    Route::get('storage/imagenes/{filename}', [
+        'uses' => 'MembresiaController@getItineraryImageName',
+        'as' => 'imagenes_path'
     ]);
 });
 /*-- Fin Metodos para logeo de usuarios del sistema*/

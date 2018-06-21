@@ -9,6 +9,14 @@
     <script src="https://cdn.ckeditor.com/4.8.0/standard/ckeditor.js"></script>
 @stop
 @section('contenido')
+    @php
+    $membre=null;
+    @endphp
+    @foreach($membresia as $membresi)
+        @php
+            $membre=$membresi;
+        @endphp
+    @endforeach
     <div class="box box-warning">
         <div class="box-header with-border">
             <h3 class="box-title">Editar membresia</h3>
@@ -120,100 +128,53 @@
                             </tbody>
                         </table>
                     </div>
-                    @if(count($membresi->formato)>0)
-                        @foreach($membresi->formato as $formato)
-                            <div class="col-lg-12">
-                                <textarea name="membresia_formato" id="membresia_formato" >
-                                    {!! $formato->contenido !!}
-                                </textarea>
+                    <div class="col-lg-12">
+                        <div class="col-lg-2">
+                            <div class="form-group">
+                                <label for="txt_descripcion">Formato</label>
                             </div>
-                        @endforeach
-                    @else
-                        <div class="col-lg-12">
-                            <textarea name="membresia_formato" id="membresia_formato" >
-                                <h3>CONGELAMIENTO</h3>
-                                <ul>
-                                    <li>En caso de los acuerdos de membresia de 3 meses, 6 meses y 12 meses; cancelados al contado, le permiten al
-                                        cliente el derecho de ausentarse y recuperar los dias no asistidos a Olympo Fitness & Wellness al final de su
-                                        acuerdo de membresia.
-                                        <ul>
-                                            <li>Membresia de 03 meses, por ausencia 10 dias recuperables</li>
-                                            <li>Membresia de 06 meses, por ausencia 20 dias recuperables</li>
-                                            <li>Membresia de 12 meses, por ausencia 40 dias recuperables</li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        Olympo Fitness & Wellness evaluara el sustento correspondiente del cliente, para otorgar los días recuperables ofrecidos
-                                    </li>
-                                </ul>
-                                <h3>RESPONSABILIDAD</h3>
-                                <ul>
-                                    <li>Olympo Fitness & Wellness, le garantiza al socio el monto de la cuota pactada por todo el periodo elegido.
-                                    </li>
-                                    <li>El cliente se responsabiliza por los daños que pudiera causara las instalaciones y/o mobiliario de Olympo Fitness &
-                                        Wellness como consecuencias de practicas negligenteso usos incorretos de los equipos sin la supervision de un trainer,
-                                        debidamente comprobados.
-                                    </li>
-                                    <li>El cliente libera y exonera a Olympo Fitness & Wellness de cualquier responsabilidad civil y/o penal, por lesiones
-                                        corporales, daños a la propiedad, homicidio culposo causado por negligencia en la que el socio hubiera incurrido.
-                                    </li>
-                                    <li>La empresa no se responsabiliza de perdida o robo de los objetos personales dentro de nnuestras instalaciones.
-                                    </li>
-                                    <li>El cliente se responsabiliza por todo menor de 18 años de edad que ingrese a Olympo Fitness & Wellness bajo su custodia.
-                                    </li>
-                                    <li>Olympo Fitness & Wellness se reserva el derecho de dar por concluido en cualquier momento el acuerdo de membresia
-                                        unilateralmente impedir el ingreso del miembro que falte a la mora, a las buenas costumbres, que en forma negligente
-                                        ocacione daños a las instalaciones y/o de Olympo Fitness & Wellnesso que realice acto que signifique falta de
-                                        higiene o limpieza.
-                                    </li>
-                                    <li>
-                                        Olympo Fitness & Wellness evaluara el sustento correspondiente del cliente, para otorgar los días recuperables ofrecidos
-                                    </li>
-                                </ul>
-                                <h3>RESOLUCION Y DISPOSICIONES FINALES</h3>
-                                <ul>
-                                    <li>Las cantidades pagadas por concepto de matricula, acuerdo de membresia no son reembosables, si el socio
-                                        decidiera dar termino al contrato de membresia.
-                                    </li>
-                                    <li>Olympo Fitness & Wellness modificarar los horarios grupales sin previo aviso.
-                                    </li>
-                                </ul>
-                                <h3>OBSERVACIONES DE SALUD</h3>
-                                <p>
-                                    ----------------------------------------------------------------------------------------------------------------------------------
-                                </p>
-                                <p class="text-right">
-                                    Cusco.......... de ....................... del 20....
-                                </p>
-                                <p class="text-right">
-                                    <b>PLAZA TUPAC AMARU 114 WANCHAQ</b><br>
-                                    <b>TELF: (084)254798</b>
-                                </p>
-                                <p class="text-center">
-                                    -----------------------------------<br>
-                                    Olympo Fitness & Wellness
-                                </p>
-                                <p class="text-center">
-                                    -----------------------------------<br>
-                                    Cliente
-                                </p>
-                            </textarea>
                         </div>
-                    @endif
+                        <div class="col-lg-2">
+                            <div class="radio text-primary text-15">
+                                <label>
+                                    <input type="radio" name="formato" value="A" @if($membre->formato_AB=='A') {{'checked="checked"'}} @endif>Formato A
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="radio text-primary text-15">
+                                <label>
+                                    <input type="radio" name="formato" value="B" @if($membre->formato_AB=='B') {{'checked="checked"'}} @endif>Formato B
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="col-lg-2">
+                            <div class="form-group">
+                                <label for="txt_descripcion">Medio de pago</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="radio text-primary text-15">
+                                <label>
+                                    <input type="radio" name="medio_pago" value="Pago_efetivo"  @if($membre->forma_pago=='Pago_efetivo') {{'checked="checked"'}} @endif >Pago en efectivo
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="radio text-primary text-15">
+                                <label>
+                                    <input type="radio" name="medio_pago" value="Debito" @if($membre->forma_pago=='Debito') {{'checked="checked"'}} @endif >Debito
+                                </label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 @endforeach
                 <div class="box-footer">
                     <input type="hidden" name="cuotas" id="cuotas" value="{{$pos}}">
                     <input type="hidden" name="id" id="id" value="{{$id}}">
-                @php
-                    $formato_id=0;
-                @endphp
-                @foreach($membresi->formato->take(1) as $formato)
-                        @php
-                            $formato_id=$formato->id;
-                        @endphp
-                @endforeach
-                    <input type="hidden" name="formato_id" id="formato_id" value="{{$formato_id}}">
                     <button type="submit" class="btn btn-primary btn-lg">Guardar membresia</button>
                 </div>
             </form>

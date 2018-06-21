@@ -46,6 +46,14 @@
 </head>
 <body>
 <div class="row">
+    @php
+    $formato='A';
+    @endphp
+    @foreach($membresia as $membresi)
+        @php
+            $formato=$membresi->formato_AB;
+        @endphp
+    @endforeach
     <div class="col-lg-12">
         <h2 class="titulo">Sistema de administracion de OlympoGym</h2>
         <p class="subtitulo">Reportes de membresia <?php echo date("d-m-Y")?></p>

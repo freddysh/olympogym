@@ -25,10 +25,10 @@ function cambiar_estado_cli(id,estado){
     });
     $.post('/cambiar_estado_cliente', {id: id,estado:estado}, function(markup) {
         if(estado==1){
-            $('#cliente_'+id).html('<a href="" onclick="cambiar_estado_cli('+id+',0)"><i class="fa fa-fw fa-power-off text-green"></i></a>');
+            $('#cliente_'+id).html('<a href="#!" onclick="cambiar_estado_cli('+id+',0)"><i class="fa fa-fw fa-power-off text-green"></i></a>');
         }
         else{
-            $('#cliente_'+id).html('<a href="" onclick="cambiar_estado_cli('+id+',1)"><i class="fa fa-fw fa-power-off text-red"></i></a>');
+            $('#cliente_'+id).html('<a href="#!" onclick="cambiar_estado_cli('+id+',1)"><i class="fa fa-fw fa-power-off text-red"></i></a>');
         }
     }).fail(function (markup) {
         console.log(markup);
