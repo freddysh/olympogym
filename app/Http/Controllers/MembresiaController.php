@@ -12,7 +12,7 @@ use App\Cuota;
 use App\Privilegio;
 use App\Promocion;
 use Carbon\Carbon;
-
+use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\VarDumper\Dumper\DataDumperInterface;
