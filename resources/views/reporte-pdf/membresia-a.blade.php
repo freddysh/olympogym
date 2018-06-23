@@ -92,7 +92,7 @@
     </script>
 </head>
 <body>
-<table width="750px">
+<table width="730px">
     <tr>
         <td width="30%"></td>
         <td width="40%"><b class="titulo-seccion1">ACUERDO DE MEMBRESIA</b></td>
@@ -104,7 +104,7 @@
         </td>
     </tr>
 </table>
-<table width="750px" class="marca-agua">
+<table width="730px" class="marca-agua">
     <tr>
         <td colspan="3"><b class="titulo-seccion">DATOS DEL CLIENTE:</b></td>
     </tr>
