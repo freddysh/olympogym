@@ -390,10 +390,10 @@ class MembresiaController extends Controller
 
 //        return view('reporte-pdf.membresia-b',compact('membresia'));
         if($formato=='A'){
-            $pdf = \PDF::loadView('reporte-pdf.membresia-a', ['membresia' => $membresia])->setPaper('a4')->setWarnings(true);
+            $pdf = \PDF::loadView('reporte-pdf.membresia-a', ['membresia' => $membresia])->setPaper('a4');
         }
         else{
-            $pdf = \PDF::loadView('reporte-pdf.membresia-b', ['membresia' => $membresia])->setPaper('a4')->setWarnings(true);
+            $pdf = \PDF::loadView('reporte-pdf.membresia-b', ['membresia' => $membresia])->setPaper('a4');
         }
 
         return $pdf->download('rpt_membresia' . '_' . $id . '_' . date("d_m_Y") . '.pdf');
