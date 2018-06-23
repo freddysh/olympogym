@@ -7,9 +7,9 @@
     $membresi=null;
 @endphp
 @foreach($membresia as $mem)
-    @php
-        $membresi=$mem;
-    @endphp
+@php
+    $membresi=$mem;
+@endphp
 @endforeach
         <!doctype html>
 <html lang="en">
@@ -38,7 +38,7 @@
             text-align: center;
         }
         table{
-            font-size: 12px;
+            font-size: 10px;
             /*border: 1px solid #123543;*/
         }
         th {
@@ -52,13 +52,13 @@
             background: #9a9a9a6b;
             font-weight: bold;
             border-radius: 2px;
-            font-size: 15px;
+            font-size: 12px;
         }
         .titulo-seccion1{
             background: #9a9a9a6b;
             font-weight: bold;
             border-radius: 5px;
-            font-size: 20px;
+            font-size: 17px;
         }
         .precio{
             border: 1px solid #0c0c0c;
@@ -77,12 +77,16 @@
         .centro{
             text-align: center;
         }
+        .marca-agua{
+            background:url("{{route('imagenes_path', ['filename' => 'fondo-olympo3.png'])}}") no-repeat center center;
+            /*background-size: 20% 20%;*/
+        }
     </style>
     <script type="text/php">
       if (isset($pdf))
         {
           $font = Font_Metrics::get_font("Arial", "bold");
-          $pdf->page_text(765, 550, "Pagina {PAGE_NUM} de {PAGE_COUNT}", $font, 7, array(0, 0, 0));
+          $pdf->page_text(765, 550, "Pagina {PAGE_NUM} de {PAGE_COUNT}", $font, 5, array(0, 0, 0));
         }
     </script>
 </head>
@@ -99,7 +103,7 @@
         </td>
     </tr>
 </table>
-<table width="750px">
+<table width="750px" class="marca-agua">
     <tr>
         <td colspan="3"><b class="titulo-seccion">DATOS DEL CLIENTE:</b></td>
     </tr>
@@ -140,7 +144,7 @@
                                         <img
                                                 src="{{route('imagenes_path', ['filename' => 'Facebook-icon.png'])}}"  width="20" height="20">
                                     </picture>
-                                -----------------------------------------
+                                    -----------------------------------------
                                 </td>
                                 <td>
                                     <picture>
@@ -197,7 +201,7 @@
             <table>
                 <tr><td>A CUENTA S/.:</td><td><div class="precio">{{$acuenta}}</div></td></tr>
             </table>
-         </td>
+        </td>
         <td>
             <table>
                 <tr><td>SALDO S/.:</td><td><div class="precio">{{($total-$acuenta)}}</div></td></tr>
@@ -296,52 +300,52 @@
         </td>
     </tr>
     <tr><td colspan="3"><b class="titulo-seccion">OBSERVACIONES DE SALUD</b></td></tr>
-    <tr><td colspan="3"><p>{{$membresi->cliente->observaciones_salud}}</p></td></tr>
+    <tr><td colspan="3">{{$membresi->cliente->observaciones_salud}}</td></tr>
     @php
-    use \Carbon\Carbon;
-    $dt = Carbon::parse($membresi->created_at);
-    $dt->subHours(5);
-    $mes=$dt->month;
+        use \Carbon\Carbon;
+        $dt = Carbon::parse($membresi->created_at);
+        $dt->subHours(5);
+        $mes=$dt->month;
     @endphp
     <tr><td colspan="3"></td></tr>
     <tr><td colspan="3"></td></tr>
     <tr>
         <td colspan="3" class="derecha">Cusco, {{$dt->day}} de
             @if($mes=='1')
-            {{'ENERO'}}
+                {{'ENERO'}}
             @endif
             @if($mes=='2')
-            {{'FEBRERO'}}
+                {{'FEBRERO'}}
             @endif
             @if($mes=='3')
-            {{'MARZO'}}
+                {{'MARZO'}}
             @endif
             @if($mes=='4')
-            {{'ABRIL'}}
+                {{'ABRIL'}}
             @endif
             @if($mes=='5')
-            {{'MAYO'}}
+                {{'MAYO'}}
             @endif
             @if($mes=='6')
-            {{'JUNIO'}}
+                {{'JUNIO'}}
             @endif
             @if($mes=='7')
-            {{'JULIO'}}
+                {{'JULIO'}}
             @endif
             @if($mes=='8')
-            {{'AGOSTO'}}
+                {{'AGOSTO'}}
             @endif
             @if($mes=='9')
-            {{'SEPTIEMBRE'}}
+                {{'SEPTIEMBRE'}}
             @endif
             @if($mes=='10')
-            {{'OCTUBRE'}}
+                {{'OCTUBRE'}}
             @endif
             @if($mes=='11')
-            {{'NOVIEMBRE'}}
+                {{'NOVIEMBRE'}}
             @endif
             @if($mes=='12')
-            {{'DICIEMBRE'}}
+                {{'DICIEMBRE'}}
             @endif
             del {{$dt->year}}</td></tr>
     <tr>
@@ -350,9 +354,6 @@
     <tr>
         <td colspan="3" class="derecha"><b>TELF. 254798</b></td>
     </tr>
-    <tr><td colspan="3"></td></tr>
-    <tr><td colspan="3"></td></tr>
-    <tr><td colspan="3"></td></tr>
     <tr>
         <td class="centro"><br>
             ----------------------------------<br>

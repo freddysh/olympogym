@@ -388,7 +388,7 @@ class MembresiaController extends Controller
             $formato=$membresia_->formato_AB;
         }
 
-//        return view('reporte-pdf.membresia-ab',compact('membresia'));
+//        return view('reporte-pdf.membresia-b',compact('membresia'));
         if($formato=='A'){
             $pdf = \PDF::loadView('reporte-pdf.membresia-a', ['membresia' => $membresia]);
         }
