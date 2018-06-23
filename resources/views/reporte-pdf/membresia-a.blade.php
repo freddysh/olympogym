@@ -39,7 +39,7 @@
         }
         table{
             font-family: DejaVu Sans;
-            font-size: 11px;
+            font-size: 10px;
             /*border: 1px solid #123543;*/
         }
         th {
