@@ -53,11 +53,12 @@
             background: #9a9a9a6b;
             font-weight: bold;
             border-radius: 2px;
-            font-size: 12px;
+            font-size: 11px;
         }
         .titulo-seccion1{
             background: #9a9a9a6b;
             font-weight: bold;
+            border: 1px solid #9a9a9a6b;
             border-radius: 5px;
             font-size: 17px;
         }
@@ -356,11 +357,11 @@
         <td colspan="3" class="derecha"><b>TELF. 254798</b></td>
     </tr>
     <tr>
-        <td class="centro"><br>
+        <td class="centro">
             ----------------------------------<br>
             Olympo Fitness & Wellness
         </td>
-        <td class="centro"><br>
+        <td class="centro">
             ----------------------------------<br>
             Cliente
         </td>
