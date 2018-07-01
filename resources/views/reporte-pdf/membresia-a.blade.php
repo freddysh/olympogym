@@ -175,7 +175,7 @@
     <tr>
         <td width="33%">Plazo del Acuerdo : {{$membresi->promocion->duracion}} {{$membresi->promocion->tipoDuracion}}</td>
         <td width="33%">Matricula S/.:</td>
-        <td width="33%">Costo total de la Membresia S/.: {{$membresi->total}}</td>
+        <td width="33%">Costo total de la Membresia S/.: {{number_format($membresi->total,2,'.',',')}}</td>
     </tr>
     <tr>
         <td>Fecha de inicio : {{fecha_peru($membresi->fechaInicio)}}</td>
@@ -201,17 +201,17 @@
     <tr>
         <td>
             <table>
-                <tr><td>A CUENTA S/.:</td><td><div class="precio">{{$acuenta}}</div></td></tr>
+                <tr><td>A CUENTA S/.:</td><td><div class="precio">{{number_format($acuenta,2,'.',',')}}</div></td></tr>
             </table>
         </td>
         <td>
             <table>
-                <tr><td>SALDO S/.:</td><td><div class="precio">{{($total-$acuenta)}}</div></td></tr>
+                <tr><td>SALDO S/.:</td><td><div class="precio">{{number_format(($total-$acuenta),2,'.',',')}}</div></td></tr>
             </table>
         </td>
         <td>
             <table>
-                <tr><td>TOTAL S/.:</td><td><div class="precio">{{$total}}</div></td></tr>
+                <tr><td>TOTAL S/.:</td><td><div class="precio">{{number_format($total,2,'.',',')}}</div></td></tr>
             </table>
         </td>
     </tr>
