@@ -31,16 +31,21 @@
                                 <option value="15" @if($periodo==15) {{'selected'}}@endif>Venceran en 15 Dias</option>
                                 <option value="20" @if($periodo==20) {{'selected'}}@endif>Venceran en 20 Dias</option>
                                 <option value="30" @if($periodo==30) {{'selected'}}@endif>Venceran en 30 Dias</option>
-                                <option value="60" @if($periodo==60) {{'selected'}}@endif>Venceran en 2 Meces</option>
-                                <option value="90" @if($periodo==90) {{'selected'}}@endif>Venceran en 3 Meces</option>
-                                <option value="180" @if($periodo==180) {{'selected'}}@endif>Venceran en 6 Meces</option>
+                                <option value="60" @if($periodo==60) {{'selected'}}@endif>Venceran en 2 Meses</option>
+                                <option value="90" @if($periodo==90) {{'selected'}}@endif>Venceran en 3 Meses</option>
+                                <option value="180" @if($periodo==180) {{'selected'}}@endif>Venceran en 6 Meses</option>
+                                <option value="360" @if($periodo==360) {{'selected'}}@endif>Venceran en 12 Meses</option>
+                                <option value="480" @if($periodo==480) {{'selected'}}@endif>Venceran en 16 Meses</option>
+                                <option value="540" @if($periodo==540) {{'selected'}}@endif>Venceran en 18 Meses</option>
                                 <option value="-10" @if($periodo==-10) {{'selected'}}@endif>Vencieron hace 10 Dias</option>
                                 <option value="-15" @if($periodo==-15) {{'selected'}}@endif>Vencieron hace 15 Dias</option>
                                 <option value="-20" @if($periodo==-20) {{'selected'}}@endif>Vencieron hace 20 Dias</option>
                                 <option value="-30" @if($periodo==-30) {{'selected'}}@endif>Vencieron hace 30 Dias</option>
-                                <option value="-60" @if($periodo==-60) {{'selected'}}@endif>Vencieron hace 2 Meces</option>
-                                <option value="-90" @if($periodo==-90) {{'selected'}}@endif>Vencieron hace 3 Meces</option>
-                                <option value="-180" @if($periodo==-180) {{'selected'}}@endif>Vencieron hace 6 Meces</option>
+                                <option value="-60" @if($periodo==-60) {{'selected'}}@endif>Vencieron hace 2 Meses</option>
+                                <option value="-90" @if($periodo==-90) {{'selected'}}@endif>Vencieron hace 3 Meses</option>
+                                <option value="-180" @if($periodo==-180) {{'selected'}}@endif>Vencieron hace 6 Meses</option>
+                                <option value="-360" @if($periodo==-360) {{'selected'}}@endif>Vencieron hace 12 Meses</option>
+
                             </select>
                         </div>
                     </div>

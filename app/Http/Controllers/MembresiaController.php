@@ -695,11 +695,11 @@ class MembresiaController extends Controller
         $privilegio=Privilegio::where('user_id',auth()->guard('admin')->user()->id)->get();
         $promociones=Promocion::get();
 
-        return view('reporte-pdf.membresias',['miembros'=>$miembros,'membresias'=>$membresias,'privilegios'=>$privilegio,
-            'membresia2'=>$membresia2,'periodo'=>$periodo,'fecha_actual'=>$fecha_actual,'fecha'=>$fecha,'promociones'=>$promociones]);
-//        $pdf = \PDF::loadView('reporte-pdf.membresias',['miembros'=>$miembros,'membresias'=>$membresias,'privilegios'=>$privilegio,
+//        return view('reporte-pdf.membresias',['miembros'=>$miembros,'membresias'=>$membresias,'privilegios'=>$privilegio,
 //            'membresia2'=>$membresia2,'periodo'=>$periodo,'fecha_actual'=>$fecha_actual,'fecha'=>$fecha,'promociones'=>$promociones]);
-//        return $pdf->download('rpt_membresias_por_cobrar' . '_' . $id . '_' . date("d_m_Y") . '.pdf');
+        $pdf = \PDF::loadView('reporte-pdf.membresias',['miembros'=>$miembros,'membresias'=>$membresias,'privilegios'=>$privilegio,
+            'membresia2'=>$membresia2,'periodo'=>$periodo,'fecha_actual'=>$fecha_actual,'fecha'=>$fecha,'promociones'=>$promociones]);
+        return $pdf->download('rpt_membresias_por_cobrar' . '_' . $id . '_' . date("d_m_Y") . '.pdf');
     }
     public function agendar_membresia_ajax(Request $request){
         $id=$request->input('id');

@@ -48,7 +48,7 @@
 <div class="row">
     <div class="col-lg-12">
         <h2 class="titulo">Sistema de administracion de OlympoGym</h2>
-        <p class="subtitulo">Reportes de membresias vencidas o por vencer, {{fecha_peru($fecha_actual)}}</p>
+        <p class="subtitulo">Reportes de membresias vencidas o por vencer | Fecha: {{fecha_peru($fecha_actual)}}</p>
         @php
         $peri=0;
         @endphp
@@ -69,17 +69,32 @@
         @endif
         @if($periodo==60)
             @php
-                $peri='en '.'2 Meces';
+                $peri='en '.'2 Meses';
             @endphp
         @endif
         @if($periodo==90)
             @php
-                $peri='en '.'3 Meces';
+                $peri='en '.'3 Meses';
             @endphp
         @endif
         @if($periodo==180)
             @php
-                $peri='en '.'6 Meces';
+                $peri='en '.'6 Meses';
+            @endphp
+        @endif
+        @if($periodo==360)
+            @php
+                $peri='en '.'12 Meses';
+            @endphp
+        @endif
+        @if($periodo==480)
+            @php
+                $peri='en '.'16 Meses';
+            @endphp
+        @endif
+        @if($periodo==540)
+            @php
+                $peri='en '.'18 Meses';
             @endphp
         @endif
         <span class="subtitulo">Se venceran {!! $peri !!} </span>
