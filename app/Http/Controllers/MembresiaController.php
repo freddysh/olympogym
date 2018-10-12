@@ -382,7 +382,7 @@ class MembresiaController extends Controller
 
     public function rpt_membresia($id)
     {
-        set_time_limit(0);
+//        set_time_limit(0);
         $membresia = Membresia::with('cliente', 'promocion', 'cuotas')->where('id', $id)->get();
         $formato='';
         foreach($membresia as $membresia_){
@@ -402,7 +402,7 @@ class MembresiaController extends Controller
 
     public function rpt_asistencia($id)
     {
-        set_time_limit(0);
+//        set_time_limit(0);
         $promociones=Promocion::get();
         $membresia = Membresia::where('id', $id)->get();
         $asistencia1=Asistencia::where('membresia_id',$id)->get();
@@ -434,7 +434,7 @@ class MembresiaController extends Controller
 
     public function lista_ingresos_rpt(Request $request)
     {
-        set_time_limit(0);
+//        set_time_limit(0);
         $desde = $request->input('desde');
         $hasta = $request->input('hasta');
         $dated = new \DateTime($request->input('desde'));
@@ -642,7 +642,7 @@ class MembresiaController extends Controller
     }
     public function rpt_cuentas($id)
     {
-        set_time_limit(0);
+//        set_time_limit(0);
         $periodo=$id;
         $dt = Carbon::now();
         $dt->subHours(5);

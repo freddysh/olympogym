@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Cliente;
 use App\Membresia;
-
 use App\Privilegio;
 use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Symfony\Component\VarDumper\Dumper\DataDumperInterface;
 
 class ClienteController extends Controller
 {
@@ -177,7 +178,7 @@ class ClienteController extends Controller
         return view('reporte.clientes',['clientes'=>$clientes,'miembros'=>$miembros1,'membresias'=>$membresias1,'privilegios'=>$privilegio]);
     }
     public function rpt_cliente(){
-        set_time_limit(0);
+//        set_time_limit(0);
         $clientes=Cliente::get();
         $pdf =\PDF::loadView('reporte-pdf.clientes',['clientes'=>$clientes]);
         return $pdf->download('rpt_cliente'.date("d_m_Y").'.pdf');
