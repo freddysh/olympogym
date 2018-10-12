@@ -177,6 +177,7 @@ class ClienteController extends Controller
         return view('reporte.clientes',['clientes'=>$clientes,'miembros'=>$miembros1,'membresias'=>$membresias1,'privilegios'=>$privilegio]);
     }
     public function rpt_cliente(){
+        set_time_limit(0);
         $clientes=Cliente::get();
         $pdf =\PDF::loadView('reporte-pdf.clientes',['clientes'=>$clientes]);
         return $pdf->download('rpt_cliente'.date("d_m_Y").'.pdf');
