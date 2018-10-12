@@ -677,6 +677,7 @@ class MembresiaController extends Controller
     }
     public function rpt_membresias($id)
     {
+        set_time_limit(0);
         $periodo=intval($id);
         $dt = Carbon::now();
         $dt->subHours(5);
